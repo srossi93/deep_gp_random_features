@@ -23,8 +23,7 @@ from tensorflow.python.framework import dtypes
 from dataset import DataSet
 import utils
 import likelihoods
-from dgp_rff import DgpRff
-
+from dgp_rff_lvm import DgpRff_LVM
 
 # import baselines
 
@@ -108,8 +107,8 @@ def import_mnist():
 #    validation_images = standardize_data(validation_images, train_mean, train_std)
 #    test_images = standardize_data(test_images, train_mean, train_std)
 
-    data = DataSet(train_images, train_labels)
-    test = DataSet(test_images, test_labels)
+    data = DataSet(train_images[0:], train_labels[0:])
+    test = DataSet(test_images[0:1], test_labels[0:1])
     val = DataSet(validation_images, validation_labels)
 
     return data, test, val
@@ -123,19 +122,28 @@ if __name__ == '__main__':
     np.random.seed(FLAGS.seed)
 
     data, test, _ = import_mnist()
+    print(test.Y)
+    print(len(data.X))
 
     ## Here we define a custom loss for dgp to show
     error_rate = losses.ZeroOneLoss(data.Dout)
 
     ## Likelihood
-    like = likelihoods.Softmax()
+    like = likelihoods.Gaussian()
 
     ## Optimizer
     optimizer = utils.get_optimizer(FLAGS.optimizer, FLAGS.learning_rate)
 
     ## Main dgp object
-    dgp = DgpRff(like, data.num_examples, data.X.shape[1], data.Y.shape[1], FLAGS.nl, FLAGS.n_rff, FLAGS.df, FLAGS.kernel_type, FLAGS.kernel_arccosine_degree, FLAGS.is_ard, FLAGS.feed_forward, FLAGS.q_Omega_fixed, FLAGS.theta_fixed, FLAGS.learn_Omega, FLAGS.LVM)
+    dgp = DgpRff_LVM(like, data.num_examples, 10, data.X.shape[1], FLAGS.nl, \
+                 FLAGS.n_rff, FLAGS.df, FLAGS.kernel_type, FLAGS.kernel_arccosine_degree,\
+                 FLAGS.is_ard, FLAGS.feed_forward, FLAGS.q_Omega_fixed, FLAGS.theta_fixed, \
+                 FLAGS.learn_Omega, True)
 
     ## Learning
     dgp.learn(data, FLAGS.learning_rate, FLAGS.mc_train, FLAGS.batch_size, FLAGS.n_iterations, optimizer,
                  FLAGS.display_step, test, FLAGS.mc_test, error_rate, FLAGS.duration, FLAGS.less_prints)
+
+    pred, nll_test = dgp.predict(test, 1)
+    print((pred))
+    print(nll_test)

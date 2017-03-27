@@ -32,7 +32,7 @@ def DKL_gaussian(mq, log_vq, mp, log_vp):
     log_vp = tf.reshape(log_vp, (-1, 1))
     return 0.5 * tf.reduce_sum(log_vp - log_vq + (tf.pow(mq - mp, 2) / tf.exp(log_vp)) + tf.exp(log_vq - log_vp) - 1)
 
-## Draw a tensor of standard normals  
+## Draw a tensor of standard normals
 def get_normal_samples(ns, din, dout):
     """"
     :param ns: Number of samples
@@ -75,6 +75,9 @@ def get_flags():
     flags.DEFINE_integer('theta_fixed', 0, 'Number of iterations to keep theta fixed')
     flags.DEFINE_string('learn_Omega', 'no', 'How to treat Omega - fixed (from the prior), optimized, or learned variationally')
     flags.DEFINE_integer('duration', 10000000, 'Duration of job in minutes')
+
+    # Flags for unsupervised learning
+    flags.DEFINE_boolean('LVM', False, 'Model to perform Non-linear Principal Component Analysis with DGP-LVM')
 
     # Flags for use in cluster experiments
     tf.app.flags.DEFINE_string("dataset", "", "Dataset name")

@@ -50,7 +50,8 @@ class DgpRff_LVM(DGPRFF_Interface):
         :param LVM: Flag to perform Non-linear Principal Component Analysis with DGPLVM
         """
 
-        self.X = tf.Variable(tf.zeros([1, d_in]), name='s', trainable=False)
+        #self.X = tf.Variable(tf.zeros([1, d_in]), name='s', trainable=False)
+        self.X = tf.placeholder(tf.float32, [None, d_in])
 
         self.LVM = True
         super(DgpRff_LVM, self).__init__(likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM)
@@ -143,9 +144,7 @@ class DgpRff_LVM(DGPRFF_Interface):
     def learn(self, data, learning_rate, mc_train, batch_size, n_iterations, optimizer = None, display_step=100, test = None, mc_test=None, loss_function=None, duration = 1000000, less_prints=False):
         total_train_time = 0
 
-        self.X = tf.Variable(tf.ones([len(data.Y), self.d_in[0]]), name='latent_variables', trainable=True)
-        self.loss, self.kl, self.ell, self.layer_out = self.get_nelbo()
-        self.session = tf.Session()
+        Z = tf.Variable(tf.ones([len(data.Y), self.d_in[0]], tf.float32), name='latent_variable', trainable=True)
 
         #change_shape = tf.assign(self.X, latent_variables, validate_shape=False)
         #self.session.run(change_shape)
@@ -179,7 +178,7 @@ class DgpRff_LVM(DGPRFF_Interface):
 
         if not(less_prints):
             #X = tf.Variable(tf.zeros([mc_train, Din]), trainable=True)
-            nelbo, kl, ell, _ =  self.session.run(self.get_nelbo(), feed_dict={self.Y: data.X, self.mc: mc_train})
+            nelbo, kl, ell, _ =  self.session.run(self.get_nelbo(), feed_dict={self.X: Z, self.Y: data.X, self.mc: mc_train})
             print("Initial kl=" + repr(kl) + "  nell=" + repr(-ell) + "  nelbo=" + repr(nelbo), end=" ")
             print("  log-sigma2 =", self.session.run(self.log_theta_sigma2))
 
@@ -193,13 +192,13 @@ class DgpRff_LVM(DGPRFF_Interface):
 
             ## Present one batch of data to the DGP
             start_train_time = current_milli_time()
-            batch = data.next_batch(batch_size)
+            batch = data.next_batch(batch_size, Z)
 
             monte_carlo_sample_train = mc_train
             if (current_milli_time() - start_train_time) < (1000 * 60 * duration / 2.0):
                 monte_carlo_sample_train = 1
-
-            self.session.run(train_step, feed_dict={self.Y: batch[0], self.mc: mc_train})
+            z_hat = self.session.run(batch[2])
+            self.session.run(train_step, feed_dict={self.X: z_hat, self.Y: batch[0], self.mc: mc_train})
             total_train_time += current_milli_time() - start_train_time
 
             ## After reaching enough iterations with Omega fixed, unfix it
@@ -238,11 +237,13 @@ class DgpRff_LVM(DGPRFF_Interface):
                     #print(" nll_test=" + "%.5f" % (nll_test / len(test.Y)), end = " ")
                 print(" time=" + repr(elapsed_time), end = " ")
                 print("")
+        #print(Z)
+        return Z
 
-    def sample_latent_space(self, data):
+    def sample_latent_space(self, data, latent):
         s = range(10)
         for i in s:
             observation = tf.gather(self.Y, i)
-            latent = tf.gather(self.X, i)
+            Z = tf.gather(latent, i)
             print(self.session.run(observation, feed_dict={self.Y:data.X}), '--->', self.session.run(latent))
         return

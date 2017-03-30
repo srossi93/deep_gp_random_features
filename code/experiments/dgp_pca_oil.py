@@ -88,12 +88,12 @@ if __name__ == '__main__':
 
 
     ## Learning
-    dgp.learn(data, FLAGS.learning_rate, FLAGS.mc_train, FLAGS.batch_size, FLAGS.n_iterations, optimizer,
+    latent = dgp.learn(data, FLAGS.learning_rate, FLAGS.mc_train, FLAGS.batch_size, FLAGS.n_iterations, optimizer,
                  FLAGS.display_step, test, FLAGS.mc_test, error_rate, FLAGS.duration, FLAGS.less_prints)
 
 
 
-    dgp.sample_latent_space(data)
+    #dgp.sample_latent_space(data, latent)
 
 
 

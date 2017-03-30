@@ -13,8 +13,9 @@
 ## limitations under the License.
 
 import numpy as np
+import tensorflow as tf
 
-## DataSet class 
+## DataSet class
 class DataSet():
 
     def __init__(self, X, Y, shuffle = True):
@@ -29,7 +30,7 @@ class DataSet():
         self._Din = X.shape[1]
         self._Dout = Y.shape[1]
 
-    def next_batch(self, batch_size):
+    def next_batch(self, batch_size, latent_variables=None):
         start = self._index_in_epoch
         self._index_in_epoch += batch_size
         if (self._index_in_epoch > self._num_examples) and (start != self._num_examples):
@@ -44,6 +45,11 @@ class DataSet():
             self._index_in_epoch = batch_size
             assert batch_size <= self._num_examples
         end = self._index_in_epoch
+        if latent_variables != None:
+            #print(latent_variables)
+            Z_sliced = tf.slice(latent_variables, [start, 0], [end-start, self._Dout-1], name='sliced_latent_variables')
+            #print(Z_sliced)
+            return self._X[start:end,:], self._Y[start:end,:], Z_sliced
         return self._X[start:end,:], self._Y[start:end,:]
 
     @property
@@ -69,5 +75,3 @@ class DataSet():
     @property
     def Y(self):
         return self._Y
-
-

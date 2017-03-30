@@ -150,10 +150,10 @@ class DGPRFF_Interface(object):
         self.Y = tf.placeholder(tf.float32, [None, d_out])
 
         ## Builds whole computational graph with relevant quantities as part of the class
-        #self.loss, self.kl, self.ell, self.layer_out = self.get_nelbo()
+        self.loss, self.kl, self.ell, self.layer_out = self.get_nelbo()
 
         ## Initialize the session
-        #self.session = tf.Session()
+        self.session = tf.Session()
 
 
     ## Definition of a prior for Omega - which depends on the lengthscale of the covariance function

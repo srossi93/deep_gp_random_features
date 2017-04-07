@@ -148,6 +148,7 @@ class DGPRFF_Interface(object):
         Dout = d_out
 
         self.Y = tf.placeholder(tf.float32, [None, d_out])
+        self.X = tf.placeholder(tf.float32, [None, d_in])
 
         ## Builds whole computational graph with relevant quantities as part of the class
         self.loss, self.kl, self.ell, self.layer_out = self.get_nelbo()

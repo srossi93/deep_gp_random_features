@@ -25,7 +25,6 @@ import likelihoods
 import time
 from dgp_interface import DGPRFF_Interface
 
-
 current_milli_time = lambda: int(round(time.time() * 1000))
 
 class DgpRff_LVM(DGPRFF_Interface):
@@ -51,18 +50,28 @@ class DgpRff_LVM(DGPRFF_Interface):
         """
 
         #self.X = tf.Variable(tf.zeros([1, d_in]), name='s', trainable=False)
-        self.X = tf.placeholder(tf.float32, [None, d_in])
 
+        self.batchSize = 100
+
+        #self.sing_latents = [tf.Variable(tf.zeros([self.batchSize, d_in], tf.float32), name='singular_latent', trainable=False) for i in range(num_examples/self.batchSize)]
+
+        #self.latents = tf.Variable(tf.concat( [l for l in self.sing_latents], axis=0), name='latents')
+
+        #self.batches_of_latent = tf.Variable(tf.zeros([self.batchSize, d_in], tf.float32), name='latents', trainable=True) #for i in range(num_examples/self.batchSize) ]
+
+        self.latents = tf.Variable(tf.zeros([num_examples, d_in], tf.float32), name='latents', trainable=True)
         self.LVM = True
         super(DgpRff_LVM, self).__init__(likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM)
 
 
+
     ## Returns the expected log-likelihood term in the variational lower bound
     def get_ell(self):
+
         Din = self.d_in[0]
         MC = self.mc
         N_L = self.nl
-        X = self.X
+        X = self.latents
         Y = self.Y
         batch_size = tf.shape(X)[0] # This is the actual batch size when X is passed to the graph of computations
 
@@ -70,6 +79,7 @@ class DgpRff_LVM(DGPRFF_Interface):
         ## The representation of the information is based on 3-dimensional tensors (one for each layer)
         ## Each slice [i,:,:] of these tensors is one Monte Carlo realization of the value of the hidden units
         ## At layer zero we simply replicate the input matrix X self.mc times
+        #print(X)
         self.layer = []
         self.layer.append(tf.multiply(tf.ones([self.mc, batch_size, Din]), X))
 
@@ -100,7 +110,6 @@ class DgpRff_LVM(DGPRFF_Interface):
         ## Output layer
         layer_out = self.layer[N_L]
 
-
         ## Given the output layer, we compute the conditional likelihood across all samples
         ll = self.likelihood.log_cond_prob(Y, layer_out)
 
@@ -110,47 +119,19 @@ class DgpRff_LVM(DGPRFF_Interface):
         return ell, layer_out
 
 
-    ## Return predictions on some data
-    def predict(self, data, mc_test):
-        out = self.likelihood.predict(self.layer_out)
-        self.X = tf.placeholder(tf.float32, [None, self.d_in[0]])
-
-        nll = - tf.reduce_sum(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
-        #nll = - tf.reduce_sum(tf.reduce_mean(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
-        pred, neg_ll = self.session.run([out, nll], feed_dict={self.X: data.Y, self.Y : data.X, self.mc:mc_test})
-        mean_pred = pred#np.mean(pred, 0)
-        return mean_pred, neg_ll
-
-    ## Return the list of TF variables that should be "free" to be optimized
-    # TODO: move this method to the interface
-    def get_vars_fixing_some(self, all_variables):
-        if (self.q_Omega_fixed_flag == True) and (self.theta_fixed_flag == True):
-            variational_parameters = [v for v in all_variables if (not v.name.startswith("q_Omega") and not v.name.startswith("log_theta") or v.name.startswith('latent_variables'))]
-
-        if (self.q_Omega_fixed_flag == True) and (self.theta_fixed_flag == False):
-            variational_parameters = [v for v in all_variables if (not v.name.startswith("q_Omega") or v.name.startswith('latent_variables'))]
-
-        if (self.q_Omega_fixed_flag == False) and (self.theta_fixed_flag == True):
-            variational_parameters = [v for v in all_variables if (not v.name.startswith("log_theta") or v.name.startswith('latent_variables'))]
-
-        if (self.q_Omega_fixed_flag == False) and (self.theta_fixed_flag == False):
-            variational_parameters = all_variables
-
-        [print(v) for v in variational_parameters]
-
-        return variational_parameters
 
     ## Function that learns the deep GP model with random Fourier feature approximation
     def learn(self, data, learning_rate, mc_train, batch_size, n_iterations, optimizer = None, display_step=100, test = None, mc_test=None, loss_function=None, duration = 1000000, less_prints=False):
         total_train_time = 0
 
-        Z = tf.Variable(tf.ones([len(data.Y), self.d_in[0]], tf.float32), name='latent_variable', trainable=True)
+        #Z = tf.Variable(tf.ones([len(data.Y), self.d_in[0]], tf.float32), name='latent_variable', trainable=True)
 
         #change_shape = tf.assign(self.X, latent_variables, validate_shape=False)
         #self.session.run(change_shape)
 
         ## Initialize all variables
 
+        batch_size = self.num_examples
 
         if optimizer is None:
             optimizer = tf.train.AdadeltaOptimizer(learning_rate)
@@ -178,7 +159,7 @@ class DgpRff_LVM(DGPRFF_Interface):
 
         if not(less_prints):
             #X = tf.Variable(tf.zeros([mc_train, Din]), trainable=True)
-            nelbo, kl, ell, _ =  self.session.run(self.get_nelbo(), feed_dict={self.X: Z, self.Y: data.X, self.mc: mc_train})
+            nelbo, kl, ell, _ =  self.session.run(self.get_nelbo(), feed_dict={self.Y: data.X, self.mc: mc_train})
             print("Initial kl=" + repr(kl) + "  nell=" + repr(-ell) + "  nelbo=" + repr(nelbo), end=" ")
             print("  log-sigma2 =", self.session.run(self.log_theta_sigma2))
 
@@ -192,13 +173,13 @@ class DgpRff_LVM(DGPRFF_Interface):
 
             ## Present one batch of data to the DGP
             start_train_time = current_milli_time()
-            batch = data.next_batch(batch_size, Z)
+            batch = data.next_batch(batch_size)
 
             monte_carlo_sample_train = mc_train
             if (current_milli_time() - start_train_time) < (1000 * 60 * duration / 2.0):
                 monte_carlo_sample_train = 1
-            z_hat = self.session.run(batch[2])
-            self.session.run(train_step, feed_dict={self.X: z_hat, self.Y: batch[0], self.mc: mc_train})
+
+            self.session.run(train_step, feed_dict={self.Y: batch[0], self.mc: mc_train})
             total_train_time += current_milli_time() - start_train_time
 
             ## After reaching enough iterations with Omega fixed, unfix it
@@ -238,12 +219,58 @@ class DgpRff_LVM(DGPRFF_Interface):
                 print(" time=" + repr(elapsed_time), end = " ")
                 print("")
         #print(Z)
-        return Z
+        nelbo, kl, ell, _ = self.session.run(self.get_nelbo(),
+                                         feed_dict={self.Y: data.X, self.mc: mc_train})
+        print("")
+        print("kl = " + repr(kl))
+        print("nell = " + repr(-ell))
+        print("nelbo = " + repr(nelbo))
+        print("log-sigma2 = ", self.session.run(self.log_theta_sigma2))
+        print("log-lengthscale = ", self.session.run(self.log_theta_lengthscale))
+        print("Omega = ", self.session.run(self.mean_Omega[0][0,:]))
+        print("W = ", self.session.run(self.mean_W[0][0,:]))
+        print("")
 
-    def sample_latent_space(self, data, latent):
+        model_path = './models/model.ckpt'
+        saver = tf.train.Saver()
+        save_path = saver.save(self.session, model_path)
+        print("Model saved in file: %s" % save_path)
+
+        return
+
+        ## Return predictions on some data
+    def predict(self, data, mc_test):
+        out = self.likelihood.predict(self.layer_out)
+        self.X = tf.placeholder(tf.float32, [None, self.d_in[0]])
+        nll = - tf.reduce_sum(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
+        #nll = - tf.reduce_sum(tf.reduce_mean(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
+        pred, neg_ll = self.session.run([out, nll], feed_dict={self.X: data.Y, self.Y : data.X, self.mc:mc_test})
+        mean_pred = pred#np.mean(pred, 0)
+        return mean_pred, neg_ll
+
+    ## Return the list of TF variables that should be "free" to be optimized
+    # TODO: move this method to the interface
+    def get_vars_fixing_some(self, all_variables):
+        if (self.q_Omega_fixed_flag == True) and (self.theta_fixed_flag == True):
+            variational_parameters = [v for v in all_variables if (not v.name.startswith("q_Omega") and not v.name.startswith("log_theta") or v.name.startswith('latent_variables'))]
+        if (self.q_Omega_fixed_flag == True) and (self.theta_fixed_flag == False):
+            variational_parameters = [v for v in all_variables if (not v.name.startswith("q_Omega") or v.name.startswith('latent_variables'))]
+        if (self.q_Omega_fixed_flag == False) and (self.theta_fixed_flag == True):
+            variational_parameters = [v for v in all_variables if (not v.name.startswith("log_theta") or v.name.startswith('latent_variables'))]
+        if (self.q_Omega_fixed_flag == False) and (self.theta_fixed_flag == False):
+            variational_parameters = all_variables
+
+        #[print(v) for v in tf.trainable_variables()]
+        #var = [v for v in tf.global_variables() if v.name == "latents_1:0"][0]
+        #print(var)
+        #print(tf.get_default_graph().get_tensor_by_name('latents_1:0'))
+        return variational_parameters
+
+
+    def sample_latent_space(self, data):
         s = range(10)
-        for i in s:
-            observation = tf.gather(self.Y, i)
-            Z = tf.gather(latent, i)
-            print(self.session.run(observation, feed_dict={self.Y:data.X}), '--->', self.session.run(latent))
+        for i in range(len(data.Y)/2):
+            #label = tf.gather(self.Y, i)
+            latent_sample = tf.gather(self.latents, i)
+            print(self.session.run(self.latents), '-->', data.Y[i])#, feed_dict={self.Y:data.X}), '--->', self.session.run(latent))
         return

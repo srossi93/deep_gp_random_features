@@ -72,7 +72,7 @@ if __name__ == '__main__':
     print(len(data.X))
 
     ## Here we define a custom loss for dgp to show
-    error_rate = losses.ZeroOneLoss(data.Dout)
+    error_rate = losses.RootMeanSqError(data.Dout)
 
     ## Likelihood
     like = likelihoods.Gaussian()

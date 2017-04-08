@@ -136,7 +136,7 @@ class DgpRff_LVM(DGPRFF_Interface):
         if (self.q_Omega_fixed_flag == False) and (self.theta_fixed_flag == False):
             variational_parameters = all_variables
 
-        [print(v) for v in variational_parameters]
+        #[print(v) for v in variational_parameters]
 
         return variational_parameters
 

@@ -124,7 +124,7 @@ class DGPRFF_Interface(object):
         if self.is_ard:
             self.log_theta_lengthscale = []
             for i in range(self.nl):
-                self.log_theta_lengthscale.append(tf.Variable(tf.mul(tf.ones([self.d_in[i]]), self.llscale0[i]), name="log_theta_lengthscale"))
+                self.log_theta_lengthscale.append(tf.Variable(tf.multiply(tf.ones([self.d_in[i]]), self.llscale0[i]), name="log_theta_lengthscale"))
         else:
             self.log_theta_lengthscale = tf.Variable(self.llscale0, name="log_theta_lengthscale")
         self.prior_mean_Omega, self.log_prior_var_Omega = self.get_prior_Omega(self.log_theta_lengthscale)
@@ -214,7 +214,7 @@ class DGPRFF_Interface(object):
         Omega_from_q = []
         for i in range(self.n_Omega):
             z = utils.get_normal_samples(self.mc, self.d_in[i], self.d_out[i])
-            Omega_from_q.append(tf.add(tf.mul(z, tf.exp(self.log_var_Omega[i] / 2)), self.mean_Omega[i]))
+            Omega_from_q.append(tf.add(tf.multiply(z, tf.exp(self.log_var_Omega[i] / 2)), self.mean_Omega[i]))
 
         return Omega_from_q
 
@@ -222,8 +222,8 @@ class DGPRFF_Interface(object):
     def sample_from_Omega_optim(self):
         Omega_from_q = []
         for i in range(self.n_Omega):
-            z = tf.mul(self.z_for_Omega_fixed[i], tf.ones([self.mc, self.d_in[i], self.d_out[i]]))
-            Omega_from_q.append(tf.add(tf.mul(z, tf.exp(self.log_var_Omega[i] / 2)), self.mean_Omega[i]))
+            z = tf.multiply(self.z_for_Omega_fixed[i], tf.ones([self.mc, self.d_in[i], self.d_out[i]]))
+            Omega_from_q.append(tf.add(tf.multiply(z, tf.exp(self.log_var_Omega[i] / 2)), self.mean_Omega[i]))
 
         return Omega_from_q
 
@@ -231,13 +231,13 @@ class DGPRFF_Interface(object):
     def sample_from_Omega_fixed(self):
         Omega_from_q = []
         for i in range(self.n_Omega):
-            z = tf.mul(self.z_for_Omega_fixed[i], tf.ones([self.mc, self.d_in[i], self.d_out[i]]))
+            z = tf.multiply(self.z_for_Omega_fixed[i], tf.ones([self.mc, self.d_in[i], self.d_out[i]]))
 
             if self.is_ard == True:
                 reshaped_log_prior_var_Omega = tf.tile(tf.reshape(self.log_prior_var_Omega[i] / 2, [self.d_in[i],1]), [1,self.d_out[i]])
-                Omega_from_q.append(tf.mul(z, tf.exp(reshaped_log_prior_var_Omega)))
+                Omega_from_q.append(tf.multiply(z, tf.exp(reshaped_log_prior_var_Omega)))
             if self.is_ard == False:
-                Omega_from_q.append(tf.add(tf.mul(z, tf.exp(self.log_prior_var_Omega[i] / 2)), self.prior_mean_Omega[i]))
+                Omega_from_q.append(tf.add(tf.multiply(z, tf.exp(self.log_prior_var_Omega[i] / 2)), self.prior_mean_Omega[i]))
 
         return Omega_from_q
 
@@ -246,7 +246,7 @@ class DGPRFF_Interface(object):
         W_from_q = []
         for i in range(self.n_W):
             z = utils.get_normal_samples(self.mc, self.dhat_in[i], self.dhat_out[i])
-            W_from_q.append(tf.add(tf.mul(z, tf.exp(self.log_var_W[i] / 2)), self.mean_W[i]))
+            W_from_q.append(tf.add(tf.multiply(z, tf.exp(self.log_var_W[i] / 2)), self.mean_W[i]))
         return W_from_q
 
     @abc.abstractmethod

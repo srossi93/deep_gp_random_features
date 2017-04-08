@@ -113,7 +113,7 @@ if __name__ == '__main__':
     plt.ylabel('latent_dimension[1]')
     plt.xlabel('latent_dimension[0]')
     plt.title('Distribution of training samples in the latent space')
-    plt.savefig('./jj.pdf')
+    plt.savefig('./fig.pdf')
 
     #pred, nll_test = dgp.predict(test, 1)
     #print(pred)

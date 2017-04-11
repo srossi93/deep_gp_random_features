@@ -23,7 +23,8 @@ from dataset import DataSet
 import utils
 import likelihoods
 from dgp_rff_lvm import DgpRff_LVM
-
+import matplotlib.pyplot as plt
+from pprint import pprint
 # import baselines
 
 import losses
@@ -51,7 +52,7 @@ def import_oil():
 
 
 #
-    data = DataSet(train_data, train_labels)
+    data = DataSet(train_data[0:1000], train_labels[0:1000])
     test = DataSet(test_data, test_labels)
     val = DataSet(validation_data, validation_labels)
 
@@ -70,7 +71,7 @@ if __name__ == '__main__':
     print(len(data.X))
 
     ## Here we define a custom loss for dgp to show
-    error_rate = losses.ZeroOneLoss(data.Dout)
+    error_rate = losses.RootMeanSqError(data.Dout)
 
     ## Likelihood
     like = likelihoods.Gaussian()
@@ -85,16 +86,33 @@ if __name__ == '__main__':
                  FLAGS.learn_Omega, True)
 
 
-
     ## Learning
     dgp.learn(data, FLAGS.learning_rate, FLAGS.mc_train, FLAGS.batch_size, FLAGS.n_iterations, optimizer,
                  FLAGS.display_step, test, FLAGS.mc_test, error_rate, FLAGS.duration, FLAGS.less_prints)
 
 
+    lat = dgp.session.run(dgp.latents).tolist()
+    ds = []
+    pprint(lat[0:10])
+    for i in range(len(lat)):
+        ds.append([lat[i], data.Y[i].tolist()])#.tolist()))
+    pprint(ds[0:10])
 
-    dgp.sample_latent_space(data)
+    plt.figure(figsize=(15,10))
 
+    for i in range(len(ds)):
+        if ds[i][1][0] == 1.0:
+            plt.scatter(ds[i][0][0], ds[i][0][1], color='orange', label='dd')
+        elif ds[i][1][1] == 1.0:
+            plt.scatter(ds[i][0][0], ds[i][0][1], color='red', label='dd')
+        else:
+            plt.scatter(ds[i][0][0], ds[i][0][1], color='green', label='dd')
 
+    #legend = plt.legend(loc='upper right', shadow=True)
+    plt.ylabel('latent_dimension[1]')
+    plt.xlabel('latent_dimension[0]')
+    plt.title('Distribution of training samples in the latent space')
+    plt.savefig('./fig.pdf')
 
     #pred, nll_test = dgp.predict(test, 1)
     #print(pred)

@@ -49,7 +49,8 @@ class DgpRff_LVM(DGPRFF_Interface):
         :param LVM: Flag to perform Non-linear Principal Component Analysis with DGPLVM
         """
 
-        self.X = tf.Variable(tf.zeros([1, d_in]), name='s', trainable=False)
+        self.batchSize = 100
+        self.latents = tf.Variable(tf.zeros([num_examples, d_in], tf.float32), name='latents', trainable=True)
 
         self.LVM = True
         super(DgpRff_LVM, self).__init__(likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM)
@@ -60,7 +61,7 @@ class DgpRff_LVM(DGPRFF_Interface):
         Din = self.d_in[0]
         MC = self.mc
         N_L = self.nl
-        X = self.X
+        X = self.latents
         Y = self.Y
         batch_size = tf.shape(X)[0] # This is the actual batch size when X is passed to the graph of computations
 
@@ -69,29 +70,29 @@ class DgpRff_LVM(DGPRFF_Interface):
         ## Each slice [i,:,:] of these tensors is one Monte Carlo realization of the value of the hidden units
         ## At layer zero we simply replicate the input matrix X self.mc times
         self.layer = []
-        self.layer.append(tf.multiply(tf.ones([self.mc, batch_size, Din]), X))
+        self.layer.append(tf.mul(tf.ones([self.mc, batch_size, Din]), X))
 
         ## Forward propagate information from the input to the output through hidden layers
         Omega_from_q  = self.sample_from_Omega()
         W_from_q = self.sample_from_W()
         # TODO: basis features should be in a different class
         for i in range(N_L):
-            layer_times_Omega = tf.matmul(self.layer[i], Omega_from_q[i])  # X * Omega
+            layer_times_Omega = tf.batch_matmul(self.layer[i], Omega_from_q[i])  # X * Omega
 
             ## Apply the activation function corresponding to the chosen kernel - PHI
             if self.kernel_type == "RBF":
                 Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(tf.cast(1. * self.n_rff[i], tf.float32))) * tf.concat(axis=2, values=[tf.cos(layer_times_Omega), tf.sin(layer_times_Omega)])
             if self.kernel_type == "arccosine":
                 if self.arccosine_degree == 0:
-                    Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(axis=2, values=[tf.sign(tf.maximum(layer_times_Omega, 0.0))])
+                    Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(2, [tf.sign(tf.maximum(layer_times_Omega, 0.0))])
                 if self.arccosine_degree == 1:
-                    Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(axis=2, values=[tf.maximum(layer_times_Omega, 0.0)])
+                    Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(2, [tf.maximum(layer_times_Omega, 0.0)])
                 if self.arccosine_degree == 2:
-                    Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(axis=2, values=[tf.square(tf.maximum(layer_times_Omega, 0.0))])
+                    Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(2, [tf.square(tf.maximum(layer_times_Omega, 0.0))])
 
-            F = tf.matmul(Phi, W_from_q[i])
+            F = tf.batch_matmul(Phi, W_from_q[i])
             if self.feed_forward and not (i == (N_L-1)): ## In the feed-forward case, no concatenation in the last layer so that F has the same dimensions of Y
-                F = tf.concat(axis=2, values=[F, self.layer[0]])
+                F = tf.concat(2, [F, self.layer[0]])
 
             self.layer.append(F)
 
@@ -111,11 +112,11 @@ class DgpRff_LVM(DGPRFF_Interface):
     ## Return predictions on some data
     def predict(self, data, mc_test):
         out = self.likelihood.predict(self.layer_out)
-        self.X = tf.placeholder(tf.float32, [None, self.d_in[0]])
+        #self.X = tf.placeholder(tf.float32, [None, self.d_in[0]])
 
         nll = - tf.reduce_sum(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
         #nll = - tf.reduce_sum(tf.reduce_mean(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
-        pred, neg_ll = self.session.run([out, nll], feed_dict={self.X: data.Y, self.Y : data.X, self.mc:mc_test})
+        pred, neg_ll = self.session.run([out, nll], feed_dict={self.Y : data.X, self.mc:mc_test})
         mean_pred = pred#np.mean(pred, 0)
         return mean_pred, neg_ll
 
@@ -134,7 +135,7 @@ class DgpRff_LVM(DGPRFF_Interface):
         if (self.q_Omega_fixed_flag == False) and (self.theta_fixed_flag == False):
             variational_parameters = all_variables
 
-        [print(v) for v in variational_parameters]
+        #[print(v) for v in variational_parameters]
 
         return variational_parameters
 
@@ -142,15 +143,8 @@ class DgpRff_LVM(DGPRFF_Interface):
     def learn(self, data, learning_rate, mc_train, batch_size, n_iterations, optimizer = None, display_step=100, test = None, mc_test=None, loss_function=None, duration = 1000000, less_prints=False):
         total_train_time = 0
 
-        self.X = tf.Variable(tf.ones([len(data.Y), self.d_in[0]]), name='latent_variables', trainable=True)
-        self.loss, self.kl, self.ell, self.layer_out = self.get_nelbo()
-        self.session = tf.Session()
 
-        #change_shape = tf.assign(self.X, latent_variables, validate_shape=False)
-        #self.session.run(change_shape)
-
-        ## Initialize all variables
-
+        batch_size = self.num_examples
 
         if optimizer is None:
             optimizer = tf.train.AdadeltaOptimizer(learning_rate)
@@ -231,12 +225,31 @@ class DgpRff_LVM(DGPRFF_Interface):
 
                 if loss_function is not None:
 
-                    #pred, nll_test = self.predict(test, mc_test)
+                    pred, nll_train = self.predict(data, mc_test)
                     elapsed_time = total_train_time + (current_milli_time() - start_predict_time)
-                    #print(loss_function.get_name() + "=" + "%.4f" % loss_function.eval(test.Y, pred), end = " ")
-                    #print(" nll_test=" + "%.5f" % (nll_test / len(test.Y)), end = " ")
+                    print(loss_function.get_name() + "=" + "%.4f" % loss_function.eval(data.X, pred), end = " ")
+                    print(" nll_train=" + "%.5f" % (nll_train / len(data.X)), end = " ")
                 print(" time=" + repr(elapsed_time), end = " ")
                 print("")
+
+        nelbo, kl, ell, _ = self.session.run(self.get_nelbo(),
+                                         feed_dict={self.Y: data.X, self.mc: mc_train})
+        print("")
+        print("kl = " + repr(kl))
+        print("nell = " + repr(-ell))
+        print("nelbo = " + repr(nelbo))
+        print("log-sigma2 = ", self.session.run(self.log_theta_sigma2))
+        print("log-lengthscale = ", self.session.run(self.log_theta_lengthscale))
+        print("Omega = ", self.session.run(self.mean_Omega[0][0,:]))
+        print("W = ", self.session.run(self.mean_W[0][0,:]))
+        print("")
+
+        model_path = './models/model.ckpt'
+        saver = tf.train.Saver()
+        save_path = saver.save(self.session, model_path)
+        print("Model saved in file: %s" % save_path)
+
+        return
 
     def sample_latent_space(self, data):
         s = range(10)

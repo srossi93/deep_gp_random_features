@@ -211,7 +211,7 @@ class DgpRff_LVM(DGPRFF_Interface):
         summary_writer = tf.summary.FileWriter('logs/', self.session.graph)
 
         # Initialize latent position
-        self.initialize_latents(data, 'ISO')
+        #self.initialize_latents(data, 'ISO')
 
 
 

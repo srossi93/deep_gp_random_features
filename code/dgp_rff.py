@@ -81,7 +81,7 @@ class DgpRff(dgp_interface.DGPRFF_Interface):
 
             ## Apply the activation function corresponding to the chosen kernel - PHI
             if self.kernel_type == "RBF":
-                Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(tf.cast(1. * self.n_rff[i], tf.float32))) * tf.concat(2, [tf.cos(layer_times_Omega), tf.sin(layer_times_Omega)])
+                Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(tf.cast(1. * self.n_rff[i], tf.float32))) * tf.concat(axis=2, values=[tf.cos(layer_times_Omega), tf.sin(layer_times_Omega)])
             if self.kernel_type == "arccosine":
                 if self.arccosine_degree == 0:
                     Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(2, [tf.sign(tf.maximum(layer_times_Omega, 0.0))])

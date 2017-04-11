@@ -17,7 +17,7 @@
 
 import tensorflow as tf
 
-import likelihood
+from . import likelihood
 import utils
 
 

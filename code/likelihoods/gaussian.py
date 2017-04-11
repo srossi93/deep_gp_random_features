@@ -16,8 +16,7 @@
 ## Changes by Kurt Cutajar, Edwin V. Bonilla, Pietro Michiardi, Maurizio Filippone
 
 import tensorflow as tf
-
-import likelihood
+from . import likelihood
 import utils
 
 

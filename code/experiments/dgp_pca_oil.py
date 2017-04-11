@@ -19,7 +19,6 @@ from tensorflow.contrib.learn.python.learn.datasets import base
 from tensorflow.contrib.learn.python.learn.datasets.mnist import extract_images, extract_labels
 from tensorflow.python.framework import dtypes
 
-
 from dataset import DataSet
 import utils
 import likelihoods

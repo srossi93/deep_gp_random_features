@@ -16,10 +16,10 @@
 ## Changes by Kurt Cutajar, Edwin V. Bonilla, Pietro Michiardi, Maurizio Filippone
 
 import tensorflow as tf
-import likelihood
+from .likelihood import Likelihood
 import utils
 
-class Softmax(likelihood.Likelihood):
+class Softmax(Likelihood):
     """
     Implements softmax likelihood for multi-class classification
     """

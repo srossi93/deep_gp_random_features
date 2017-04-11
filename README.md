@@ -106,3 +106,10 @@ python experiments/dgp_rff_mnist.py --seed=12345 --theta_fixed=4000 --is_ard=Tru
 python experiments/dgp_rff_infmnist.py --seed=12345 --theta_fixed=4000 --is_ard=True --optimizer=adam --nl=2 --learning_rate=0.001 --n_rff=500 --df=50 --batch_size=1000 --mc_train=40 --mc_test=100 --n_iterations=100000 --display_step=1000 --less_prints=True --duration=1200 --learn_Omega=optim
 
 ```
+
+### OIL (Python 3.5) ###
+
+```
+python -m experiments.dgp_pca_oil -seed=12345 --dataset=concrete --fold=1 --q_Omega_fixed=1000 --theta_fixed=4000 --is_ard=True --optimizer=adam --nl=2 --learning_rate=0.01 --n_rff=100 --df=3 --batch_size=200 --mc_train=100 --mc_test=100 --n_iterations=100000 --display_step=250 --duration=60 --learn_Omega=var
+```
+

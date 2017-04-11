@@ -4,6 +4,6 @@
 *.o
 *~
 *.DS_Store
-
+*tfevents*
 
 

@@ -53,7 +53,7 @@ def import_oil():
 
 
 #
-    data = DataSet(train_data[0:1000], train_labels[0:1000])
+    data = DataSet(train_data[0:10], train_labels[0:10])
     test = DataSet(test_data, test_labels)
     val = DataSet(validation_data, validation_labels)
 

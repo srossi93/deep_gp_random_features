@@ -16,6 +16,7 @@ from __future__ import print_function
 
 import tensorflow as tf
 import numpy as np
+import math
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -59,10 +60,16 @@ class DgpRff_LVM(DGPRFF_Interface):
 
         #self.batches_of_latent = tf.Variable(tf.zeros([self.batchSize, d_in], tf.float32), name='latents', trainable=True) #for i in range(num_examples/self.batchSize) ]
 
-        self.latents = tf.Variable(tf.zeros([num_examples, d_in], tf.float32), name='latents', trainable=True)
+        self.latents = tf.Variable(tf.random_normal([num_examples, d_in]), name='latents', trainable=True)
         self.LVM = True
+        self.s = tf.Variable(1., name='s_parameter', trainable=True)
+        self.gamma = tf.Variable(1e0, name='gamma_parameter', trainable=True)
         super(DgpRff_LVM, self).__init__(likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM)
 
+        #self.p, self.q, self.kl = self.compute_affinity_obs()
+
+        self.loss, self.kl, self.ell, self.layer_out = self.get_nelbo()
+        self.session = tf.Session()
 
 
     ## Returns the expected log-likelihood term in the variational lower bound
@@ -118,11 +125,48 @@ class DgpRff_LVM(DGPRFF_Interface):
         #print(layer_out)
         return ell, layer_out
 
+    #def compute_exps(self, data, n, m):
+    #    return tf.exp(-tf.norm(data[n] - data[m])/(2 * tf.pow(self.s, 2)))
 
+    def compute_distance(self, data):
+        expanded_a = tf.stack([data for i in range(self.num_examples)])#tf.expand_dims(data,1)
+        #expanded_b = tf.transpose(expended_a)#tf.expand_dims(data,0)
+
+        #print(expanded_b.get_shape())
+
+        #distances = tf.norm(expanded_a - tf.transpose(expanded_a, perm=[1, 0, 2]), axis=2)
+        distances = tf.reduce_sum(tf.pow(expanded_a - tf.transpose(expanded_a, perm=[1, 0, 2]), 2), 2)
+
+        return distances
+
+    def compute_affinity_obs(self):
+
+        #affinity_obs = tf.Variable(tf.zeros([self.num_examples, self.num_examples], tf.float32, ''))
+        p = tf.exp(tf.div(self.compute_distance(self.Y), tf.multiply(2., tf.pow(self.s, 2))))
+        q = tf.pow((1 + self.compute_distance(self.latents)), 2)
+        aff = tf.multiply(p, tf.log(tf.div(p, q)))
+
+        #print(kl.get_shape()
+        return aff #self.compute_distance(self.latents)
+
+
+
+    ## Maximize variational lower bound --> minimize Nelbo
+    def get_nelbo(self):
+        kl = self.get_kl()
+        ell, layer_out = self.get_ell()
+        affinity = tf.reduce_sum(self.compute_affinity_obs())
+
+        #print(affinity, ell)
+
+        nelbo  = kl - ell# + affinity
+
+        return nelbo, kl, ell, layer_out
 
     ## Function that learns the deep GP model with random Fourier feature approximation
     def learn(self, data, learning_rate, mc_train, batch_size, n_iterations, optimizer = None, display_step=100, test = None, mc_test=None, loss_function=None, duration = 1000000, less_prints=False):
         total_train_time = 0
+
 
         #Z = tf.Variable(tf.ones([len(data.Y), self.d_in[0]], tf.float32), name='latent_variable', trainable=True)
 
@@ -140,7 +184,6 @@ class DgpRff_LVM(DGPRFF_Interface):
         #self.X = tf.Variable(tf.zeros(self.d_in[0]), name='latentVariables', trainable=True)
         all_variables = tf.trainable_variables()
         #[print(v) for v in all_variables]
-
         ## Define the optimizer
         train_step = optimizer.minimize(self.loss, var_list=all_variables)
 
@@ -153,6 +196,8 @@ class DgpRff_LVM(DGPRFF_Interface):
         ## Initialize TF session
         self.session.run(init)
 
+        #var_grad = tf.gradients(self.loss, [self.kl])[0]
+        #print('grad: ', self.session.run(var_grad, ))
         ## Set the folder where the logs are going to be written
         # summary_writer = tf.train.SummaryWriter('logs/', self.session.graph)
         summary_writer = tf.summary.FileWriter('logs/', self.session.graph)
@@ -166,6 +211,14 @@ class DgpRff_LVM(DGPRFF_Interface):
         ## Present data to DGP n_iterations times
         ## TODO: modify the code so that the user passes the number of epochs (number of times the whole training set is presented to the DGP)
         for iteration in range(n_iterations):
+
+            #pippo = self.compute_affinity_obs()
+            #print(self.session.run(pippo, feed_dict={self.Y:data.X}))
+
+            #print(self.session.run(self.p, feed_dict={self.Y:data.X}), end='\n\n')
+            #print(self.session.run(self.q), end='\n\n')
+            #print(self.session.run(self.kl))
+            #print(self.session.run(tf.reduce_sum(self.q)))
 
             ## Stop after a given budget of minutes is reached
             if (total_train_time > 1000 * 60 * duration):

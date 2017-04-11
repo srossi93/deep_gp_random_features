@@ -151,10 +151,10 @@ class DGPRFF_Interface(object):
         self.X = tf.placeholder(tf.float32, [None, d_in])
 
         ## Builds whole computational graph with relevant quantities as part of the class
-        self.loss, self.kl, self.ell, self.layer_out = self.get_nelbo()
-
-        ## Initialize the session
-        self.session = tf.Session()
+#        self.loss, self.kl, self.ell, self.layer_out = self.get_nelbo()
+#
+#        ## Initialize the session
+#        self.session = tf.Session()
 
 
     ## Definition of a prior for Omega - which depends on the lengthscale of the covariance function
@@ -256,6 +256,7 @@ class DGPRFF_Interface(object):
 
 
     ## Maximize variational lower bound --> minimize Nelbo
+#    @abc.abstractmethod
     def get_nelbo(self):
         kl = self.get_kl()
         ell, layer_out = self.get_ell()
@@ -271,6 +272,7 @@ class DGPRFF_Interface(object):
     ## Return the list of TF variables that should be "free" to be optimized
     def get_vars_fixing_some(self, all_variables):
         raise NotImplementedError("Subclass should implement this.")
+
 
     @abc.abstractmethod
     ## Function that learns the deep GP model with random Fourier feature approximation

@@ -1,0 +1,22 @@
+1000
+Initial kl=0.0  nell=80128.672  nelbo=80128.672   log-sigma2 = [ 0.]
+i=500  kl=48.630825  nell=10914.066  nelbo=10962.697  log-sigma2= [-1.69482601] RMSE=0.5495  nll_train=9.93798  time=2.638 
+i=1000  kl=89.499947  nell=8743.7891  nelbo=8833.2891  log-sigma2= [-2.40735531] RMSE=0.4929  nll_train=8.57443  time=5.145 
+i=1500  kl=127.48791  nell=8346.8203  nelbo=8474.3086  log-sigma2= [-2.90204597] RMSE=0.4942  nll_train=8.56967  time=7.776 
+i=2000  kl=160.52658  nell=8105.2939  nelbo=8265.8203  log-sigma2= [-3.2218008] RMSE=0.4731  nll_train=8.04845  time=10.194 
+i=2500  kl=185.16182  nell=8006.3213  nelbo=8191.4829  log-sigma2= [-3.46514845] RMSE=0.4722  nll_train=8.02426  time=12.904 
+i=3000  kl=203.20154  nell=8106.7354  nelbo=8309.9365  log-sigma2= [-3.64100647] RMSE=0.4723  nll_train=8.02663  time=15.202 
+i=3500  kl=216.45944  nell=8005.5449  nelbo=8222.0039  log-sigma2= [-3.74748874] RMSE=0.4725  nll_train=8.02974  time=17.612 
+i=4000  kl=221.64636  nell=8016.3721  nelbo=8238.0186  log-sigma2= [-3.85141826] RMSE=0.4711  nll_train=7.99512  time=20.022 
+i=4500  kl=224.71649  nell=7947.2764  nelbo=8171.9927  log-sigma2= [-3.90483069] RMSE=0.4711  nll_train=7.99507  time=22.404 
+i=5000  kl=224.15105  nell=7920.7666  nelbo=8144.9175  log-sigma2= [-3.93198085] RMSE=0.4721  nll_train=8.02014  time=24.763 
+
+kl = 224.15105
+nell = 8066.1128
+nelbo = 8290.2637
+log-sigma2 =  [-3.93198085]
+log-lengthscale =  [ 0.06210697]
+W =  [ 0.58764452  0.44972143  0.69009596  0.73405182  0.69551682  0.71049321
+  0.99825823  0.68351996  0.56937701  1.07116008  0.44641197  0.68494081]
+
+Model saved in file: ./models/model.ckpt

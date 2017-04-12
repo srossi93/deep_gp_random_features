@@ -17,7 +17,7 @@
 
 import tensorflow as tf
 from .likelihood import Likelihood
-import utils
+from .. import utils
 
 class Softmax(Likelihood):
     """

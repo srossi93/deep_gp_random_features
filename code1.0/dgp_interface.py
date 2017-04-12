@@ -19,9 +19,8 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from dataset import DataSet
-import utils
-import likelihoods
+from .dataset import DataSet
+from . import utils
 import time
 import abc
 
@@ -249,6 +248,25 @@ class DGPRFF_Interface(object):
             W_from_q.append(tf.add(tf.multiply(z, tf.exp(self.log_var_W[i] / 2)), self.mean_W[i]))
         return W_from_q
 
+    # Returns the projection of F(i) in the space of the next GP layer
+    def gp_projection(self, X, i):
+        mc = 1
+        Din = self.d_in[i]
+        batch_size = tf.shape(X)[0] # This is the actual batch size when X is passed to the graph of computations
+
+        ## The representation of the information is based on 3-dimensional tensors (one for each layer)
+        ## Each slice [i,:,:] of these tensors is one Monte Carlo realization of the value of the hidden units
+        ## At layer zero we simply replicate the input matrix X self.mc times
+        self.layer = []
+        self.layer.append(tf.mul(tf.ones([mc, batch_size, Din]), X))
+        mean_omega = tf.mul(tf.ones([mc, tf.shape(X)[1], self.n_rff[i]]), self.mean_Omega[i])
+        layer_times_Omega = tf.batch_matmul(self.layer[0], mean_omega)
+        layer_times_Omega = tf.cast(layer_times_Omega, tf.float32)
+        log_theta_sigma2 = tf.cast(self.log_theta_sigma2[i], tf.float32)
+        n_rff = tf.cast(self.n_rff[i], tf.float32)
+        Phi = tf.exp(0.5 * log_theta_sigma2) / (tf.sqrt(1. * n_rff)) * tf.concat(2, [tf.cos(layer_times_Omega), tf.sin(layer_times_Omega)])
+        return Phi
+
     @abc.abstractmethod
     ## Returns the expected log-likelihood term in the variational lower bound
     def get_ell(self):
@@ -263,10 +281,14 @@ class DGPRFF_Interface(object):
         nelbo  = kl - ell
         return nelbo, kl, ell, layer_out
 
-    @abc.abstractmethod
+    ## Return the mean prediction and nll of the data given the trained model
+    def predict_nll(self, data, mc_test):
+        raise NotImplementedError("Subclass should implement this.")
+
     ## Return predictions on some data
     def predict(self, data, mc_test):
-        raise NotImplementedError("Subclass should implement this.")
+        mean_pred, neg_ll = self.predict_nll(data, mc_test)
+        return mean_pred, self.session.run(tf.reduce_sum(neg_ll))
 
     @abc.abstractmethod
     ## Return the list of TF variables that should be "free" to be optimized

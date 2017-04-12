@@ -17,11 +17,11 @@
 
 import tensorflow as tf
 
-from . import likelihood
-import utils
+from .likelihood import Likelihood
+from .. import utils
 
 
-class Gaussian(likelihood.Likelihood):
+class Gaussian(Likelihood):
     def __init__(self, log_var=-2.0):
         self.log_var = tf.Variable(log_var, name="log_theta")
 

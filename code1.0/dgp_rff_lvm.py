@@ -20,11 +20,10 @@ import math
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from dataset import DataSet
-import utils
-import likelihoods
+from .dataset import DataSet
+from . import utils
 import time
-from dgp_interface import DGPRFF_Interface
+from .dgp_interface import DGPRFF_Interface
 
 current_milli_time = lambda: int(round(time.time() * 1000))
 
@@ -71,7 +70,6 @@ class DgpRff_LVM(DGPRFF_Interface):
         self.loss, self.kl, self.ell, self.layer_out = self.get_nelbo()
         self.session = tf.Session()
 
-
     ## Returns the expected log-likelihood term in the variational lower bound
     def get_ell(self):
 
@@ -81,7 +79,6 @@ class DgpRff_LVM(DGPRFF_Interface):
         X = self.latents
         Y = self.Y
         batch_size = tf.shape(X)[0] # This is the actual batch size when X is passed to the graph of computations
-
 
         ## The representation of the information is based on 3-dimensional tensors (one for each layer)
         ## Each slice [i,:,:] of these tensors is one Monte Carlo realization of the value of the hidden units
@@ -296,8 +293,9 @@ class DgpRff_LVM(DGPRFF_Interface):
     def predict(self, data, mc_test):
         out = self.likelihood.predict(self.layer_out)
 
-        nll = - tf.reduce_sum(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
+        #nll = - tf.reduce_sum(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
         #nll = - tf.reduce_sum(tf.reduce_mean(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
+        nll = -tf.reduce_sum(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0), 1)
         pred, neg_ll = self.session.run([out, nll], feed_dict={self.Y : data.X, self.mc:mc_test})
         mean_pred = pred#np.mean(pred, 0)
         return mean_pred, neg_ll

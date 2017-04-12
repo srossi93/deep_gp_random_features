@@ -12,6 +12,6 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 
-from likelihoods.likelihood import Likelihood
-from likelihoods.gaussian import Gaussian
-from likelihoods.softmax import Softmax
+from .likelihood import Likelihood
+from .gaussian import Gaussian
+from .softmax import Softmax

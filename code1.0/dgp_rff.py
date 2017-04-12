@@ -52,6 +52,8 @@ class DgpRff(dgp_interface.DGPRFF_Interface):
 
         self.LVM = False
         super(DgpRff, self).__init__(likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM)
+        self.loss, self.kl, self.ell, self.layer_out = self.get_nelbo()
+        self.session = tf.Session()
 
 
     ## Returns the expected log-likelihood term in the variational lower bound
@@ -107,11 +109,12 @@ class DgpRff(dgp_interface.DGPRFF_Interface):
 
 
     ## Return predictions on some data
-    def predict(self, data, mc_test):
+    def predict_nll(self, data, mc_test):
         out = self.likelihood.predict(self.layer_out)
 
-        nll = - tf.reduce_sum(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
+        #nll = - tf.reduce_sum(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
         #nll = - tf.reduce_sum(tf.reduce_mean(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
+        nll = -tf.reduce_sum(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0), 1)
         pred, neg_ll = self.session.run([out, nll], feed_dict={self.X:data.X, self.Y: data.Y, self.mc:mc_test})
         mean_pred = np.mean(pred, 0)
         return mean_pred, neg_ll

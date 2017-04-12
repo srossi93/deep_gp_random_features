@@ -1,0 +1,15 @@
+mkdir -p test_PCA_anim/
+echo "omega = 0, theta = 0, nrff = 20" > test_PCA_anim/description.txt
+for iter in 0 10 25 100 250 500 1000 2500 5000 10000 15000
+do
+    export PYTHONPATH=.
+    echo Run experiment iter = $iter
+    python experiments/dgp_pca_oil.py --q_Omega_fixed=0 --theta_fixed=0 \
+                                              --is_ard=False --optimizer=adam --nl=1 \
+                                              --learning_rate=0.01 --n_rff=20 --df=3 \
+                                              --mc_train=1 --mc_test=1 --n_iterations=$iter \
+                                              --display_step=$(($iter/10)) --duration=60 \
+                                              --learn_Omega=optim --less_prints=False \
+                                              > test_PCA_anim/iter${iter}.log
+    mv oil_omega0_theta0_nrff20.pdf ./test_PCA_anim/iter${iter}.pdf
+done

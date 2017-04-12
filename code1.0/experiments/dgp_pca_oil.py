@@ -53,7 +53,7 @@ def import_oil():
 
 
 #
-    data = DataSet(train_data[0:10], train_labels[0:10])
+    data = DataSet(train_data[0:1000], train_labels[0:1000])
     test = DataSet(test_data, test_labels)
     val = DataSet(validation_data, validation_labels)
 
@@ -94,10 +94,10 @@ if __name__ == '__main__':
 
     lat = dgp.session.run(dgp.latents).tolist()
     ds = []
-    pprint(lat[0:10])
+    #pprint(lat[0:10])
     for i in range(len(lat)):
         ds.append([lat[i], data.Y[i].tolist()])#.tolist()))
-    pprint(ds[0:10])
+    #pprint(ds[0:10])
 
     plt.figure(figsize=(15,10))
 
@@ -113,7 +113,7 @@ if __name__ == '__main__':
     plt.ylabel('latent_dimension[1]')
     plt.xlabel('latent_dimension[0]')
     plt.title('Distribution of training samples in the latent space')
-    plt.savefig('./fig.pdf')
+    plt.savefig('./oil_omega'+str(FLAGS.q_Omega_fixed)+'_theta'+str(FLAGS.theta_fixed)+'_nrff'+str(FLAGS.n_rff)+'.pdf')
 
     #pred, nll_test = dgp.predict(test, 1)
     #print(pred)

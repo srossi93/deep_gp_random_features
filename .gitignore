@@ -7,4 +7,5 @@ _pycache__/
 *.py[cod]
 *$py.class
 events.out.*
-
+*tfevents*
+code1.0/tests/*

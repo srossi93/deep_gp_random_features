@@ -107,7 +107,6 @@ class DgpRff(dgp_interface.DGPRFF_Interface):
 
         return ell, layer_out
 
-
     ## Return predictions on some data
     def predict_nll(self, data, mc_test):
         out = self.likelihood.predict(self.layer_out)

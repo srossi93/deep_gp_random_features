@@ -29,7 +29,7 @@ current_milli_time = lambda: int(round(time.time() * 1000))
 class DgpRff(dgp_interface.DGPRFF_Interface):
 
 
-    def __init__(self, likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM=False):
+    def __init__(self, likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM=False, llscale=0.1):
         """
         :param likelihood_fun: Likelihood function
         :param num_examples: total number of input samples
@@ -51,8 +51,9 @@ class DgpRff(dgp_interface.DGPRFF_Interface):
         self.X = tf.placeholder(tf.float32, [None, d_in])
 
         self.LVM = False
-        super(DgpRff, self).__init__(likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM)
-        self.loss, self.kl, self.ell, self.layer_out = self.get_nelbo()
+        super(DgpRff, self).__init__(likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree,
+                                     is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM, llscale=llscale)
+        self.loss, self.kl, self.ell, self.layer_out, self.layer_1 = self.get_nelbo()
         self.session = tf.Session()
 
 
@@ -64,7 +65,6 @@ class DgpRff(dgp_interface.DGPRFF_Interface):
         X = self.X
         Y = self.Y
         batch_size = tf.shape(X)[0] # This is the actual batch size when X is passed to the graph of computations
-
 
         ## The representation of the information is based on 3-dimensional tensors (one for each layer)
         ## Each slice [i,:,:] of these tensors is one Monte Carlo realization of the value of the hidden units
@@ -98,6 +98,7 @@ class DgpRff(dgp_interface.DGPRFF_Interface):
 
         ## Output layer
         layer_out = self.layer[N_L]
+        layer_1 = self.layer[1]
 
         ## Given the output layer, we compute the conditional likelihood across all samples
         ll = self.likelihood.log_cond_prob(Y, layer_out)
@@ -105,7 +106,7 @@ class DgpRff(dgp_interface.DGPRFF_Interface):
         ## Mini-batch estimation of the expected log-likelihood term
         ell = tf.reduce_sum(tf.reduce_mean(ll, 0)) * self.num_examples / tf.cast(batch_size, "float32")
 
-        return ell, layer_out
+        return ell, layer_out, layer_1
 
     ## Return predictions on some data
     def predict_nll(self, data, mc_test):
@@ -165,7 +166,7 @@ class DgpRff(dgp_interface.DGPRFF_Interface):
 
         if not(less_prints):
             #X = tf.Variable(tf.zeros([mc_train, Din]), trainable=True)
-            nelbo, kl, ell, _ =  self.session.run(self.get_nelbo(), feed_dict={self.X: data.X, self.Y: data.Y, self.mc: mc_train})
+            nelbo, kl, ell, _, _ =  self.session.run(self.get_nelbo(), feed_dict={self.X: data.X, self.Y: data.Y, self.mc: mc_train})
             print("Initial kl=" + repr(kl) + "  nell=" + repr(-ell) + "  nelbo=" + repr(nelbo), end=" ")
             print("  log-sigma2 =", self.session.run(self.log_theta_sigma2))
 
@@ -207,7 +208,7 @@ class DgpRff(dgp_interface.DGPRFF_Interface):
                     print("i=" + repr(iteration), end = " ")
 
                 else:
-                    nelbo, kl, ell, _ = self.session.run(self.get_nelbo(),
+                    nelbo, kl, ell, _, _ = self.session.run(self.get_nelbo(),
                                                      feed_dict={self.X: data.X, self.Y: data.Y, self.mc: mc_train})
                     print("i=" + repr(iteration)  + "  kl=" + repr(kl) + "  nell=" + repr(-ell)  + "  nelbo=" + repr(nelbo), end=" ")
 

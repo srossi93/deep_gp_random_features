@@ -29,7 +29,8 @@ current_milli_time = lambda: int(round(time.time() * 1000))
 class DGPRFF_Interface(object):
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self, likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM=False):
+    def __init__(self, likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree,
+        is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM=False, llscale=0.1):
         """
         :param likelihood_fun: Likelihood function
         :param num_examples: total number of input samples
@@ -116,9 +117,9 @@ class DGPRFF_Interface(object):
         if self.is_ard:
             self.llscale0 = []
             for i in range(self.nl):
-                self.llscale0.append(tf.constant(0.1 * np.log(self.d_in[i]), tf.float32))
+                self.llscale0.append(tf.constant(llscale * np.log(self.d_in[i]), tf.float32))
         else:
-            self.llscale0 = tf.constant(0.1 * np.log(self.d_in), tf.float32)
+            self.llscale0 = tf.constant(llscale * np.log(self.d_in), tf.float32)
 
         if self.is_ard:
             self.log_theta_lengthscale = []
@@ -150,7 +151,7 @@ class DGPRFF_Interface(object):
         self.X = tf.placeholder(tf.float32, [None, d_in])
 
         ## Builds whole computational graph with relevant quantities as part of the class
-#        self.loss, self.kl, self.ell, self.layer_out = self.get_nelbo()
+#        self.loss, self.kl, self.ell, self.layer_out, layer_1 = self.get_nelbo()
 #
 #        ## Initialize the session
 #        self.session = tf.Session()
@@ -258,13 +259,13 @@ class DGPRFF_Interface(object):
         ## Each slice [i,:,:] of these tensors is one Monte Carlo realization of the value of the hidden units
         ## At layer zero we simply replicate the input matrix X self.mc times
         self.layer = []
-        self.layer.append(tf.mul(tf.ones([mc, batch_size, Din]), X))
-        mean_omega = tf.mul(tf.ones([mc, tf.shape(X)[1], self.n_rff[i]]), self.mean_Omega[i])
-        layer_times_Omega = tf.batch_matmul(self.layer[0], mean_omega)
+        self.layer.append(tf.multiply(tf.ones([mc, batch_size, Din]), X))
+        mean_omega = tf.multiply(tf.ones([mc, tf.shape(X)[1], self.n_rff[i]]), self.mean_Omega[i])
+        layer_times_Omega = tf.matmul(self.layer[0], mean_omega)
         layer_times_Omega = tf.cast(layer_times_Omega, tf.float32)
         log_theta_sigma2 = tf.cast(self.log_theta_sigma2[i], tf.float32)
         n_rff = tf.cast(self.n_rff[i], tf.float32)
-        Phi = tf.exp(0.5 * log_theta_sigma2) / (tf.sqrt(1. * n_rff)) * tf.concat(2, [tf.cos(layer_times_Omega), tf.sin(layer_times_Omega)])
+        Phi = tf.exp(0.5 * log_theta_sigma2) / (tf.sqrt(1. * n_rff)) * tf.concat([tf.cos(layer_times_Omega), tf.sin(layer_times_Omega)], 2)
         return Phi
 
     @abc.abstractmethod
@@ -277,9 +278,9 @@ class DGPRFF_Interface(object):
 #    @abc.abstractmethod
     def get_nelbo(self):
         kl = self.get_kl()
-        ell, layer_out = self.get_ell()
+        ell, layer_out, layer_1 = self.get_ell()
         nelbo  = kl - ell
-        return nelbo, kl, ell, layer_out
+        return nelbo, kl, ell, layer_out, layer_1
 
     ## Return the mean prediction and nll of the data given the trained model
     def predict_nll(self, data, mc_test):
@@ -289,6 +290,22 @@ class DGPRFF_Interface(object):
     def predict(self, data, mc_test):
         mean_pred, neg_ll = self.predict_nll(data, mc_test)
         return mean_pred, self.session.run(tf.reduce_sum(neg_ll))
+
+    ## Return cluster label and negative likelihood for testing data (data must be a numpy array)
+    def predict_clust(self, data, mc_test):
+        f0 = data
+        phi0 = self.session.run(self.gp_projection(f0, 0), feed_dict={self.mc: mc_test, self.X: data})
+        with self.session.as_default():
+            w0 = self.mean_W[0].eval()
+        f1 = phi0.dot(w0)[0]
+        print(f1.shape)
+        # _, _, layer_1 = self.session.run(self.get_ell(), feed_dict={self.X: data, self.Y: data, self.mc: mc_test})
+        # print(layer_1.shape)
+        ll = -(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(f1, self.layer_1), 0))
+        # ll = -(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(data, self.layer_out), 0))
+        ll = self.session.run(ll, feed_dict={self.X: data, self.Y: data, self.mc:mc_test})
+        clusters = np.argmax(ll, 1)
+        return clusters, ll, f1
 
     @abc.abstractmethod
     ## Return the list of TF variables that should be "free" to be optimized

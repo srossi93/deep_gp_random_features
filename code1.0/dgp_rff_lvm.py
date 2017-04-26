@@ -1,4 +1,3 @@
-## Copyright 2016 Kurt Cutajar, Edwin V. Bonilla, Pietro Michiardi, Maurizio Filippone
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -32,7 +31,8 @@ current_milli_time = lambda: int(round(time.time() * 1000))
 class DgpRff_LVM(DGPRFF_Interface):
 
 
-    def __init__(self, likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM=True):
+    def __init__(self, likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard,
+                 feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM=True, llscale=0.1):
         """
         :param likelihood_fun: Likelihood function
         :param num_examples: total number of input samples
@@ -58,7 +58,8 @@ class DgpRff_LVM(DGPRFF_Interface):
         self.LVM = True
         #self.s = tf.Variable(1., name='s_parameter', trainable=True)
         #self.gamma = tf.Variable(1e0, name='gamma_parameter', trainable=True)
-        super(DgpRff_LVM, self).__init__(likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM)
+        super(DgpRff_LVM, self).__init__(likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree,
+                                         is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM, llscale=llscale)
 
         #self.p, self.q, self.kl = self.compute_affinity_obs()
 
@@ -67,17 +68,16 @@ class DgpRff_LVM(DGPRFF_Interface):
 
     ## Returns the expected log-likelihood term in the variational lower bound
     def get_ell(self):
-
         Din = self.d_in[0]
         MC = self.mc
         N_L = self.nl
         X = self.latents
         Y = self.Y
         batch_size = tf.shape(X)[0] # This is the actual batch size when X is passed to the graph of computations
+
         ## The representation of the information is based on 3-dimensional tensors (one for each layer)
         ## Each slice [i,:,:] of these tensors is one Monte Carlo realization of the value of the hidden units
         ## At layer zero we simply replicate the input matrix X self.mc times
-        #print(X)
         self.layer = []
         self.layer.append(tf.multiply(tf.ones([self.mc, batch_size, Din]), X))
 
@@ -90,7 +90,7 @@ class DgpRff_LVM(DGPRFF_Interface):
 
             ## Apply the activation function corresponding to the chosen kernel - PHI
             if self.kernel_type == "RBF":
-                Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(axis=2, values=[tf.cos(layer_times_Omega), tf.sin(layer_times_Omega)])
+                Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(tf.cast(1. * self.n_rff[i], tf.float32))) * tf.concat(axis=2, values=[tf.cos(layer_times_Omega), tf.sin(layer_times_Omega)])
             if self.kernel_type == "arccosine":
                 if self.arccosine_degree == 0:
                     Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(axis=2, values=[tf.sign(tf.maximum(layer_times_Omega, 0.0))])
@@ -208,8 +208,6 @@ class DgpRff_LVM(DGPRFF_Interface):
         # Initialize latent position
         self.initialize_latents(data, 'PCA')
 
-
-
         if not(less_prints):
             #X = tf.Variable(tf.zeros([mc_train, Din]), trainable=True)
             nelbo, kl, ell, _ =  self.session.run(self.get_nelbo(), feed_dict={self.Y: data.X, self.mc: mc_train})
@@ -280,15 +278,15 @@ class DgpRff_LVM(DGPRFF_Interface):
         #print(Z)
         nelbo, kl, ell, _ = self.session.run(self.get_nelbo(),
                                          feed_dict={self.Y: data.X, self.mc: mc_train})
-        print("")
-        print("kl = " + repr(kl))
-        print("nell = " + repr(-ell))
-        print("nelbo = " + repr(nelbo))
-        print("log-sigma2 = ", self.session.run(self.log_theta_sigma2))
-        print("log-lengthscale = ", self.session.run(self.log_theta_lengthscale))
+        # print("")
+        # print("kl = " + repr(kl))
+        # print("nell = " + repr(-ell))
+        # print("nelbo = " + repr(nelbo))
+        # print("log-sigma2 = ", self.session.run(self.log_theta_sigma2))
+        # print("log-lengthscale = ", self.session.run(self.log_theta_lengthscale))
         #print("Omega = ", self.session.run(self.mean_Omega[0][0,:]))
-        print("W = ", self.session.run(self.mean_W[0][0,:]))
-        print("")
+        # print("W = ", self.session.run(self.mean_W[0][0,:]))
+        # print("")
 
         #model_path = './models/model.ckpt'
         #saver = tf.train.Saver()
@@ -299,23 +297,45 @@ class DgpRff_LVM(DGPRFF_Interface):
 
     ## Return predictions on some data
     def predict_nll(self, data, mc_test):
+        pred, neg_ll = [], []
+        X, Y = data.X, data.Y
         out = self.likelihood.predict(self.layer_out)
-
         #nll = - tf.reduce_sum(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
         #nll = - tf.reduce_sum(tf.reduce_mean(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
         nll = -tf.reduce_sum(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0), 1)
-        pred, neg_ll = self.session.run([out, nll], feed_dict={self.X:data.X, self.Y: data.Y, self.mc:mc_test})
-        mean_pred = np.mean(pred, 0)
-        return mean_pred, neg_ll
 
-    def predict(self, data, mc_test):
-        out = self.likelihood.predict(self.layer_out)
+        # More prediction data than training samples. New data is split into smaller chunks until the last chunk that is smaller
+        if len(X) > self.num_examples:
+            bounds = [(start, min(start + self.num_examples, len(X))) for start in range(0, len(X), self.num_examples)]
+            for start, end in bounds:
+                if self.num_examples > end - start:
+                    X, Y = X[start:end], Y[start:end]
+                    break
+                p, nll = self.session.run([out, nll], feed_dict={self.X: X[start:end], self.Y: Y[start:end], self.mc:mc_test})
+                pred.append(p)
+                neg_ll.append(nll)
+                out = self.likelihood.predict(self.layer_out)
+                nll = -tf.reduce_sum(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0), 1)
 
-        nll = - tf.reduce_sum(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
-        #nll = - tf.reduce_sum(tf.reduce_mean(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
-        pred, neg_ll = self.session.run([out, nll], feed_dict={self.X:data.X, self.Y: data.Y, self.mc:mc_test})
-        mean_pred = pred#np.mean(pred, 0)
-        return mean_pred, neg_ll
+        # More training data than prediction data. We fill the remaining samples with 0
+        if self.num_examples >= len(X):
+            X2 = np.concatenate([X, np.zeros((self.num_examples - len(X), X.shape[1]))])
+            Y2 = np.concatenate([Y, np.zeros((self.num_examples - len(Y), Y.shape[1]))])
+            p, nll = self.session.run([out, nll], feed_dict={self.X:X2, self.Y: Y2, self.mc:mc_test})
+            pred.append(p[:len(X)])
+            neg_ll.append(nll[:len(X)])
+
+        #mean_pred = np.mean(pred, 0)
+        return np.concatenate(pred), np.concatenate(neg_ll)
+
+    # def predict(self, data, mc_test):
+    #     out = self.likelihood.predict(self.layer_out)
+
+    #     nll = - tf.reduce_sum(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
+    #     #nll = - tf.reduce_sum(tf.reduce_mean(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0))
+    #     pred, neg_ll = self.session.run([out, nll], feed_dict={self.X:data.X, self.Y: data.Y, self.mc:mc_test})
+    #     mean_pred = pred#np.mean(pred, 0)
+    #     return mean_pred, neg_ll
 
     ## Return the list of TF variables that should be "free" to be optimized
     # TODO: move this method to the interface
@@ -334,7 +354,6 @@ class DgpRff_LVM(DGPRFF_Interface):
         #print(var)
         #print(tf.get_default_graph().get_tensor_by_name('latents_1:0'))
         return variational_parameters
-
 
     def sample_latent_space(self, data):
         s = range(10)

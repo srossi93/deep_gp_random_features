@@ -13,6 +13,7 @@
 ## limitations under the License.
 
 import numpy as np
+import pandas as pd
 import tensorflow as tf
 
 from tensorflow.contrib.learn.python.learn.datasets import base
@@ -25,6 +26,7 @@ import utils
 import likelihoods
 from dgp_rff_lvm import DgpRff_LVM
 import matplotlib.pyplot as plt
+
 from pprint import pprint
 # import baselines
 
@@ -53,7 +55,7 @@ def import_oil():
 
 
 #
-    data = DataSet(train_data[0:1000], train_labels[0:1000])
+    data = DataSet(train_data[:1000], train_labels[:1000])
     test = DataSet(test_data, test_labels)
     val = DataSet(validation_data, validation_labels)
 
@@ -86,34 +88,39 @@ if __name__ == '__main__':
                  FLAGS.is_ard, FLAGS.feed_forward, FLAGS.q_Omega_fixed, FLAGS.theta_fixed, \
                  FLAGS.learn_Omega, True)
 
-
     ## Learning
     dgp.learn(data, FLAGS.learning_rate, FLAGS.mc_train, FLAGS.batch_size, FLAGS.n_iterations, optimizer,
                  FLAGS.display_step, test, FLAGS.mc_test, error_rate, FLAGS.duration, FLAGS.less_prints)
 
 
-    lat = dgp.session.run(dgp.latents).tolist()
-    ds = []
-    #pprint(lat[0:10])
-    for i in range(len(lat)):
-        ds.append([lat[i], data.Y[i].tolist()])#.tolist()))
-    #pprint(ds[0:10])
 
-    plt.figure(figsize=(15,10))
+    #pprint(dgp.session.run(dgp.latents))
+    latents = pd.DataFrame(dgp.session.run(dgp.latents), columns=['x', 'y'])
+    labels = pd.DataFrame(data.Y)
+    ##print(latents)
+    ##print(labels)
+    latents['class0'] = labels[0]
+    latents['class1'] = labels[1]
+    latents['class2'] = labels[2]
 
-    for i in range(len(ds)):
-        if ds[i][1][0] == 1.0:
-            plt.scatter(ds[i][0][0], ds[i][0][1], color='orange', label='dd')
-        elif ds[i][1][1] == 1.0:
-            plt.scatter(ds[i][0][0], ds[i][0][1], color='red', label='dd')
-        else:
-            plt.scatter(ds[i][0][0], ds[i][0][1], color='green', label='dd')
+    print(len(latents[latents['class0']==1]))
+    print(len(latents[latents['class1']==1]))
+    print(len(latents[latents['class2']==1]))
+    #fig = plt.figure()
+    #ax = fig.add_subplot(1,1,1)
 
-    #legend = plt.legend(loc='upper right', shadow=True)
-    plt.ylabel('latent_dimension[1]')
-    plt.xlabel('latent_dimension[0]')
-    plt.title('Distribution of training samples in the latent space')
-    plt.savefig('./oil_omega'+str(FLAGS.q_Omega_fixed)+'_theta'+str(FLAGS.theta_fixed)+'_nrff'+str(FLAGS.n_rff)+'.pdf')
+    #ax.scatter(latents[latents['class0']==1].x, latents[latents['class0']==1].y, s=5, label='class0')
+    #ax.scatter(latents[latents['class1']==1].x, latents[latents['class1']==1].y, s=5, label='class1')
+    #ax.scatter(latents[latents['class2']==1].x, latents[latents['class2']==1].y, s=5, label='class2')
+    #ax.legend()
+    #plt.ylabel('latent_dimension[1]')
+    #plt.xlabel('latent_dimension[0]')
+    #plt.title('Distribution of training samples in the latent space')
+
+
+
+    #plt.savefig('latent_space.pdf')
+    ##plt.savefig('./oil_omega'+str(FLAGS.q_Omega_fixed)+'_theta'+str(FLAGS.theta_fixed)+'_nrff'+str(FLAGS.n_rff)+'.pdf')
 
     #pred, nll_test = dgp.predict(test, 1)
     #print(pred)

@@ -25,6 +25,8 @@ import time
 from .dgp_interface import DGPRFF_Interface
 from sklearn.decomposition import PCA
 from sklearn.manifold import Isomap
+from pprint import pprint
+import pandas as pd
 
 current_milli_time = lambda: int(round(time.time() * 1000))
 
@@ -56,10 +58,9 @@ class DgpRff_LVM(DGPRFF_Interface):
         self.batchSize = 100
         self.latents = tf.Variable(tf.random_normal([num_examples, d_in]), name='latents', trainable=True)
         self.LVM = True
-        #self.s = tf.Variable(1., name='s_parameter', trainable=True)
-        #self.gamma = tf.Variable(1e0, name='gamma_parameter', trainable=True)
-        super(DgpRff_LVM, self).__init__(likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree,
-                                         is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM, llscale=llscale)
+        self.s = tf.Variable(1e-1, name='s_parameter', trainable=False, dtype=tf.float64)
+        self.gamma = tf.Variable(1e-3, name='gamma_parameter', trainable=False, dtype=tf.float64)
+        super(DgpRff_LVM, self).__init__(likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM, llscale=llscale)
 
         #self.p, self.q, self.kl = self.compute_affinity_obs()
 
@@ -118,6 +119,7 @@ class DgpRff_LVM(DGPRFF_Interface):
 
 
     def compute_distance(self, data):
+        data = tf.cast(data, tf.float64)
         expanded_a = tf.stack([data for i in range(self.num_examples)])#tf.expand_dims(data,1)
         distances = tf.reduce_sum(tf.pow(expanded_a - tf.transpose(expanded_a, perm=[1, 0, 2]), 2), 2)
         return distances
@@ -125,17 +127,22 @@ class DgpRff_LVM(DGPRFF_Interface):
     def compute_affinity_obs(self):
 
         #affinity_obs = tf.Variable(tf.zeros([self.num_examples, self.num_examples], tf.float32, ''))
-        p = tf.exp(-tf.div(self.compute_distance(self.Y), tf.multiply(2., tf.pow(self.s, 2))))
-        q = tf.pow((1 + self.compute_distance(self.latents)), 2)
-        aff = tf.multiply(p, tf.log(tf.div(p, q)))
-
+        #p = tf.exp(-tf.div(self.compute_distance(self.Y), tf.multiply(2., tf.pow(self.s, 2))))
+        p = tf.exp(- (self.compute_distance(self.Y)/(2*self.s)), )
         P_const = tf.reduce_sum(p) - self.num_examples
-        Q_const = tf.reduce_sum(q) - self.num_examples
-        tmp = P_const * tf.log(P_const/Q_const) * tf.reduce_sum(aff)
-        #print(kl.get_shape()
         p = p/P_const
 
-        return tmp, p, Q_const #self.compute_distance(self.latents)
+        q = tf.pow((1 + self.compute_distance(self.latents)), 2)
+        Q_const = tf.reduce_sum(q) - self.num_examples
+        q = q/Q_const
+
+        aff = tf.reduce_sum(tf.multiply(p, tf.log(tf.div(p, q))))
+        aff = tf.cast(aff, tf.float32)
+        #tmp = P_const * tf.log(P_const/Q_const) * tf.reduce_sum(aff)
+        #print(kl.get_shape()
+        #p = p/P_const
+
+        return self.compute_distance(self.Y), self.compute_distance(self.latents), p, P_const, q, Q_const, aff #tmp, p, Q_const #self.compute_distance(self.latents)
 
 
 
@@ -143,10 +150,10 @@ class DgpRff_LVM(DGPRFF_Interface):
     def get_nelbo(self):
         kl = self.get_kl()
         ell, layer_out = self.get_ell()
-        #affinity, p, q = self.compute_affinity_obs()
-        #print(affinity, ell)
+        #_,_,p,_,q,_,affinity = self.compute_affinity_obs()
+        #print(self.session.run(affinity))
 
-        nelbo  = kl - ell# + affinity
+        nelbo  = kl - ell #+ affinity
 
         return nelbo, kl, ell, layer_out
 
@@ -167,7 +174,7 @@ class DgpRff_LVM(DGPRFF_Interface):
             return
 
     ## Function that learns the deep GP model with random Fourier feature approximation
-    def learn(self, data, learning_rate, mc_train, batch_size, n_iterations, optimizer = None, display_step=100, test = None, mc_test=None, loss_function=None, duration = 1000000, less_prints=False):
+    def learn(self, data, learning_rate, mc_train, batch_size, n_iterations, optimizer = None, display_step=100, test = None, mc_test=None, loss_function=None, duration = 1000000, less_prints=False, plot_iter=False):
         total_train_time = 0
 
 
@@ -214,8 +221,29 @@ class DgpRff_LVM(DGPRFF_Interface):
             print("Initial kl=" + repr(kl) + "  nell=" + repr(-ell) + "  nelbo=" + repr(nelbo), end=" ")
             print("  log-sigma2 =", self.session.run(self.log_theta_sigma2))
 
+        if plot_iter:
+            latents = pd.DataFrame(self.session.run(self.latents), columns=['x', 'y'])
+            labels = pd.DataFrame(data.Y)
+            latents['class0'] = labels[0]
+            latents['class1'] = labels[1]
+            latents['class2'] = labels[2]
+
+            fig = plt.figure()
+            ax = fig.add_subplot(1,1,1)
+
+            ax.scatter(latents[latents['class0']==1].x, latents[latents['class0']==1].y, s=2.5, label='class0')
+            ax.scatter(latents[latents['class1']==1].x, latents[latents['class1']==1].y, s=2.5, label='class1')
+            ax.scatter(latents[latents['class2']==1].x, latents[latents['class2']==1].y, s=2.5, label='class2')
+            ax.legend()
+            plt.ylabel('latent_dimension[1]')
+            plt.xlabel('latent_dimension[0]')
+            plt.title('Distribution of training samples in the latent space - Iter 0')
+
+            plt.savefig('iter_0.pdf')
+
         for iteration in range(n_iterations):
-            #print(self.session.run(self.p, feed_dict={self.Y:data.X}), end='\n\n')
+            #dist_data, dist_latent, p, P_const, q, Q_const, aff = self.compute_affinity_obs()
+            #pprint(self.session.run([dist_data, dist_latent, p, P_const, q, Q_const, aff], feed_dict={self.Y:data.X}))#, end='\n\n')
             #print(self.session.run(self.q), end='\n\n')
             #print(self.session.run(self.kl))
             #print(self.session.run(tf.reduce_sum(self.q)))
@@ -226,13 +254,13 @@ class DgpRff_LVM(DGPRFF_Interface):
 
             ## Present one batch of data to the DGP
             start_train_time = current_milli_time()
-            batch = data.next_batch(batch_size)
+            #batch = data.next_batch(batch_size)
 
             monte_carlo_sample_train = mc_train
             if (current_milli_time() - start_train_time) < (1000 * 60 * duration / 2.0):
                 monte_carlo_sample_train = 1
-
-            self.session.run(train_step, feed_dict={self.Y: batch[0], self.mc: mc_train})
+            # batch[0]
+            self.session.run(train_step, feed_dict={self.Y: data.X, self.mc: mc_train})
             total_train_time += current_milli_time() - start_train_time
 
             ## After reaching enough iterations with Omega fixed, unfix it
@@ -248,8 +276,6 @@ class DgpRff_LVM(DGPRFF_Interface):
 
             ## Display logs every "FLAGS.display_step" iterations
             if (iteration+1) % display_step == 0:
-                #pippo, p, q = self.compute_affinity_obs()
-                #print(self.session.run(p, feed_dict={self.Y:data.X}))
 
                 start_predict_time = current_milli_time()
 
@@ -262,6 +288,26 @@ class DgpRff_LVM(DGPRFF_Interface):
                     print("i=" + repr(iteration+1)  + "  kl=" + repr(kl) + "  nell=" + repr(-ell)  + "  nelbo=" + repr(nelbo), end=" ")
 
                     print(" log-sigma2=", self.session.run(self.log_theta_sigma2), end=" ")
+
+                    if plot_iter:
+                        latents = pd.DataFrame(self.session.run(self.latents), columns=['x', 'y'])
+                        labels = pd.DataFrame(data.Y)
+                        latents['class0'] = labels[0]
+                        latents['class1'] = labels[1]
+                        latents['class2'] = labels[2]
+
+                        fig = plt.figure()
+                        ax = fig.add_subplot(1,1,1)
+
+                        ax.scatter(latents[latents['class0']==1].x, latents[latents['class0']==1].y, s=2.5, label='class0')
+                        ax.scatter(latents[latents['class1']==1].x, latents[latents['class1']==1].y, s=2.5, label='class1')
+                        ax.scatter(latents[latents['class2']==1].x, latents[latents['class2']==1].y, s=2.5, label='class2')
+                        ax.legend()
+                        plt.ylabel('latent_dimension[1]')
+                        plt.xlabel('latent_dimension[0]')
+                        plt.title('Distribution of training samples in the latent space - Iter '+repr(iteration+1))
+
+                        plt.savefig('iter_'+repr(iteration+1)+'.pdf')
                     # print(" log-lengthscale=", self.session.run(self.log_theta_lengthscale), end=" ")
                     # print(" Omega=", self.session.run(self.mean_Omega[0][0,:]), end=" ")
                     # print(" W=", self.session.run(self.mean_W[0][0,:]), end=" ")
@@ -275,6 +321,8 @@ class DgpRff_LVM(DGPRFF_Interface):
 
                 print(" time=" + repr(elapsed_time/1000.), end = " ")
                 print("")
+
+
         #print(Z)
         nelbo, kl, ell, _ = self.session.run(self.get_nelbo(),
                                          feed_dict={self.Y: data.X, self.mc: mc_train})

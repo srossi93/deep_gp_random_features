@@ -33,7 +33,7 @@ from pprint import pprint
 import losses
 
 
-def import_oil():
+def import_oil(reduced_number_classes=False):
     """
     This import oil dataset and saves the data as an object of our DataSet class
     :return:
@@ -53,11 +53,51 @@ def import_oil():
     #print(validation_data)
     #print(validation_labels)
 
+    train_data_df = pd.DataFrame(train_data)
+    train_labels_df = pd.DataFrame(train_labels)
+    train_data_df['class0'] = train_labels_df[0]
+    train_data_df['class1'] = train_labels_df[1]
+    train_data_df['class2'] = train_labels_df[2]
 
-#
-    data = DataSet(train_data[:1000], train_labels[:1000])
-    test = DataSet(test_data, test_labels)
-    val = DataSet(validation_data, validation_labels)
+    test_data_df = pd.DataFrame(test_data)
+    test_labels_df = pd.DataFrame(test_labels)
+    test_data_df['class0'] = test_labels_df[0]
+    test_data_df['class1'] = test_labels_df[1]
+    test_data_df['class2'] = test_labels_df[2]
+
+
+    validation_data_df = pd.DataFrame(validation_data)
+    validation_labels_df = pd.DataFrame(validation_labels)
+    validation_data_df['class0'] = validation_labels_df[0]
+    validation_data_df['class1'] = validation_labels_df[1]
+    validation_data_df['class2'] = validation_labels_df[2]
+
+
+    if reduced_number_classes == False:
+        data = DataSet(train_data[:1000], train_labels[:1000])
+        print(train_data[0:10])
+        test = DataSet(test_data, test_labels)
+        val  = DataSet(validation_data, validation_labels)
+    else:
+        #print(train_data_df.info())
+        tmp = train_data_df[(train_data_df['class0'] == 1.) | (train_data_df['class1'] == 1.)]
+        #tmp = tmp.drop(tmp.columns[[-3, -2, -1]], axis=1).values.tolist()
+        #tmp = tmp[['class0', 'class1']].values.tolist()
+        #pprint(tmp)#.values.tolist())
+        #pprint(train_data)
+        #pprint( train_data_df[(train_data_df['class0'] == 1.) | (train_data_df['class1'] == 1.)]  )
+        data = DataSet(np.array(tmp.drop(tmp.columns[[-3, -2, -1]], axis=1).values.tolist()),
+                       np.array(tmp[['class0', 'class1']].values.tolist()))
+
+        tmp = test_data_df[(test_data_df['class0'] == 1.) | (test_data_df['class1'] == 1.)]
+        test = DataSet(np.array(tmp.drop(tmp.columns[[-3, -2, -1]], axis=1).values.tolist()),
+                       np.array(tmp[['class0', 'class1']].values.tolist()))
+
+        tmp = validation_data_df[(validation_data_df['class0'] == 1.) | (validation_data_df['class1'] == 1.)]
+        val = DataSet(np.array(tmp.drop(tmp.columns[[-3, -2, -1]], axis=1).values.tolist()),
+                       np.array(tmp[['class0', 'class1']].values.tolist()))
+
+        #data, test, val = [data, test, val]
 
     return data, test, val
 
@@ -69,9 +109,10 @@ if __name__ == '__main__':
     tf.set_random_seed(FLAGS.seed)
     np.random.seed(FLAGS.seed)
 
-    data, test, _ = import_oil()
+    data, test, _ = import_oil(reduced_number_classes=True)
 
     print(len(data.X))
+
 
     ## Here we define a custom loss for dgp to show
     error_rate = losses.RootMeanSqError(data.Dout)
@@ -95,17 +136,17 @@ if __name__ == '__main__':
 
 
     #pprint(dgp.session.run(dgp.latents))
-    latents = pd.DataFrame(dgp.session.run(dgp.latents), columns=['x', 'y'])
-    labels = pd.DataFrame(data.Y)
-    ##print(latents)
-    ##print(labels)
-    latents['class0'] = labels[0]
-    latents['class1'] = labels[1]
-    latents['class2'] = labels[2]
-
-    print(len(latents[latents['class0']==1]))
-    print(len(latents[latents['class1']==1]))
-    print(len(latents[latents['class2']==1]))
+    # latents = pd.DataFrame(dgp.session.run(dgp.latents), columns=['x', 'y'])
+    # labels = pd.DataFrame(data.Y)
+    # ##print(latents)
+    # ##print(labels)
+    # latents['class0'] = labels[0]
+    # latents['class1'] = labels[1]
+    # latents['class2'] = labels[2]
+    #
+    # print(len(latents[latents['class0']==1]))
+    # print(len(latents[latents['class1']==1]))
+    # print(len(latents[latents['class2']==1]))
     #fig = plt.figure()
     #ax = fig.add_subplot(1,1,1)
 

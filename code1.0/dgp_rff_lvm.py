@@ -179,6 +179,28 @@ class DgpRff_LVM(DGPRFF_Interface):
             self.session.run(assign_op)
             return
 
+    def print_latent_space(self, data, filename, iteration):
+        latents = pd.DataFrame(self.session.run(self.latents), columns=['x', 'y'])
+        labels = pd.DataFrame(data.Y)
+        latents['class0'] = labels[0]
+        latents['class1'] = labels[1]
+        #latents['class2'] = labels[2]
+
+        fig = plt.figure()
+        ax = fig.add_subplot(1,1,1)
+
+        ax.scatter(latents[latents['class0']==1].x, latents[latents['class0']==1].y, s=2.5, label='class0')
+        ax.scatter(latents[latents['class1']==1].x, latents[latents['class1']==1].y, s=2.5, label='class1')
+        #ax.scatter(latents[latents['class2']==1].x, latents[latents['class2']==1].y, s=2.5, label='class2')
+        ax.legend()
+        plt.ylabel('latent_dimension[1]')
+        plt.xlabel('latent_dimension[0]')
+        plt.title('Distribution of training samples in the latent space - Iter '+repr(iteration))
+
+        filename='./img/'+filename
+        plt.savefig(filename)
+
+
     ## Function that learns the deep GP model with random Fourier feature approximation
     def learn(self, data, learning_rate, mc_train, batch_size, n_iterations, optimizer = None, display_step=100, test = None, mc_test=None, loss_function=None, duration = 1000000, less_prints=False):
         total_train_time = 0
@@ -228,25 +250,7 @@ class DgpRff_LVM(DGPRFF_Interface):
             nelbo, kl, ell, _ =  self.session.run(self.get_nelbo(), feed_dict={self.Y: data.X, self.mc: mc_train})
             print("Initial kl=" + repr(kl) + "  nell=" + repr(-ell) + "  nelbo=" + repr(nelbo), end=" ")
             print("  log-sigma2 =", self.session.run(self.log_theta_sigma2))
-
-            latents = pd.DataFrame(self.session.run(self.latents), columns=['x', 'y'])
-            labels = pd.DataFrame(data.Y)
-            latents['class0'] = labels[0]
-            latents['class1'] = labels[1]
-            latents['class2'] = labels[2]
-
-            fig = plt.figure()
-            ax = fig.add_subplot(1,1,1)
-
-            ax.scatter(latents[latents['class0']==1].x, latents[latents['class0']==1].y, s=2.5, label='class0')
-            ax.scatter(latents[latents['class1']==1].x, latents[latents['class1']==1].y, s=2.5, label='class1')
-            ax.scatter(latents[latents['class2']==1].x, latents[latents['class2']==1].y, s=2.5, label='class2')
-            ax.legend()
-            plt.ylabel('latent_dimension[1]')
-            plt.xlabel('latent_dimension[0]')
-            plt.title('Distribution of training samples in the latent space - Iter 0')
-
-            plt.savefig('iter_0.pdf')
+            self.print_latent_space(data, 'iter_0.pdf', iteration=0)
 
 
         for iteration in range(n_iterations):
@@ -299,24 +303,8 @@ class DgpRff_LVM(DGPRFF_Interface):
 
                     save_img = True
                     if save_img:
-                        latents = pd.DataFrame(self.session.run(self.latents), columns=['x', 'y'])
-                        labels = pd.DataFrame(data.Y)
-                        latents['class0'] = labels[0]
-                        latents['class1'] = labels[1]
-                        latents['class2'] = labels[2]
+                        self.print_latent_space(data, 'iter_'+repr(iteration+1)+'.pdf', iteration=(iteration+1))
 
-                        fig = plt.figure()
-                        ax = fig.add_subplot(1,1,1)
-
-                        ax.scatter(latents[latents['class0']==1].x, latents[latents['class0']==1].y, s=2.5, label='class0')
-                        ax.scatter(latents[latents['class1']==1].x, latents[latents['class1']==1].y, s=2.5, label='class1')
-                        ax.scatter(latents[latents['class2']==1].x, latents[latents['class2']==1].y, s=2.5, label='class2')
-                        ax.legend()
-                        plt.ylabel('latent_dimension[1]')
-                        plt.xlabel('latent_dimension[0]')
-                        plt.title('Distribution of training samples in the latent space - Iter '+repr(iteration+1))
-
-                        plt.savefig('iter_'+repr(iteration+1)+'.pdf')
                     # print(" log-lengthscale=", self.session.run(self.log_theta_lengthscale), end=" ")
                     # print(" Omega=", self.session.run(self.mean_Omega[0][0,:]), end=" ")
                     # print(" W=", self.session.run(self.mean_W[0][0,:]), end=" ")

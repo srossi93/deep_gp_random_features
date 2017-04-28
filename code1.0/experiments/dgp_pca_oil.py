@@ -31,6 +31,16 @@ from pprint import pprint
 # import baselines
 
 import losses
+import sys
+import os
+
+def get_dataframe(data, labels):
+    data_df = pd.DataFrame(data)
+    labels_df = pd.DataFrame(labels)
+    for i in range(len(labels[0])):
+        class_name = 'class'+str(i)
+        data_df[class_name] = labels_df[i]
+    return data_df
 
 
 def import_oil(reduced_number_classes=False):
@@ -55,27 +65,34 @@ def import_oil(reduced_number_classes=False):
 
     train_data_df = pd.DataFrame(train_data)
     train_labels_df = pd.DataFrame(train_labels)
-    train_data_df['class0'] = train_labels_df[0]
-    train_data_df['class1'] = train_labels_df[1]
-    train_data_df['class2'] = train_labels_df[2]
-
     test_data_df = pd.DataFrame(test_data)
     test_labels_df = pd.DataFrame(test_labels)
-    test_data_df['class0'] = test_labels_df[0]
-    test_data_df['class1'] = test_labels_df[1]
-    test_data_df['class2'] = test_labels_df[2]
-
-
     validation_data_df = pd.DataFrame(validation_data)
     validation_labels_df = pd.DataFrame(validation_labels)
-    validation_data_df['class0'] = validation_labels_df[0]
-    validation_data_df['class1'] = validation_labels_df[1]
-    validation_data_df['class2'] = validation_labels_df[2]
+
+    for i in range(len(train_labels[0])):
+        class_name = 'class'+str(i)
+        train_data_df[class_name]      = train_labels_df[i]
+        test_data_df[class_name]       = test_labels_df[i]
+        validation_data_df[class_name] = validation_labels_df[i]
+
+    validation_data_df = get_dataframe(validation_data, validation_labels)
+    #train_data_df['class0'] = train_labels_df[0]
+    #train_data_df['class1'] = train_labels_df[1]
+    #train_data_df['class2'] = train_labels_df[2]
+
+    #test_data_df['class0'] = test_labels_df[0]
+    #test_data_df['class1'] = test_labels_df[1]
+    #test_data_df['class2'] = test_labels_df[2]
+
+    #validation_data_df['class0'] = validation_labels_df[0]
+    #validation_data_df['class1'] = validation_labels_df[1]
+    #validation_data_df['class2'] = validation_labels_df[2]
 
 
     if reduced_number_classes == False:
         data = DataSet(train_data[:1000], train_labels[:1000])
-        print(train_data[0:10])
+        #print(train_data[0:10])
         test = DataSet(test_data, test_labels)
         val  = DataSet(validation_data, validation_labels)
     else:
@@ -87,7 +104,7 @@ def import_oil(reduced_number_classes=False):
         #pprint(train_data)
         #pprint( train_data_df[(train_data_df['class0'] == 1.) | (train_data_df['class1'] == 1.)]  )
         data = DataSet(np.array(tmp.drop(tmp.columns[[-3, -2, -1]], axis=1).values.tolist()),
-                       np.array(tmp[['class0', 'class1']].values.tolist()))
+                       np.array(tmp[['class0', 'class1']].values.tolist()), )
 
         tmp = test_data_df[(test_data_df['class0'] == 1.) | (test_data_df['class1'] == 1.)]
         test = DataSet(np.array(tmp.drop(tmp.columns[[-3, -2, -1]], axis=1).values.tolist()),
@@ -109,7 +126,7 @@ if __name__ == '__main__':
     tf.set_random_seed(FLAGS.seed)
     np.random.seed(FLAGS.seed)
 
-    data, test, _ = import_oil(reduced_number_classes=True)
+    data, test, _ = import_oil(reduced_number_classes=False)
 
     print(len(data.X))
 
@@ -130,8 +147,25 @@ if __name__ == '__main__':
                  FLAGS.learn_Omega, True)
 
     ## Learning
+    directory = '../'+str(FLAGS.initializer)+'/'
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    sys.stdout = open(directory+'log.log', 'w')
+    print('Learning with'+' '+
+          '--learning_rate='+ str(FLAGS.learning_rate)+' '+
+          '--optimizer='+     str(FLAGS.optimizer)+' '+
+          '--mc_test='+       str(FLAGS.mc_test)+' '+
+          '--mc_train='+      str(FLAGS.mc_train)+' '+
+          '--n_iterations='+  str(FLAGS.n_iterations)+' '+
+          '--initializer='+   str(FLAGS.initializer)+' '+
+          '--nl='+            str(FLAGS.nl)+' '+
+          '--n_rff='+         str(FLAGS.n_rff)+' '+
+          '--df='+            str(FLAGS.df)+' '+
+          '--kernel_type='+   str(FLAGS.kernel_type))
+
     dgp.learn(data, FLAGS.learning_rate, FLAGS.mc_train, FLAGS.batch_size, FLAGS.n_iterations, optimizer,
-                 FLAGS.display_step, test, FLAGS.mc_test, error_rate, FLAGS.duration, FLAGS.less_prints)
+              FLAGS.display_step, test, FLAGS.mc_test, error_rate, FLAGS.duration, FLAGS.less_prints,
+              FLAGS.initializer)
 
 
 

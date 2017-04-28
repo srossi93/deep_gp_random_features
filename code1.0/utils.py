@@ -78,6 +78,7 @@ def get_flags():
 
     # Flags for unsupervised learning
     flags.DEFINE_boolean('LVM', False, 'Model to perform Non-linear Principal Component Analysis with DGP-LVM')
+    flags.DEFINE_string('initializer', "RANDOM", "Initializer for the latent variables")
 
     # Flags for use in cluster experiments
     tf.app.flags.DEFINE_string("dataset", "", "Dataset name")

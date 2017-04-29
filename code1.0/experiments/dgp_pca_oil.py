@@ -12,9 +12,16 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 
+import utils
+import likelihoods
+import losses
+import sys
+import os
+
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+import matplotlib.pyplot as plt
 
 from tensorflow.contrib.learn.python.learn.datasets import base
 from tensorflow.contrib.learn.python.learn.datasets.mnist import extract_images, extract_labels
@@ -22,25 +29,10 @@ from tensorflow.python.framework import dtypes
 
 
 from dataset import DataSet
-import utils
-import likelihoods
 from dgp_rff_lvm import DgpRff_LVM
-import matplotlib.pyplot as plt
 
 from pprint import pprint
-# import baselines
 
-import losses
-import sys
-import os
-
-def get_dataframe(data, labels):
-    data_df = pd.DataFrame(data)
-    labels_df = pd.DataFrame(labels)
-    for i in range(len(labels[0])):
-        class_name = 'class'+str(i)
-        data_df[class_name] = labels_df[i]
-    return data_df
 
 
 def import_oil(reduced_number_classes=False):
@@ -63,46 +55,17 @@ def import_oil(reduced_number_classes=False):
     #print(validation_data)
     #print(validation_labels)
 
-    train_data_df = pd.DataFrame(train_data)
-    train_labels_df = pd.DataFrame(train_labels)
-    test_data_df = pd.DataFrame(test_data)
-    test_labels_df = pd.DataFrame(test_labels)
-    validation_data_df = pd.DataFrame(validation_data)
-    validation_labels_df = pd.DataFrame(validation_labels)
 
-    for i in range(len(train_labels[0])):
-        class_name = 'class'+str(i)
-        train_data_df[class_name]      = train_labels_df[i]
-        test_data_df[class_name]       = test_labels_df[i]
-        validation_data_df[class_name] = validation_labels_df[i]
+    data = DataSet(train_data[:1000], train_labels[:1000])
+    test = DataSet(test_data, test_labels)
+    val  = DataSet(validation_data, validation_labels)
 
-    validation_data_df = get_dataframe(validation_data, validation_labels)
-    #train_data_df['class0'] = train_labels_df[0]
-    #train_data_df['class1'] = train_labels_df[1]
-    #train_data_df['class2'] = train_labels_df[2]
+    if reduced_number_classes == True:
+        train_data_df = data.to_dataframe()
+        test_data_df = test.to_dataframe()
+        validation_data_df = val.to_dataframe()
 
-    #test_data_df['class0'] = test_labels_df[0]
-    #test_data_df['class1'] = test_labels_df[1]
-    #test_data_df['class2'] = test_labels_df[2]
-
-    #validation_data_df['class0'] = validation_labels_df[0]
-    #validation_data_df['class1'] = validation_labels_df[1]
-    #validation_data_df['class2'] = validation_labels_df[2]
-
-
-    if reduced_number_classes == False:
-        data = DataSet(train_data[:1000], train_labels[:1000])
-        #print(train_data[0:10])
-        test = DataSet(test_data, test_labels)
-        val  = DataSet(validation_data, validation_labels)
-    else:
-        #print(train_data_df.info())
         tmp = train_data_df[(train_data_df['class0'] == 1.) | (train_data_df['class1'] == 1.)]
-        #tmp = tmp.drop(tmp.columns[[-3, -2, -1]], axis=1).values.tolist()
-        #tmp = tmp[['class0', 'class1']].values.tolist()
-        #pprint(tmp)#.values.tolist())
-        #pprint(train_data)
-        #pprint( train_data_df[(train_data_df['class0'] == 1.) | (train_data_df['class1'] == 1.)]  )
         data = DataSet(np.array(tmp.drop(tmp.columns[[-3, -2, -1]], axis=1).values.tolist()),
                        np.array(tmp[['class0', 'class1']].values.tolist()), )
 
@@ -114,7 +77,6 @@ def import_oil(reduced_number_classes=False):
         val = DataSet(np.array(tmp.drop(tmp.columns[[-3, -2, -1]], axis=1).values.tolist()),
                        np.array(tmp[['class0', 'class1']].values.tolist()))
 
-        #data, test, val = [data, test, val]
 
     return data, test, val
 
@@ -129,6 +91,7 @@ if __name__ == '__main__':
     data, test, _ = import_oil(reduced_number_classes=False)
 
     print(len(data.X))
+    #pprint(data.to_dataframe())
 
 
     ## Here we define a custom loss for dgp to show
@@ -150,7 +113,7 @@ if __name__ == '__main__':
     directory = '../'+str(FLAGS.initializer)+'/'
     if not os.path.exists(directory):
         os.makedirs(directory)
-    sys.stdout = open(directory+'log.log', 'w')
+    #sys.stdout = open(directory+'log.log', 'w')
     print('Learning with'+' '+
           '--learning_rate='+ str(FLAGS.learning_rate)+' '+
           '--optimizer='+     str(FLAGS.optimizer)+' '+

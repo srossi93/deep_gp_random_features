@@ -111,6 +111,13 @@ def import_mnist():
     test = DataSet(test_images[0:1], test_labels[0:1])
     val = DataSet(validation_images, validation_labels)
 
+    #print(np.array(data.Y).shape)
+    train_data_df = data.to_dataframe()
+
+    #tmp = train_data_df[(train_data_df['class0'] == 1.) | (train_data_df['class8'] == 1.)]
+    #data = DataSet(np.array(tmp.drop(tmp.columns[[-3, -2, -1]], axis=1).values.tolist()),
+    #               np.array(tmp[['class0', 'class8']].values.tolist()))
+
     return data, test, val
 
 
@@ -122,11 +129,11 @@ if __name__ == '__main__':
     np.random.seed(FLAGS.seed)
 
     data, test, _ = import_mnist()
-    print(test.Y)
     print(len(data.X))
 
+
     ## Here we define a custom loss for dgp to show
-    error_rate = losses.ZeroOneLoss(data.Dout)
+    error_rate = losses.RootMeanSqError(data.Dout)
 
     ## Likelihood
     like = likelihoods.Gaussian()
@@ -135,15 +142,28 @@ if __name__ == '__main__':
     optimizer = utils.get_optimizer(FLAGS.optimizer, FLAGS.learning_rate)
 
     ## Main dgp object
-    dgp = DgpRff_LVM(like, data.num_examples, 10, data.X.shape[1], FLAGS.nl, \
+    dgp = DgpRff_LVM(like, data.num_examples, 2, data.X.shape[1], FLAGS.nl, \
                  FLAGS.n_rff, FLAGS.df, FLAGS.kernel_type, FLAGS.kernel_arccosine_degree,\
                  FLAGS.is_ard, FLAGS.feed_forward, FLAGS.q_Omega_fixed, FLAGS.theta_fixed, \
                  FLAGS.learn_Omega, True)
 
     ## Learning
-    dgp.learn(data, FLAGS.learning_rate, FLAGS.mc_train, FLAGS.batch_size, FLAGS.n_iterations, optimizer,
-                 FLAGS.display_step, test, FLAGS.mc_test, error_rate, FLAGS.duration, FLAGS.less_prints)
+    print('Learning with'+' '+
+          '--learning_rate='+ str(FLAGS.learning_rate)+' '+
+          '--optimizer='+     str(FLAGS.optimizer)+' '+
+          '--mc_test='+       str(FLAGS.mc_test)+' '+
+          '--mc_train='+      str(FLAGS.mc_train)+' '+
+          '--n_iterations='+  str(FLAGS.n_iterations)+' '+
+          '--initializer='+   str(FLAGS.initializer)+' '+
+          '--nl='+            str(FLAGS.nl)+' '+
+          '--n_rff='+         str(FLAGS.n_rff)+' '+
+          '--df='+            str(FLAGS.df)+' '+
+          '--kernel_type='+   str(FLAGS.kernel_type))
 
-    pred, nll_test = dgp.predict(test, 1)
-    print((pred))
-    print(nll_test)
+    dgp.learn(data, FLAGS.learning_rate, FLAGS.mc_train, FLAGS.batch_size, FLAGS.n_iterations, optimizer,
+              FLAGS.display_step, test, FLAGS.mc_test, error_rate, FLAGS.duration, FLAGS.less_prints,
+              FLAGS.initializer)
+
+    #pred, nll_test = dgp.predict(test, 1)
+    #print((pred))
+    #print(nll_test)

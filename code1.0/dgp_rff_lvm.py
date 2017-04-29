@@ -165,7 +165,7 @@ class DgpRff_LVM(DGPRFF_Interface):
 
 
     def initialize_latents(self, data, method='PCA'):
-        print('Latent initialization using ', method)
+        print('Latent initialization using', method)
         if method == 'PCA':
             pca = PCA(n_components=self.d_in[0])
             pca.fit(data.X)
@@ -196,19 +196,29 @@ class DgpRff_LVM(DGPRFF_Interface):
             return
 
     def print_latent_space(self, data, filename, iteration):
-        is_cluster = True
+        is_cluster = False
         latents = pd.DataFrame(self.session.run(self.latents), columns=['x', 'y'])
         labels = pd.DataFrame(data.Y)
-        latents['class0'] = labels[0]
-        latents['class1'] = labels[1]
-        latents['class2'] = labels[2]
+        for i in range(len(data.Y[0])):
+            class_name = 'class'+str(i)
+            latents[class_name] = labels[i]
+
+        #latents['class0'] = labels[0]
+        #latents['class1'] = labels[1]
+        #latents['class2'] = labels[2]
+
         if (is_cluster == False):
+            if (len(latents)>5000):
+                latents = latents[:5000]
             fig = plt.figure()
             ax = fig.add_subplot(1,1,1)
+            for i in range(len(data.Y[0])):
+                class_name = 'class'+str(i)
+                ax.scatter(latents[latents[class_name]==1].x, latents[latents[class_name]==1].y, s=2.5, label=class_name)
 
-            ax.scatter(latents[latents['class0']==1].x, latents[latents['class0']==1].y, s=2.5, label='class0')
-            ax.scatter(latents[latents['class1']==1].x, latents[latents['class1']==1].y, s=2.5, label='class1')
-            ax.scatter(latents[latents['class2']==1].x, latents[latents['class2']==1].y, s=2.5, label='class2')
+            #ax.scatter(latents[latents['class0']==1].x, latents[latents['class0']==1].y, s=2.5, label='class0')
+            #ax.scatter(latents[latents['class1']==1].x, latents[latents['class1']==1].y, s=2.5, label='class1')
+            #ax.scatter(latents[latents['class2']==1].x, latents[latents['class2']==1].y, s=2.5, label='class2')
             ax.legend()
             plt.ylabel('latent_dimension[1]')
             plt.xlabel('latent_dimension[0]')
@@ -218,7 +228,7 @@ class DgpRff_LVM(DGPRFF_Interface):
             plt.savefig(filename)
             plt.close()
         else:
-            directory = '../'+str(self.initializer)+'/'
+            directory = '../test_mnist/'
             if not os.path.exists(directory):
                 os.makedirs(directory)
             filename = directory + filename + '.csv'
@@ -328,7 +338,7 @@ class DgpRff_LVM(DGPRFF_Interface):
 
                     print(" log-sigma2=", self.session.run(self.log_theta_sigma2), end=" ")
 
-                    save_img = True
+                    save_img = False
                     if save_img:
                         self.print_latent_space(data, 'iter_'+repr(iteration+1), iteration=(iteration+1))
 

@@ -14,6 +14,7 @@
 
 import numpy as np
 import tensorflow as tf
+import pandas as pd
 from pprint import pprint
 
 ## DataSet class
@@ -89,3 +90,11 @@ class DataSet():
     @property
     def Y(self):
         return self._Y
+
+    def to_dataframe(self):
+        X_df = pd.DataFrame(self.X)
+        Y_df = pd.DataFrame(self.Y)
+        for i in range(len(self.Y[0])):
+            class_name = 'class'+str(i)
+            X_df[class_name] = Y_df[i]
+        return X_df

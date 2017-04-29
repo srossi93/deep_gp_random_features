@@ -196,7 +196,7 @@ class DgpRff_LVM(DGPRFF_Interface):
             return
 
     def print_latent_space(self, data, filename, iteration):
-        is_cluster = False
+        is_cluster = True
         latents = pd.DataFrame(self.session.run(self.latents), columns=['x', 'y'])
         labels = pd.DataFrame(data.Y)
         for i in range(len(data.Y[0])):

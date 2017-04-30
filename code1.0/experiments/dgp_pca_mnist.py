@@ -24,7 +24,7 @@ from dataset import DataSet
 import utils
 import likelihoods
 from dgp_rff_lvm import DgpRff_LVM
-
+from pprint import pprint
 # import baselines
 
 import losses
@@ -114,9 +114,9 @@ def import_mnist():
     #print(np.array(data.Y).shape)
     train_data_df = data.to_dataframe()
 
-    #tmp = train_data_df[(train_data_df['class0'] == 1.) | (train_data_df['class8'] == 1.)]
-    #data = DataSet(np.array(tmp.drop(tmp.columns[[-3, -2, -1]], axis=1).values.tolist()),
-    #               np.array(tmp[['class0', 'class8']].values.tolist()))
+    tmp = train_data_df[(train_data_df['class0'] == 1.) | (train_data_df['class1'] == 1.)| (train_data_df['class2'] == 1.)| (train_data_df['class3'] == 1.)| (train_data_df['class4'] == 1.)]
+    data = DataSet(np.array(tmp.drop(tmp.columns[[-10, -9, -8, -7, -6, -5, -4, -3, -2, -1]], axis=1).values.tolist()),
+                   np.array(tmp[['class0', 'class1', 'class2', 'class3', 'class4']].values.tolist()))
 
     return data, test, val
 

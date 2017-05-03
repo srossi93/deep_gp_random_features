@@ -1,0 +1,1211 @@
+Extracting MNIST_data/train-images-idx3-ubyte.gz
+Extracting MNIST_data/train-labels-idx1-ubyte.gz
+Extracting MNIST_data/t10k-images-idx3-ubyte.gz
+Extracting MNIST_data/t10k-labels-idx1-ubyte.gz
+60000
+Learning with --learning_rate=0.01 --optimizer=adam --mc_test=1 --mc_train=1 --n_iterations=100000 --initializer=PCA --nl=1 --n_rff=100 --df=5 --kernel_type=RBF
+Latent initialization using PCA
+Initial kl=0.0  nell=1.890463e+08  nelbo=1.890463e+08   log-sigma2 = [ 0.]
+i=100  kl=3103.0391  nell=1.4729342e+08  nelbo=1.4729653e+08  log-sigma2= [ 0.] RMSE=0.9211  nll_train=2393.98640  time=56.791 
+i=200  kl=8852.7002  nell=1.1594847e+08  nelbo=1.1595733e+08  log-sigma2= [ 0.] RMSE=0.8263  nll_train=1914.11853  time=114.411 
+i=300  kl=15990.829  nell=95496760.0  nelbo=95512752.0  log-sigma2= [ 0.] RMSE=0.7580  nll_train=1600.57667  time=170.339 
+i=400  kl=23809.992  nell=78876680.0  nelbo=78900488.0  log-sigma2= [ 0.] RMSE=0.6945  nll_train=1333.52307  time=227.799 
+i=500  kl=31935.859  nell=67626104.0  nelbo=67658040.0  log-sigma2= [ 0.] RMSE=0.6468  nll_train=1148.19747  time=284.326 
+i=600  kl=40144.02  nell=59058812.0  nelbo=59098956.0  log-sigma2= [ 0.] RMSE=0.6048  nll_train=995.84607  time=339.967 
+i=700  kl=48305.84  nell=52596384.0  nelbo=52644688.0  log-sigma2= [ 0.] RMSE=0.5627  nll_train=853.60740  time=395.633 
+i=800  kl=56347.258  nell=44852224.0  nelbo=44908572.0  log-sigma2= [ 0.] RMSE=0.5322  nll_train=756.96273  time=451.395 
+i=900  kl=64190.191  nell=40549716.0  nelbo=40613908.0  log-sigma2= [ 0.] RMSE=0.5025  nll_train=667.85127  time=507.195 
+i=1000  kl=71827.375  nell=36359112.0  nelbo=36430940.0  log-sigma2= [ 0.] RMSE=0.4814  nll_train=607.68713  time=562.748 
+i=1100  kl=79254.625  nell=33369772.0  nelbo=33449026.0  log-sigma2= [ 0.] RMSE=0.4579  nll_train=543.68660  time=618.468 
+i=1200  kl=86493.586  nell=29279678.0  nelbo=29366172.0  log-sigma2= [ 0.] RMSE=0.4382  nll_train=492.58230  time=674.447 
+i=1300  kl=93515.992  nell=27524532.0  nelbo=27618048.0  log-sigma2= [ 0.] RMSE=0.4227  nll_train=453.99543  time=730.235 
+i=1400  kl=100356.3  nell=25285724.0  nelbo=25386080.0  log-sigma2= [ 0.] RMSE=0.4059  nll_train=413.61403  time=786.525 
+i=1500  kl=107007.48  nell=23072578.0  nelbo=23179586.0  log-sigma2= [ 0.] RMSE=0.3891  nll_train=375.10100  time=842.295 
+i=1600  kl=113504.48  nell=21216932.0  nelbo=21330436.0  log-sigma2= [ 0.] RMSE=0.3791  nll_train=352.75117  time=898.162 
+i=1700  kl=119841.9  nell=19301294.0  nelbo=19421136.0  log-sigma2= [ 0.] RMSE=0.3679  nll_train=328.40860  time=953.998 
+i=1800  kl=126024.3  nell=18071572.0  nelbo=18197596.0  log-sigma2= [ 0.] RMSE=0.3596  nll_train=311.01730  time=1012.968 
+i=1900  kl=132063.28  nell=17121926.0  nelbo=17253990.0  log-sigma2= [ 0.] RMSE=0.3471  nll_train=285.42160  time=1068.754 
+i=2000  kl=137963.47  nell=15928303.0  nelbo=16066266.0  log-sigma2= [ 0.] RMSE=0.3379  nll_train=267.06478  time=1124.507 
+i=2100  kl=143743.48  nell=15080904.0  nelbo=15224647.0  log-sigma2= [ 0.] RMSE=0.3300  nll_train=251.92212  time=1180.267 
+i=2200  kl=149402.58  nell=14208777.0  nelbo=14358180.0  log-sigma2= [ 0.] RMSE=0.3227  nll_train=238.11420  time=1235.94 
+i=2300  kl=154955.98  nell=13451990.0  nelbo=13606946.0  log-sigma2= [ 0.] RMSE=0.3145  nll_train=222.86623  time=1291.738 
+i=2400  kl=160415.16  nell=12622546.0  nelbo=12782961.0  log-sigma2= [ 0.] RMSE=0.3071  nll_train=209.64183  time=1349.697 
+i=2500  kl=165758.25  nell=11885227.0  nelbo=12050985.0  log-sigma2= [ 0.] RMSE=0.3014  nll_train=199.64768  time=1405.899 
+i=2600  kl=171054.77  nell=11088124.0  nelbo=11259179.0  log-sigma2= [ 0.] RMSE=0.2923  nll_train=183.89457  time=1462.031 
+i=2700  kl=176193.23  nell=10634687.0  nelbo=10810880.0  log-sigma2= [ 0.] RMSE=0.2896  nll_train=179.39018  time=1519.227 
+i=2800  kl=181242.0  nell=10213202.0  nelbo=10394444.0  log-sigma2= [ 0.] RMSE=0.2833  nll_train=168.96860  time=1574.989 
+i=2900  kl=186202.55  nell=9594255.0  nelbo=9780458.0  log-sigma2= [ 0.] RMSE=0.2778  nll_train=159.91232  time=1630.959 
+i=3000  kl=191086.84  nell=9185461.0  nelbo=9376548.0  log-sigma2= [ 0.] RMSE=0.2726  nll_train=151.76553  time=1687.024 
+i=3100  kl=195895.56  nell=8740055.0  nelbo=8935951.0  log-sigma2= [ 0.] RMSE=0.2685  nll_train=145.21922  time=1744.682 
+i=3200  kl=200647.69  nell=8389871.0  nelbo=8590519.0  log-sigma2= [ 0.] RMSE=0.2642  nll_train=138.60582  time=1800.575 
+i=3300  kl=205337.61  nell=8093571.0  nelbo=8298908.5  log-sigma2= [ 0.] RMSE=0.2602  nll_train=132.59377  time=1856.372 
+i=3400  kl=209966.64  nell=7658589.0  nelbo=7868555.5  log-sigma2= [ 0.] RMSE=0.2568  nll_train=127.45510  time=1912.054 
+i=3500  kl=214549.48  nell=7439094.0  nelbo=7653643.5  log-sigma2= [ 0.] RMSE=0.2529  nll_train=121.71540  time=1967.875 
+i=3600  kl=219070.23  nell=7070882.0  nelbo=7289952.0  log-sigma2= [ 0.] RMSE=0.2500  nll_train=117.54177  time=2023.62 
+i=3700  kl=223549.39  nell=6798534.0  nelbo=7022083.5  log-sigma2= [ 0.] RMSE=0.2469  nll_train=113.00906  time=2080.533 
+i=3800  kl=227991.34  nell=6541650.5  nelbo=6769642.0  log-sigma2= [ 0.] RMSE=0.2433  nll_train=107.97477  time=2136.406 
+i=3900  kl=232387.05  nell=6300924.0  nelbo=6533311.0  log-sigma2= [ 0.] RMSE=0.2410  nll_train=104.73869  time=2192.21 
+i=4000  kl=236735.19  nell=6068280.5  nelbo=6305015.5  log-sigma2= [ 0.] RMSE=0.2382  nll_train=100.82504  time=2248.015 
+i=4100  kl=241043.0  nell=5856625.5  nelbo=6097668.5  log-sigma2= [ 0.] RMSE=0.2360  nll_train=97.79427  time=2303.561 
+i=4200  kl=245326.05  nell=5715486.5  nelbo=5960812.5  log-sigma2= [ 0.] RMSE=0.2344  nll_train=95.63619  time=2359.322 
+i=4300  kl=249564.77  nell=5471439.0  nelbo=5721004.0  log-sigma2= [ 0.] RMSE=0.2318  nll_train=92.03974  time=2415.042 
+i=4400  kl=253767.45  nell=5328767.0  nelbo=5582534.5  log-sigma2= [ 0.] RMSE=0.2293  nll_train=88.71197  time=2470.928 
+i=4500  kl=257937.69  nell=5183755.0  nelbo=5441692.5  log-sigma2= [ 0.] RMSE=0.2275  nll_train=86.29802  time=2526.752 
+i=4600  kl=262092.64  nell=5023585.0  nelbo=5285677.5  log-sigma2= [ 0.] RMSE=0.2255  nll_train=83.74314  time=2582.536 
+i=4700  kl=266205.62  nell=4880997.0  nelbo=5147202.5  log-sigma2= [ 0.] RMSE=0.2242  nll_train=81.99239  time=2638.483 
+i=4800  kl=270293.59  nell=4737647.5  nelbo=5007941.0  log-sigma2= [ 0.] RMSE=0.2216  nll_train=78.70055  time=2694.302 
+i=4900  kl=274356.03  nell=4606246.0  nelbo=4880602.0  log-sigma2= [ 0.] RMSE=0.2206  nll_train=77.43837  time=2750.053 
+i=5000  kl=278397.5  nell=4538380.0  nelbo=4816777.5  log-sigma2= [ 0.] RMSE=0.2186  nll_train=74.83755  time=2805.717 
+i=5100  kl=282410.0  nell=4384493.0  nelbo=4666903.0  log-sigma2= [ 0.] RMSE=0.2178  nll_train=73.86732  time=2861.419 
+i=5200  kl=286385.91  nell=4300856.0  nelbo=4587242.0  log-sigma2= [ 0.] RMSE=0.2160  nll_train=71.62395  time=2918.372 
+i=5300  kl=290348.31  nell=4211058.0  nelbo=4501406.5  log-sigma2= [ 0.] RMSE=0.2143  nll_train=69.47936  time=2975.091 
+i=5400  kl=294294.72  nell=4095058.0  nelbo=4389352.5  log-sigma2= [ 0.] RMSE=0.2133  nll_train=68.25655  time=3030.814 
+i=5500  kl=298218.81  nell=4002443.2  nelbo=4300662.0  log-sigma2= [ 0.] RMSE=0.2119  nll_train=66.47673  time=3086.634 
+i=5600  kl=302115.66  nell=3917296.8  nelbo=4219412.5  log-sigma2= [ 0.] RMSE=0.2107  nll_train=64.97531  time=3142.293 
+i=5700  kl=305991.19  nell=3833746.0  nelbo=4139737.2  log-sigma2= [ 0.] RMSE=0.2096  nll_train=63.65345  time=3197.954 
+i=5800  kl=309854.0  nell=3731493.2  nelbo=4041347.2  log-sigma2= [ 0.] RMSE=0.2085  nll_train=62.33958  time=3253.799 
+i=5900  kl=313689.19  nell=3684099.2  nelbo=3997788.5  log-sigma2= [ 0.] RMSE=0.2076  nll_train=61.26932  time=3309.673 
+i=6000  kl=317506.38  nell=3611318.5  nelbo=3928825.0  log-sigma2= [ 0.] RMSE=0.2069  nll_train=60.40950  time=3365.662 
+i=6100  kl=321301.41  nell=3543473.8  nelbo=3864775.2  log-sigma2= [ 0.] RMSE=0.2059  nll_train=59.28595  time=3421.299 
+i=6200  kl=325074.34  nell=3492259.0  nelbo=3817333.2  log-sigma2= [ 0.] RMSE=0.2047  nll_train=57.86333  time=3477.098 
+i=6300  kl=328839.19  nell=3425795.0  nelbo=3754634.2  log-sigma2= [ 0.] RMSE=0.2036  nll_train=56.53307  time=3532.966 
+i=6400  kl=332581.72  nell=3368446.8  nelbo=3701028.5  log-sigma2= [ 0.] RMSE=0.2031  nll_train=55.89929  time=3588.779 
+i=6500  kl=336305.81  nell=3314970.5  nelbo=3651276.2  log-sigma2= [ 0.] RMSE=0.2023  nll_train=54.96332  time=3644.527 
+i=6600  kl=340006.06  nell=3264373.8  nelbo=3604379.8  log-sigma2= [ 0.] RMSE=0.2017  nll_train=54.26666  time=3700.206 
+i=6700  kl=343693.53  nell=3205377.0  nelbo=3549070.5  log-sigma2= [ 0.] RMSE=0.2008  nll_train=53.25325  time=3755.795 
+i=6800  kl=347357.84  nell=3173575.5  nelbo=3520933.2  log-sigma2= [ 0.] RMSE=0.2003  nll_train=52.61079  time=3811.646 
+i=6900  kl=351009.47  nell=3100975.5  nelbo=3451985.0  log-sigma2= [ 0.] RMSE=0.1997  nll_train=51.96499  time=3867.459 
+i=7000  kl=354641.62  nell=3073892.0  nelbo=3428533.5  log-sigma2= [ 0.] RMSE=0.1990  nll_train=51.18070  time=3923.254 
+i=7100  kl=358261.47  nell=3017869.2  nelbo=3376130.8  log-sigma2= [ 0.] RMSE=0.1984  nll_train=50.48687  time=3979.068 
+i=7200  kl=361864.38  nell=2992114.5  nelbo=3353979.0  log-sigma2= [ 0.] RMSE=0.1979  nll_train=49.86297  time=4034.881 
+i=7300  kl=365451.22  nell=2956659.2  nelbo=3322110.5  log-sigma2= [ 0.] RMSE=0.1976  nll_train=49.52358  time=4090.726 
+i=7400  kl=369014.69  nell=2905738.0  nelbo=3274752.8  log-sigma2= [ 0.] RMSE=0.1969  nll_train=48.78384  time=4146.501 
+i=7500  kl=372550.12  nell=2886078.2  nelbo=3258628.5  log-sigma2= [ 0.] RMSE=0.1962  nll_train=47.95725  time=4202.256 
+i=7600  kl=380698.84  nell=-11513527.0  nelbo=-11132828.0  log-sigma2= [-1.36369967] RMSE=0.1894  nll_train=-191.91360  time=4258.43 
+i=7700  kl=385741.34  nell=-11755202.0  nelbo=-11369461.0  log-sigma2= [-1.63490427] RMSE=0.1885  nll_train=-195.99812  time=4314.188 
+i=7800  kl=389621.44  nell=-11870600.0  nelbo=-11480979.0  log-sigma2= [-1.80030215] RMSE=0.1880  nll_train=-197.97535  time=4370.77 
+i=7900  kl=392921.81  nell=-11959849.0  nelbo=-11566927.0  log-sigma2= [-1.91414523] RMSE=0.1877  nll_train=-199.32083  time=4426.669 
+i=8000  kl=395850.41  nell=-12022159.0  nelbo=-11626309.0  log-sigma2= [-2.00542736] RMSE=0.1874  nll_train=-200.36575  time=4482.588 
+i=8100  kl=398517.84  nell=-12084435.0  nelbo=-11685917.0  log-sigma2= [-2.08414388] RMSE=0.1872  nll_train=-201.32563  time=4538.509 
+i=8200  kl=400987.25  nell=-12124369.0  nelbo=-11723382.0  log-sigma2= [-2.14595342] RMSE=0.1870  nll_train=-202.16065  time=4594.135 
+i=8300  kl=403303.34  nell=-12161228.0  nelbo=-11757925.0  log-sigma2= [-2.20439363] RMSE=0.1868  nll_train=-202.70633  time=4649.902 
+i=8400  kl=405482.91  nell=-12195373.0  nelbo=-11789890.0  log-sigma2= [-2.25318885] RMSE=0.1867  nll_train=-203.40693  time=4705.844 
+i=8500  kl=407556.59  nell=-12239186.0  nelbo=-11831629.0  log-sigma2= [-2.29920864] RMSE=0.1865  nll_train=-203.98315  time=4761.66 
+i=8600  kl=409532.0  nell=-12270082.0  nelbo=-11860550.0  log-sigma2= [-2.34052062] RMSE=0.1864  nll_train=-204.52873  time=4817.734 
+i=8700  kl=411427.22  nell=-12301125.0  nelbo=-11889698.0  log-sigma2= [-2.37856269] RMSE=0.1863  nll_train=-205.06632  time=4873.528 
+i=8800  kl=413251.47  nell=-12325171.0  nelbo=-11911920.0  log-sigma2= [-2.4172101] RMSE=0.1862  nll_train=-205.43805  time=4929.346 
+i=8900  kl=415013.72  nell=-12350786.0  nelbo=-11935772.0  log-sigma2= [-2.44568253] RMSE=0.1861  nll_train=-205.86907  time=4985.222 
+i=9000  kl=416722.5  nell=-12378298.0  nelbo=-11961576.0  log-sigma2= [-2.47745752] RMSE=0.1860  nll_train=-206.27000  time=5041.132 
+i=9100  kl=418373.12  nell=-12406097.0  nelbo=-11987724.0  log-sigma2= [-2.50299573] RMSE=0.1859  nll_train=-206.74923  time=5097.273 
+i=9200  kl=419978.91  nell=-12436206.0  nelbo=-12016227.0  log-sigma2= [-2.53085613] RMSE=0.1858  nll_train=-207.25320  time=5153.16 
+i=9300  kl=421549.66  nell=-12462269.0  nelbo=-12040719.0  log-sigma2= [-2.55322742] RMSE=0.1857  nll_train=-207.69428  time=5209.011 
+i=9400  kl=423089.81  nell=-12492489.0  nelbo=-12069399.0  log-sigma2= [-2.57277298] RMSE=0.1856  nll_train=-208.18375  time=5264.851 
+i=9500  kl=424597.03  nell=-12515299.0  nelbo=-12090702.0  log-sigma2= [-2.59268975] RMSE=0.1854  nll_train=-208.63547  time=5320.677 
+i=9600  kl=426088.97  nell=-12547837.0  nelbo=-12121748.0  log-sigma2= [-2.61258078] RMSE=0.1853  nll_train=-209.13780  time=5376.443 
+i=9700  kl=427565.06  nell=-12575020.0  nelbo=-12147455.0  log-sigma2= [-2.62823486] RMSE=0.1852  nll_train=-209.56335  time=5432.41 
+i=9800  kl=429025.03  nell=-12607791.0  nelbo=-12178766.0  log-sigma2= [-2.64233232] RMSE=0.1851  nll_train=-210.13548  time=5488.26 
+i=9900  kl=430463.56  nell=-12635828.0  nelbo=-12205364.0  log-sigma2= [-2.65646434] RMSE=0.1850  nll_train=-210.59882  time=5544.2 
+i=10000  kl=431893.81  nell=-12664890.0  nelbo=-12232996.0  log-sigma2= [-2.66763258] RMSE=0.1849  nll_train=-211.09235  time=5600.073 
+i=10100  kl=433311.41  nell=-12689953.0  nelbo=-12256642.0  log-sigma2= [-2.67754459] RMSE=0.1848  nll_train=-211.47365  time=5656.02 
+i=10200  kl=434713.62  nell=-12708731.0  nelbo=-12274017.0  log-sigma2= [-2.68779564] RMSE=0.1847  nll_train=-211.84837  time=5711.875 
+i=10300  kl=436091.62  nell=-12733905.0  nelbo=-12297813.0  log-sigma2= [-2.69635653] RMSE=0.1846  nll_train=-212.21938  time=5767.723 
+i=10400  kl=437462.78  nell=-12754638.0  nelbo=-12317175.0  log-sigma2= [-2.70488691] RMSE=0.1845  nll_train=-212.61445  time=5823.677 
+i=10500  kl=438813.59  nell=-12784810.0  nelbo=-12345996.0  log-sigma2= [-2.71677756] RMSE=0.1844  nll_train=-213.07910  time=5879.51 
+i=10600  kl=440145.31  nell=-12805809.0  nelbo=-12365664.0  log-sigma2= [-2.72289729] RMSE=0.1843  nll_train=-213.45078  time=5935.363 
+i=10700  kl=441461.06  nell=-12829236.0  nelbo=-12387775.0  log-sigma2= [-2.72963119] RMSE=0.1842  nll_train=-213.81387  time=5991.18 
+i=10800  kl=442755.5  nell=-12851346.0  nelbo=-12408590.0  log-sigma2= [-2.73836493] RMSE=0.1841  nll_train=-214.20705  time=6047.14 
+i=10900  kl=444028.81  nell=-12868086.0  nelbo=-12424057.0  log-sigma2= [-2.74744368] RMSE=0.1841  nll_train=-214.46242  time=6103.049 
+i=11000  kl=445277.28  nell=-12883772.0  nelbo=-12438495.0  log-sigma2= [-2.75419688] RMSE=0.1840  nll_train=-214.76385  time=6158.984 
+i=11100  kl=446497.56  nell=-12902754.0  nelbo=-12456256.0  log-sigma2= [-2.7624402] RMSE=0.1839  nll_train=-215.01812  time=6214.901 
+i=11200  kl=447691.84  nell=-12921962.0  nelbo=-12474270.0  log-sigma2= [-2.77018023] RMSE=0.1838  nll_train=-215.33078  time=6270.873 
+i=11300  kl=448852.72  nell=-12935463.0  nelbo=-12486610.0  log-sigma2= [-2.77662635] RMSE=0.1838  nll_train=-215.59965  time=6326.544 
+i=11400  kl=449989.0  nell=-12962755.0  nelbo=-12512766.0  log-sigma2= [-2.78630543] RMSE=0.1837  nll_train=-216.04330  time=6382.455 
+i=11500  kl=451093.06  nell=-12981706.0  nelbo=-12530613.0  log-sigma2= [-2.79326415] RMSE=0.1836  nll_train=-216.37927  time=6438.444 
+i=11600  kl=452161.53  nell=-13001605.0  nelbo=-12549443.0  log-sigma2= [-2.8002193] RMSE=0.1836  nll_train=-216.68832  time=6494.113 
+i=11700  kl=453203.31  nell=-13025234.0  nelbo=-12572031.0  log-sigma2= [-2.8058722] RMSE=0.1835  nll_train=-217.07975  time=6549.73 
+i=11800  kl=454249.22  nell=-13041964.0  nelbo=-12587715.0  log-sigma2= [-2.80931926] RMSE=0.1834  nll_train=-217.35750  time=6605.541 
+i=11900  kl=455274.06  nell=-13059627.0  nelbo=-12604353.0  log-sigma2= [-2.81364322] RMSE=0.1833  nll_train=-217.66425  time=6661.368 
+i=12000  kl=456291.31  nell=-13075254.0  nelbo=-12618963.0  log-sigma2= [-2.81918001] RMSE=0.1832  nll_train=-217.93273  time=6717.197 
+i=12100  kl=457284.0  nell=-13095361.0  nelbo=-12638077.0  log-sigma2= [-2.82316923] RMSE=0.1832  nll_train=-218.21960  time=6773.05 
+i=12200  kl=458253.16  nell=-13108723.0  nelbo=-12650470.0  log-sigma2= [-2.83039713] RMSE=0.1831  nll_train=-218.50673  time=6828.933 
+i=12300  kl=459168.88  nell=-13123356.0  nelbo=-12664187.0  log-sigma2= [-2.83509731] RMSE=0.1830  nll_train=-218.71895  time=6884.811 
+i=12400  kl=460045.56  nell=-13146849.0  nelbo=-12686803.0  log-sigma2= [-2.84034371] RMSE=0.1830  nll_train=-219.10953  time=6940.653 
+i=12500  kl=460857.25  nell=-13164295.0  nelbo=-12703438.0  log-sigma2= [-2.84821415] RMSE=0.1829  nll_train=-219.38373  time=6996.735 
+i=12600  kl=461610.22  nell=-13176398.0  nelbo=-12714788.0  log-sigma2= [-2.85279846] RMSE=0.1829  nll_train=-219.63673  time=7052.706 
+i=12700  kl=462316.16  nell=-13193896.0  nelbo=-12731580.0  log-sigma2= [-2.85868263] RMSE=0.1828  nll_train=-219.90323  time=7108.601 
+i=12800  kl=462963.44  nell=-13209486.0  nelbo=-12746523.0  log-sigma2= [-2.86490822] RMSE=0.1828  nll_train=-220.13555  time=7164.671 
+i=12900  kl=463557.19  nell=-13224215.0  nelbo=-12760658.0  log-sigma2= [-2.87094212] RMSE=0.1827  nll_train=-220.39530  time=7220.57 
+i=13000  kl=464090.75  nell=-13233855.0  nelbo=-12769764.0  log-sigma2= [-2.87695885] RMSE=0.1826  nll_train=-220.58870  time=7276.579 
+i=13100  kl=464595.75  nell=-13246788.0  nelbo=-12782192.0  log-sigma2= [-2.88250065] RMSE=0.1826  nll_train=-220.77580  time=7332.597 
+i=13200  kl=465068.16  nell=-13258191.0  nelbo=-12793123.0  log-sigma2= [-2.88704801] RMSE=0.1825  nll_train=-220.97852  time=7388.417 
+i=13300  kl=465503.38  nell=-13272520.0  nelbo=-12807017.0  log-sigma2= [-2.89142084] RMSE=0.1825  nll_train=-221.20435  time=7444.402 
+i=13400  kl=465903.69  nell=-13286280.0  nelbo=-12820376.0  log-sigma2= [-2.89624715] RMSE=0.1824  nll_train=-221.41498  time=7500.145 
+i=13500  kl=466287.31  nell=-13295988.0  nelbo=-12829701.0  log-sigma2= [-2.89982748] RMSE=0.1824  nll_train=-221.61100  time=7555.949 
+i=13600  kl=466654.75  nell=-13306361.0  nelbo=-12839706.0  log-sigma2= [-2.90363097] RMSE=0.1823  nll_train=-221.76348  time=7611.894 
+i=13700  kl=466989.91  nell=-13323934.0  nelbo=-12856944.0  log-sigma2= [-2.90728283] RMSE=0.1823  nll_train=-222.06320  time=7667.772 
+i=13800  kl=467301.47  nell=-13337222.0  nelbo=-12869921.0  log-sigma2= [-2.91062784] RMSE=0.1822  nll_train=-222.28793  time=7723.769 
+i=13900  kl=467597.81  nell=-13348661.0  nelbo=-12881063.0  log-sigma2= [-2.91300726] RMSE=0.1822  nll_train=-222.48055  time=7779.569 
+i=14000  kl=467872.69  nell=-13358634.0  nelbo=-12890761.0  log-sigma2= [-2.91747761] RMSE=0.1822  nll_train=-222.63160  time=7835.53 
+i=14100  kl=468108.19  nell=-13371224.0  nelbo=-12903116.0  log-sigma2= [-2.92198396] RMSE=0.1821  nll_train=-222.84575  time=7891.395 
+i=14200  kl=468333.69  nell=-13380616.0  nelbo=-12912282.0  log-sigma2= [-2.92608857] RMSE=0.1821  nll_train=-223.01090  time=7947.235 
+i=14300  kl=468541.22  nell=-13389329.0  nelbo=-12920788.0  log-sigma2= [-2.93031645] RMSE=0.1820  nll_train=-223.17125  time=8003.298 
+i=14400  kl=468699.84  nell=-13399026.0  nelbo=-12930326.0  log-sigma2= [-2.93425751] RMSE=0.1820  nll_train=-223.34185  time=8059.209 
+i=14500  kl=468796.47  nell=-13406980.0  nelbo=-12938184.0  log-sigma2= [-2.93975258] RMSE=0.1820  nll_train=-223.43085  time=8115.025 
+i=14600  kl=468874.47  nell=-13414236.0  nelbo=-12945362.0  log-sigma2= [-2.94351816] RMSE=0.1819  nll_train=-223.56198  time=8170.857 
+i=14700  kl=468934.31  nell=-13421995.0  nelbo=-12953061.0  log-sigma2= [-2.94754934] RMSE=0.1819  nll_train=-223.68002  time=8226.903 
+i=14800  kl=468982.44  nell=-13428058.0  nelbo=-12959076.0  log-sigma2= [-2.95162988] RMSE=0.1819  nll_train=-223.79547  time=8282.865 
+i=14900  kl=469018.66  nell=-13434813.0  nelbo=-12965794.0  log-sigma2= [-2.95467663] RMSE=0.1819  nll_train=-223.90723  time=8338.665 
+i=15000  kl=469006.28  nell=-13441439.0  nelbo=-12972433.0  log-sigma2= [-2.95811963] RMSE=0.1818  nll_train=-224.03680  time=8394.655 
+i=15100  kl=469018.25  nell=-13447192.0  nelbo=-12978174.0  log-sigma2= [-2.96429992] RMSE=0.1818  nll_train=-224.11132  time=8450.944 
+i=15200  kl=469023.34  nell=-13457078.0  nelbo=-12988055.0  log-sigma2= [-2.96660352] RMSE=0.1818  nll_train=-224.26707  time=8506.413 
+i=15300  kl=468992.19  nell=-13464536.0  nelbo=-12995544.0  log-sigma2= [-2.96952963] RMSE=0.1817  nll_train=-224.38547  time=8562.461 
+i=15400  kl=468940.28  nell=-13469634.0  nelbo=-13000694.0  log-sigma2= [-2.97229719] RMSE=0.1817  nll_train=-224.49997  time=8618.313 
+i=15500  kl=468926.47  nell=-13474348.0  nelbo=-13005422.0  log-sigma2= [-2.97690344] RMSE=0.1817  nll_train=-224.59228  time=8674.148 
+i=15600  kl=468897.47  nell=-13482219.0  nelbo=-13013322.0  log-sigma2= [-2.97913575] RMSE=0.1816  nll_train=-224.70617  time=8730.284 
+i=15700  kl=468882.06  nell=-13486941.0  nelbo=-13018059.0  log-sigma2= [-2.98164439] RMSE=0.1816  nll_train=-224.78287  time=8786.124 
+i=15800  kl=468880.72  nell=-13496550.0  nelbo=-13027669.0  log-sigma2= [-2.98305297] RMSE=0.1816  nll_train=-224.96605  time=8841.909 
+i=15900  kl=468853.31  nell=-13503482.0  nelbo=-13034629.0  log-sigma2= [-2.98706293] RMSE=0.1816  nll_train=-225.08268  time=8897.855 
+i=16000  kl=468877.69  nell=-13513694.0  nelbo=-13044816.0  log-sigma2= [-2.98737502] RMSE=0.1816  nll_train=-225.21255  time=8953.811 
+i=16100  kl=468895.38  nell=-13520602.0  nelbo=-13051707.0  log-sigma2= [-2.99069095] RMSE=0.1815  nll_train=-225.32313  time=9009.711 
+i=16200  kl=468938.97  nell=-13525579.0  nelbo=-13056640.0  log-sigma2= [-2.99111748] RMSE=0.1815  nll_train=-225.41677  time=9065.589 
+i=16300  kl=469026.03  nell=-13532446.0  nelbo=-13063420.0  log-sigma2= [-2.99256229] RMSE=0.1815  nll_train=-225.55628  time=9121.592 
+i=16400  kl=469144.66  nell=-13537228.0  nelbo=-13068083.0  log-sigma2= [-2.99276996] RMSE=0.1815  nll_train=-225.60452  time=9177.817 
+i=16500  kl=469265.41  nell=-13544363.0  nelbo=-13075098.0  log-sigma2= [-2.99340582] RMSE=0.1814  nll_train=-225.74400  time=9233.591 
+i=16600  kl=469394.53  nell=-13550970.0  nelbo=-13081575.0  log-sigma2= [-2.9932127] RMSE=0.1814  nll_train=-225.81360  time=9289.537 
+i=16700  kl=469554.78  nell=-13557106.0  nelbo=-13087551.0  log-sigma2= [-2.99191093] RMSE=0.1814  nll_train=-225.95962  time=9345.472 
+i=16800  kl=469761.22  nell=-13565902.0  nelbo=-13096141.0  log-sigma2= [-2.98797083] RMSE=0.1814  nll_train=-226.08448  time=9401.413 
+i=16900  kl=469938.38  nell=-13570934.0  nelbo=-13100996.0  log-sigma2= [-2.98836279] RMSE=0.1813  nll_train=-226.20222  time=9457.234 
+i=17000  kl=470142.69  nell=-13577450.0  nelbo=-13107307.0  log-sigma2= [-2.9884665] RMSE=0.1813  nll_train=-226.29310  time=9513.246 
+i=17100  kl=470357.66  nell=-13582505.0  nelbo=-13112147.0  log-sigma2= [-2.98499656] RMSE=0.1813  nll_train=-226.35190  time=9569.247 
+i=17200  kl=470552.62  nell=-13588426.0  nelbo=-13117873.0  log-sigma2= [-2.985358] RMSE=0.1813  nll_train=-226.47648  time=9625.016 
+i=17300  kl=470819.59  nell=-13594505.0  nelbo=-13123685.0  log-sigma2= [-2.98246694] RMSE=0.1813  nll_train=-226.56953  time=9680.988 
+i=17400  kl=471099.09  nell=-13600193.0  nelbo=-13129094.0  log-sigma2= [-2.98009682] RMSE=0.1812  nll_train=-226.64547  time=9736.889 
+i=17500  kl=471410.41  nell=-13604297.0  nelbo=-13132887.0  log-sigma2= [-2.97914839] RMSE=0.1812  nll_train=-226.72890  time=9792.745 
+i=17600  kl=471755.88  nell=-13608167.0  nelbo=-13136411.0  log-sigma2= [-2.97638273] RMSE=0.1812  nll_train=-226.79948  time=9848.79 
+i=17700  kl=472103.34  nell=-13613213.0  nelbo=-13141110.0  log-sigma2= [-2.97410131] RMSE=0.1812  nll_train=-226.87650  time=9904.783 
+i=17800  kl=472438.69  nell=-13619063.0  nelbo=-13146624.0  log-sigma2= [-2.97204947] RMSE=0.1811  nll_train=-226.96638  time=9960.661 
+i=17900  kl=472801.34  nell=-13621856.0  nelbo=-13149055.0  log-sigma2= [-2.9685061] RMSE=0.1811  nll_train=-227.04687  time=10016.733 
+i=18000  kl=473173.09  nell=-13628432.0  nelbo=-13155259.0  log-sigma2= [-2.96636629] RMSE=0.1811  nll_train=-227.12298  time=10072.695 
+i=18100  kl=473544.38  nell=-13633044.0  nelbo=-13159500.0  log-sigma2= [-2.96373773] RMSE=0.1811  nll_train=-227.23985  time=10128.594 
+i=18200  kl=473946.75  nell=-13638870.0  nelbo=-13164923.0  log-sigma2= [-2.96049166] RMSE=0.1810  nll_train=-227.34887  time=10184.49 
+i=18300  kl=474366.09  nell=-13647094.0  nelbo=-13172728.0  log-sigma2= [-2.95862079] RMSE=0.1810  nll_train=-227.43920  time=10240.566 
+i=18400  kl=474781.22  nell=-13651426.0  nelbo=-13176645.0  log-sigma2= [-2.95385242] RMSE=0.1810  nll_train=-227.49628  time=10296.526 
+i=18500  kl=475144.09  nell=-13654326.0  nelbo=-13179182.0  log-sigma2= [-2.95111227] RMSE=0.1810  nll_train=-227.57760  time=10352.428 
+i=18600  kl=475491.34  nell=-13661666.0  nelbo=-13186175.0  log-sigma2= [-2.94996715] RMSE=0.1810  nll_train=-227.69878  time=10408.304 
+i=18700  kl=475808.41  nell=-13665636.0  nelbo=-13189828.0  log-sigma2= [-2.94685125] RMSE=0.1809  nll_train=-227.75038  time=10464.088 
+i=18800  kl=476153.97  nell=-13670707.0  nelbo=-13194553.0  log-sigma2= [-2.94340086] RMSE=0.1809  nll_train=-227.83923  time=10520.027 
+i=18900  kl=476457.22  nell=-13683400.0  nelbo=-13206943.0  log-sigma2= [-2.94074535] RMSE=0.1809  nll_train=-228.05780  time=10575.888 
+i=19000  kl=476783.12  nell=-13684391.0  nelbo=-13207608.0  log-sigma2= [-2.93689871] RMSE=0.1809  nll_train=-228.07373  time=10631.792 
+i=19100  kl=477139.44  nell=-13694730.0  nelbo=-13217591.0  log-sigma2= [-2.93449092] RMSE=0.1808  nll_train=-228.25677  time=10687.565 
+i=19200  kl=477486.0  nell=-13701035.0  nelbo=-13223549.0  log-sigma2= [-2.92987943] RMSE=0.1808  nll_train=-228.37648  time=10743.572 
+i=19300  kl=477870.69  nell=-13708154.0  nelbo=-13230283.0  log-sigma2= [-2.92738914] RMSE=0.1808  nll_train=-228.50217  time=10799.531 
+i=19400  kl=478176.72  nell=-13717473.0  nelbo=-13239296.0  log-sigma2= [-2.92249608] RMSE=0.1808  nll_train=-228.60610  time=10855.597 
+i=19500  kl=478551.03  nell=-13724712.0  nelbo=-13246161.0  log-sigma2= [-2.92264915] RMSE=0.1808  nll_train=-228.72400  time=10911.609 
+i=19600  kl=478847.06  nell=-13730572.0  nelbo=-13251725.0  log-sigma2= [-2.91911888] RMSE=0.1807  nll_train=-228.83422  time=10967.5 
+i=19700  kl=479166.53  nell=-13734928.0  nelbo=-13255761.0  log-sigma2= [-2.91574192] RMSE=0.1807  nll_train=-228.92842  time=11023.574 
+i=19800  kl=479409.06  nell=-13741603.0  nelbo=-13262194.0  log-sigma2= [-2.91277027] RMSE=0.1807  nll_train=-229.03263  time=11079.363 
+i=19900  kl=479689.06  nell=-13747146.0  nelbo=-13267457.0  log-sigma2= [-2.91174674] RMSE=0.1807  nll_train=-229.14152  time=11135.681 
+i=20000  kl=479988.66  nell=-13752026.0  nelbo=-13272037.0  log-sigma2= [-2.90932012] RMSE=0.1807  nll_train=-229.19672  time=11191.147 
+i=20100  kl=480240.09  nell=-13756969.0  nelbo=-13276729.0  log-sigma2= [-2.90569544] RMSE=0.1806  nll_train=-229.27113  time=11247.115 
+i=20200  kl=480490.44  nell=-13761420.0  nelbo=-13280930.0  log-sigma2= [-2.90448332] RMSE=0.1806  nll_train=-229.34230  time=11303.038 
+i=20300  kl=480674.75  nell=-13766433.0  nelbo=-13285758.0  log-sigma2= [-2.90268445] RMSE=0.1806  nll_train=-229.43707  time=11359.084 
+i=20400  kl=480887.72  nell=-13769924.0  nelbo=-13289036.0  log-sigma2= [-2.90006447] RMSE=0.1806  nll_train=-229.49763  time=11415.156 
+i=20500  kl=481048.59  nell=-13775143.0  nelbo=-13294094.0  log-sigma2= [-2.89970207] RMSE=0.1806  nll_train=-229.60335  time=11471.18 
+i=20600  kl=481223.81  nell=-13778272.0  nelbo=-13297048.0  log-sigma2= [-2.89851213] RMSE=0.1805  nll_train=-229.64085  time=11527.123 
+i=20700  kl=481346.41  nell=-13780104.0  nelbo=-13298758.0  log-sigma2= [-2.89797068] RMSE=0.1805  nll_train=-229.67467  time=11582.822 
+i=20800  kl=481471.69  nell=-13787908.0  nelbo=-13306436.0  log-sigma2= [-2.89556074] RMSE=0.1805  nll_train=-229.79180  time=11638.667 
+i=20900  kl=481619.06  nell=-13789603.0  nelbo=-13307984.0  log-sigma2= [-2.89465022] RMSE=0.1805  nll_train=-229.82797  time=11694.567 
+i=21000  kl=481729.12  nell=-13791074.0  nelbo=-13309345.0  log-sigma2= [-2.89277697] RMSE=0.1805  nll_train=-229.88827  time=11750.327 
+i=21100  kl=481846.31  nell=-13795150.0  nelbo=-13313304.0  log-sigma2= [-2.89258647] RMSE=0.1805  nll_train=-229.94318  time=11806.351 
+i=21200  kl=481952.25  nell=-13799071.0  nelbo=-13317119.0  log-sigma2= [-2.89268541] RMSE=0.1804  nll_train=-230.00142  time=11862.3 
+i=21300  kl=482065.0  nell=-13804748.0  nelbo=-13322683.0  log-sigma2= [-2.89103866] RMSE=0.1804  nll_train=-230.06513  time=11918.144 
+i=21400  kl=482171.38  nell=-13805114.0  nelbo=-13322943.0  log-sigma2= [-2.88948345] RMSE=0.1804  nll_train=-230.09040  time=11974.097 
+i=21500  kl=482262.06  nell=-13811132.0  nelbo=-13328870.0  log-sigma2= [-2.89083552] RMSE=0.1804  nll_train=-230.17600  time=12030.083 
+i=21600  kl=482322.91  nell=-13814722.0  nelbo=-13332399.0  log-sigma2= [-2.88882375] RMSE=0.1804  nll_train=-230.24713  time=12085.937 
+i=21700  kl=482396.0  nell=-13818536.0  nelbo=-13336140.0  log-sigma2= [-2.88688755] RMSE=0.1804  nll_train=-230.30082  time=12142.004 
+i=21800  kl=482449.78  nell=-13822610.0  nelbo=-13340160.0  log-sigma2= [-2.886096] RMSE=0.1804  nll_train=-230.36282  time=12198.186 
+i=21900  kl=482530.56  nell=-13825571.0  nelbo=-13343040.0  log-sigma2= [-2.88613033] RMSE=0.1803  nll_train=-230.42242  time=12253.943 
+i=22000  kl=482649.69  nell=-13830760.0  nelbo=-13348110.0  log-sigma2= [-2.88516831] RMSE=0.1803  nll_train=-230.51168  time=12309.914 
+i=22100  kl=482762.69  nell=-13833407.0  nelbo=-13350644.0  log-sigma2= [-2.88555813] RMSE=0.1803  nll_train=-230.55725  time=12365.961 
+i=22200  kl=482861.91  nell=-13837601.0  nelbo=-13354739.0  log-sigma2= [-2.88168836] RMSE=0.1803  nll_train=-230.63073  time=12421.864 
+i=22300  kl=482986.19  nell=-13839694.0  nelbo=-13356708.0  log-sigma2= [-2.88119316] RMSE=0.1803  nll_train=-230.66102  time=12477.858 
+i=22400  kl=483134.03  nell=-13844283.0  nelbo=-13361149.0  log-sigma2= [-2.87951565] RMSE=0.1803  nll_train=-230.72070  time=12533.708 
+i=22500  kl=483320.47  nell=-13846454.0  nelbo=-13363134.0  log-sigma2= [-2.87747455] RMSE=0.1802  nll_train=-230.79917  time=12589.697 
+i=22600  kl=483484.22  nell=-13851594.0  nelbo=-13368110.0  log-sigma2= [-2.87618208] RMSE=0.1802  nll_train=-230.84963  time=12646.065 
+i=22700  kl=483660.56  nell=-13856740.0  nelbo=-13373079.0  log-sigma2= [-2.87267017] RMSE=0.1802  nll_train=-230.91930  time=12701.845 
+i=22800  kl=483847.59  nell=-13856867.0  nelbo=-13373019.0  log-sigma2= [-2.87147093] RMSE=0.1802  nll_train=-230.95390  time=12757.446 
+i=22900  kl=484085.19  nell=-13861131.0  nelbo=-13377046.0  log-sigma2= [-2.86892128] RMSE=0.1802  nll_train=-231.00392  time=12813.271 
+i=23000  kl=484283.88  nell=-13866979.0  nelbo=-13382695.0  log-sigma2= [-2.86584449] RMSE=0.1802  nll_train=-231.11363  time=12869.214 
+i=23100  kl=484529.06  nell=-13878838.0  nelbo=-13394309.0  log-sigma2= [-2.86311412] RMSE=0.1802  nll_train=-231.30253  time=12925.221 
+i=23200  kl=484777.0  nell=-13881117.0  nelbo=-13396340.0  log-sigma2= [-2.86018562] RMSE=0.1801  nll_train=-231.37002  time=12981.246 
+i=23300  kl=485091.31  nell=-13889794.0  nelbo=-13404703.0  log-sigma2= [-2.85662937] RMSE=0.1801  nll_train=-231.46913  time=13037.15 
+i=23400  kl=485374.34  nell=-13894686.0  nelbo=-13409312.0  log-sigma2= [-2.85293198] RMSE=0.1801  nll_train=-231.55615  time=13092.918 
+i=23500  kl=485743.25  nell=-13898440.0  nelbo=-13412697.0  log-sigma2= [-2.8490746] RMSE=0.1801  nll_train=-231.63570  time=13148.803 
+i=23600  kl=486125.53  nell=-13902936.0  nelbo=-13416810.0  log-sigma2= [-2.84572124] RMSE=0.1801  nll_train=-231.72088  time=13204.77 
+i=23700  kl=486456.28  nell=-13910833.0  nelbo=-13424377.0  log-sigma2= [-2.84029317] RMSE=0.1800  nll_train=-231.85620  time=13261.05 
+i=23800  kl=486836.38  nell=-13915397.0  nelbo=-13428561.0  log-sigma2= [-2.8375895] RMSE=0.1800  nll_train=-231.91208  time=13316.788 
+i=23900  kl=487266.38  nell=-13918022.0  nelbo=-13430756.0  log-sigma2= [-2.83224893] RMSE=0.1800  nll_train=-231.93897  time=13372.663 
+i=24000  kl=487650.59  nell=-13924536.0  nelbo=-13436885.0  log-sigma2= [-2.82863903] RMSE=0.1800  nll_train=-232.05787  time=13428.568 
+i=24100  kl=488040.56  nell=-13928595.0  nelbo=-13440554.0  log-sigma2= [-2.82255387] RMSE=0.1800  nll_train=-232.12440  time=13484.635 
+i=24200  kl=488466.84  nell=-13933146.0  nelbo=-13444679.0  log-sigma2= [-2.81882691] RMSE=0.1800  nll_train=-232.19308  time=13540.349 
+i=24300  kl=488878.44  nell=-13936554.0  nelbo=-13447676.0  log-sigma2= [-2.81327939] RMSE=0.1799  nll_train=-232.28082  time=13596.314 
+i=24400  kl=489346.12  nell=-13942464.0  nelbo=-13453118.0  log-sigma2= [-2.80871582] RMSE=0.1799  nll_train=-232.35840  time=13652.194 
+i=24500  kl=489814.78  nell=-13946624.0  nelbo=-13456809.0  log-sigma2= [-2.80270195] RMSE=0.1799  nll_train=-232.45833  time=13707.993 
+i=24600  kl=490304.69  nell=-13948551.0  nelbo=-13458246.0  log-sigma2= [-2.79863501] RMSE=0.1799  nll_train=-232.49147  time=13763.803 
+i=24700  kl=490769.47  nell=-13955408.0  nelbo=-13464639.0  log-sigma2= [-2.79371142] RMSE=0.1799  nll_train=-232.58743  time=13819.883 
+i=24800  kl=491270.94  nell=-13958759.0  nelbo=-13467488.0  log-sigma2= [-2.78780365] RMSE=0.1799  nll_train=-232.65863  time=13875.546 
+i=24900  kl=491771.16  nell=-13964812.0  nelbo=-13473041.0  log-sigma2= [-2.78229356] RMSE=0.1798  nll_train=-232.72943  time=13931.574 
+i=25000  kl=492250.97  nell=-13967576.0  nelbo=-13475325.0  log-sigma2= [-2.77676344] RMSE=0.1798  nll_train=-232.79327  time=13987.554 
+i=25100  kl=492751.94  nell=-13970627.0  nelbo=-13477875.0  log-sigma2= [-2.77101707] RMSE=0.1798  nll_train=-232.82520  time=14043.354 
+i=25200  kl=493246.78  nell=-13972000.0  nelbo=-13478753.0  log-sigma2= [-2.76635599] RMSE=0.1798  nll_train=-232.89843  time=14099.388 
+i=25300  kl=493790.84  nell=-13981358.0  nelbo=-13487567.0  log-sigma2= [-2.75965738] RMSE=0.1798  nll_train=-233.00907  time=14155.38 
+i=25400  kl=494316.84  nell=-13982908.0  nelbo=-13488591.0  log-sigma2= [-2.75476146] RMSE=0.1797  nll_train=-233.06957  time=14211.242 
+i=25500  kl=494826.0  nell=-13986955.0  nelbo=-13492129.0  log-sigma2= [-2.74833941] RMSE=0.1797  nll_train=-233.12388  time=14267.24 
+i=25600  kl=495335.53  nell=-13990918.0  nelbo=-13495582.0  log-sigma2= [-2.74363017] RMSE=0.1797  nll_train=-233.17598  time=14323.189 
+i=25700  kl=495804.59  nell=-13998051.0  nelbo=-13502246.0  log-sigma2= [-2.73855615] RMSE=0.1797  nll_train=-233.29943  time=14379.049 
+i=25800  kl=496299.88  nell=-14003296.0  nelbo=-13506996.0  log-sigma2= [-2.73259354] RMSE=0.1797  nll_train=-233.38077  time=14434.901 
+i=25900  kl=496769.81  nell=-14008349.0  nelbo=-13511579.0  log-sigma2= [-2.72797704] RMSE=0.1796  nll_train=-233.45510  time=14490.901 
+i=26000  kl=497234.19  nell=-14011841.0  nelbo=-13514607.0  log-sigma2= [-2.72415209] RMSE=0.1796  nll_train=-233.51895  time=14547.459 
+i=26100  kl=497658.91  nell=-14014617.0  nelbo=-13516958.0  log-sigma2= [-2.71825266] RMSE=0.1796  nll_train=-233.59175  time=14602.856 
+i=26200  kl=498161.0  nell=-14018186.0  nelbo=-13520025.0  log-sigma2= [-2.71464467] RMSE=0.1796  nll_train=-233.64003  time=14658.796 
+i=26300  kl=498536.09  nell=-14022327.0  nelbo=-13523791.0  log-sigma2= [-2.7094872] RMSE=0.1796  nll_train=-233.73087  time=14714.818 
+i=26400  kl=498928.12  nell=-14026911.0  nelbo=-13527983.0  log-sigma2= [-2.70609164] RMSE=0.1796  nll_train=-233.79193  time=14770.698 
+i=26500  kl=499260.69  nell=-14030735.0  nelbo=-13531474.0  log-sigma2= [-2.70218682] RMSE=0.1796  nll_train=-233.82508  time=14826.695 
+i=26600  kl=499589.59  nell=-14033493.0  nelbo=-13533903.0  log-sigma2= [-2.69890165] RMSE=0.1795  nll_train=-233.87750  time=14882.764 
+i=26700  kl=499860.78  nell=-14041869.0  nelbo=-13542008.0  log-sigma2= [-2.69675541] RMSE=0.1795  nll_train=-234.04047  time=14938.642 
+i=26800  kl=500101.91  nell=-14044631.0  nelbo=-13544529.0  log-sigma2= [-2.69167352] RMSE=0.1795  nll_train=-234.07037  time=14994.576 
+i=26900  kl=500340.38  nell=-14043337.0  nelbo=-13542997.0  log-sigma2= [-2.69196105] RMSE=0.1795  nll_train=-234.03390  time=15050.559 
+i=27000  kl=500542.31  nell=-14051636.0  nelbo=-13551094.0  log-sigma2= [-2.68996] RMSE=0.1795  nll_train=-234.19098  time=15106.409 
+i=27100  kl=500723.69  nell=-14052140.0  nelbo=-13551416.0  log-sigma2= [-2.68738532] RMSE=0.1795  nll_train=-234.20477  time=15162.351 
+i=27200  kl=500877.84  nell=-14053168.0  nelbo=-13552290.0  log-sigma2= [-2.68576813] RMSE=0.1795  nll_train=-234.24105  time=15218.278 
+i=27300  kl=501019.44  nell=-14062250.0  nelbo=-13561231.0  log-sigma2= [-2.68405628] RMSE=0.1795  nll_train=-234.36248  time=15274.268 
+i=27400  kl=501122.31  nell=-14060922.0  nelbo=-13559800.0  log-sigma2= [-2.68174696] RMSE=0.1794  nll_train=-234.35888  time=15330.275 
+i=27500  kl=501212.91  nell=-14064898.0  nelbo=-13563685.0  log-sigma2= [-2.68021274] RMSE=0.1794  nll_train=-234.40698  time=15386.283 
+i=27600  kl=501299.78  nell=-14071093.0  nelbo=-13569793.0  log-sigma2= [-2.67973828] RMSE=0.1794  nll_train=-234.51812  time=15442.713 
+i=27700  kl=501334.56  nell=-14072961.0  nelbo=-13571626.0  log-sigma2= [-2.67796302] RMSE=0.1794  nll_train=-234.55785  time=15498.539 
+i=27800  kl=501401.06  nell=-14076994.0  nelbo=-13575593.0  log-sigma2= [-2.67636609] RMSE=0.1794  nll_train=-234.59365  time=15554.458 
+i=27900  kl=501445.25  nell=-14078305.0  nelbo=-13576860.0  log-sigma2= [-2.67702198] RMSE=0.1794  nll_train=-234.63833  time=15610.45 
+i=28000  kl=501491.62  nell=-14079457.0  nelbo=-13577965.0  log-sigma2= [-2.6765976] RMSE=0.1794  nll_train=-234.67600  time=15666.671 
+i=28100  kl=501546.5  nell=-14082619.0  nelbo=-13581072.0  log-sigma2= [-2.67595625] RMSE=0.1794  nll_train=-234.71350  time=15722.531 
+i=28200  kl=501536.53  nell=-14085497.0  nelbo=-13583960.0  log-sigma2= [-2.6750958] RMSE=0.1794  nll_train=-234.76878  time=15778.663 
+i=28300  kl=501564.56  nell=-14090216.0  nelbo=-13588651.0  log-sigma2= [-2.67378163] RMSE=0.1794  nll_train=-234.83093  time=15834.73 
+i=28400  kl=501563.81  nell=-14088736.0  nelbo=-13587172.0  log-sigma2= [-2.67582703] RMSE=0.1793  nll_train=-234.84720  time=15890.639 
+i=28500  kl=501575.44  nell=-14094223.0  nelbo=-13592648.0  log-sigma2= [-2.67324376] RMSE=0.1793  nll_train=-234.88383  time=15946.59 
+i=28600  kl=501572.53  nell=-14094593.0  nelbo=-13593020.0  log-sigma2= [-2.67271996] RMSE=0.1793  nll_train=-234.90865  time=16002.458 
+i=28700  kl=501559.09  nell=-14099613.0  nelbo=-13598054.0  log-sigma2= [-2.67273927] RMSE=0.1793  nll_train=-234.99828  time=16058.564 
+i=28800  kl=501550.56  nell=-14100302.0  nelbo=-13598751.0  log-sigma2= [-2.6704464] RMSE=0.1793  nll_train=-235.01665  time=16114.623 
+i=28900  kl=501526.28  nell=-14102540.0  nelbo=-13601014.0  log-sigma2= [-2.67171741] RMSE=0.1793  nll_train=-235.04605  time=16170.442 
+i=29000  kl=501523.53  nell=-14106943.0  nelbo=-13605419.0  log-sigma2= [-2.67066169] RMSE=0.1793  nll_train=-235.12052  time=16226.56 
+i=29100  kl=501510.75  nell=-14109654.0  nelbo=-13608143.0  log-sigma2= [-2.66947746] RMSE=0.1793  nll_train=-235.17655  time=16282.498 
+i=29200  kl=501567.03  nell=-14114090.0  nelbo=-13612523.0  log-sigma2= [-2.66933203] RMSE=0.1793  nll_train=-235.21370  time=16338.511 
+i=29300  kl=501623.28  nell=-14115443.0  nelbo=-13613820.0  log-sigma2= [-2.66945171] RMSE=0.1793  nll_train=-235.27803  time=16394.598 
+i=29400  kl=501651.34  nell=-14117634.0  nelbo=-13615983.0  log-sigma2= [-2.66697931] RMSE=0.1793  nll_train=-235.29627  time=16450.56 
+i=29500  kl=501717.12  nell=-14119867.0  nelbo=-13618150.0  log-sigma2= [-2.6670959] RMSE=0.1792  nll_train=-235.33600  time=16506.514 
+i=29600  kl=501749.94  nell=-14121955.0  nelbo=-13620205.0  log-sigma2= [-2.6650331] RMSE=0.1792  nll_train=-235.36685  time=16562.561 
+i=29700  kl=501762.16  nell=-14123280.0  nelbo=-13621518.0  log-sigma2= [-2.66634798] RMSE=0.1792  nll_train=-235.37775  time=16618.544 
+i=29800  kl=501781.28  nell=-14126529.0  nelbo=-13624748.0  log-sigma2= [-2.6654892] RMSE=0.1792  nll_train=-235.43810  time=16674.623 
+i=29900  kl=501836.25  nell=-14128384.0  nelbo=-13626548.0  log-sigma2= [-2.66399503] RMSE=0.1792  nll_train=-235.48937  time=16730.703 
+i=30000  kl=501886.03  nell=-14130637.0  nelbo=-13628751.0  log-sigma2= [-2.6639514] RMSE=0.1792  nll_train=-235.50510  time=16786.665 
+i=30100  kl=501919.12  nell=-14131447.0  nelbo=-13629528.0  log-sigma2= [-2.66317487] RMSE=0.1792  nll_train=-235.53550  time=16842.708 
+i=30200  kl=501960.66  nell=-14133701.0  nelbo=-13631740.0  log-sigma2= [-2.66195035] RMSE=0.1792  nll_train=-235.54092  time=16898.596 
+i=30300  kl=501987.0  nell=-14136177.0  nelbo=-13634190.0  log-sigma2= [-2.66010666] RMSE=0.1792  nll_train=-235.58553  time=16954.776 
+i=30400  kl=502007.88  nell=-14135547.0  nelbo=-13633539.0  log-sigma2= [-2.65874648] RMSE=0.1792  nll_train=-235.59157  time=17010.737 
+i=30500  kl=502058.31  nell=-14139764.0  nelbo=-13637706.0  log-sigma2= [-2.65811062] RMSE=0.1792  nll_train=-235.66582  time=17066.67 
+i=30600  kl=502117.09  nell=-14142150.0  nelbo=-13640033.0  log-sigma2= [-2.65853405] RMSE=0.1792  nll_train=-235.69552  time=17122.716 
+i=30700  kl=502152.19  nell=-14141038.0  nelbo=-13638886.0  log-sigma2= [-2.65527987] RMSE=0.1792  nll_train=-235.69367  time=17178.861 
+i=30800  kl=502217.06  nell=-14147249.0  nelbo=-13645032.0  log-sigma2= [-2.65513897] RMSE=0.1791  nll_train=-235.77147  time=17234.893 
+i=30900  kl=502298.16  nell=-14147411.0  nelbo=-13645113.0  log-sigma2= [-2.65384316] RMSE=0.1791  nll_train=-235.77000  time=17290.834 
+i=31000  kl=502354.28  nell=-14148088.0  nelbo=-13645734.0  log-sigma2= [-2.65444589] RMSE=0.1791  nll_train=-235.82117  time=17346.856 
+i=31100  kl=502424.19  nell=-14151073.0  nelbo=-13648649.0  log-sigma2= [-2.65335917] RMSE=0.1791  nll_train=-235.88152  time=17402.924 
+i=31200  kl=502464.81  nell=-14150418.0  nelbo=-13647953.0  log-sigma2= [-2.65145636] RMSE=0.1791  nll_train=-235.84687  time=17458.887 
+i=31300  kl=502515.19  nell=-14154183.0  nelbo=-13651668.0  log-sigma2= [-2.65026712] RMSE=0.1791  nll_train=-235.88955  time=17514.74 
+i=31400  kl=502598.41  nell=-14155130.0  nelbo=-13652532.0  log-sigma2= [-2.64949489] RMSE=0.1791  nll_train=-235.90748  time=17570.829 
+i=31500  kl=502617.34  nell=-14157763.0  nelbo=-13655146.0  log-sigma2= [-2.64899278] RMSE=0.1791  nll_train=-235.96247  time=17626.861 
+i=31600  kl=502661.22  nell=-14158616.0  nelbo=-13655955.0  log-sigma2= [-2.64871621] RMSE=0.1791  nll_train=-235.98397  time=17682.954 
+i=31700  kl=502673.09  nell=-14159820.0  nelbo=-13657147.0  log-sigma2= [-2.64876175] RMSE=0.1791  nll_train=-235.99665  time=17738.823 
+i=31800  kl=502664.94  nell=-14163173.0  nelbo=-13660508.0  log-sigma2= [-2.64864111] RMSE=0.1791  nll_train=-236.05407  time=17794.894 
+i=31900  kl=502717.41  nell=-14164515.0  nelbo=-13661798.0  log-sigma2= [-2.64683604] RMSE=0.1791  nll_train=-236.07277  time=17850.97 
+i=32000  kl=502792.62  nell=-14166049.0  nelbo=-13663256.0  log-sigma2= [-2.64579678] RMSE=0.1790  nll_train=-236.11605  time=17907.039 
+i=32100  kl=502831.5  nell=-14166137.0  nelbo=-13663306.0  log-sigma2= [-2.64735341] RMSE=0.1790  nll_train=-236.11767  time=17962.886 
+i=32200  kl=502874.66  nell=-14169738.0  nelbo=-13666863.0  log-sigma2= [-2.64483142] RMSE=0.1790  nll_train=-236.16978  time=18019.009 
+i=32300  kl=502929.59  nell=-14170668.0  nelbo=-13667738.0  log-sigma2= [-2.6439023] RMSE=0.1790  nll_train=-236.17417  time=18075.054 
+i=32400  kl=503010.25  nell=-14175067.0  nelbo=-13672057.0  log-sigma2= [-2.64158559] RMSE=0.1790  nll_train=-236.24047  time=18131.085 
+i=32500  kl=503063.69  nell=-14176103.0  nelbo=-13673039.0  log-sigma2= [-2.6408236] RMSE=0.1790  nll_train=-236.28360  time=18187.024 
+i=32600  kl=503117.66  nell=-14178092.0  nelbo=-13674974.0  log-sigma2= [-2.6394558] RMSE=0.1790  nll_train=-236.29285  time=18243.097 
+i=32700  kl=503209.22  nell=-14177052.0  nelbo=-13673843.0  log-sigma2= [-2.63827991] RMSE=0.1790  nll_train=-236.30517  time=18299.145 
+i=32800  kl=503232.91  nell=-14180462.0  nelbo=-13677229.0  log-sigma2= [-2.63801074] RMSE=0.1790  nll_train=-236.32995  time=18355.202 
+i=32900  kl=503292.44  nell=-14182417.0  nelbo=-13679125.0  log-sigma2= [-2.63703156] RMSE=0.1790  nll_train=-236.35930  time=18411.166 
+i=33000  kl=503335.84  nell=-14185082.0  nelbo=-13681746.0  log-sigma2= [-2.63586736] RMSE=0.1790  nll_train=-236.41202  time=18467.217 
+i=33100  kl=503377.0  nell=-14187950.0  nelbo=-13684573.0  log-sigma2= [-2.63550162] RMSE=0.1790  nll_train=-236.44847  time=18523.243 
+i=33200  kl=503427.91  nell=-14187971.0  nelbo=-13684543.0  log-sigma2= [-2.63481498] RMSE=0.1790  nll_train=-236.46628  time=18579.169 
+i=33300  kl=503482.0  nell=-14190256.0  nelbo=-13686774.0  log-sigma2= [-2.63342142] RMSE=0.1790  nll_train=-236.48262  time=18635.206 
+i=33400  kl=503515.56  nell=-14192558.0  nelbo=-13689042.0  log-sigma2= [-2.63290691] RMSE=0.1789  nll_train=-236.53227  time=18692.524 
+i=33500  kl=503557.03  nell=-14194331.0  nelbo=-13690774.0  log-sigma2= [-2.63296962] RMSE=0.1789  nll_train=-236.55587  time=18747.512 
+i=33600  kl=503646.22  nell=-14195636.0  nelbo=-13691990.0  log-sigma2= [-2.63256836] RMSE=0.1789  nll_train=-236.57592  time=18803.492 
+i=33700  kl=503723.25  nell=-14196453.0  nelbo=-13692730.0  log-sigma2= [-2.63193369] RMSE=0.1789  nll_train=-236.61160  time=18859.533 
+i=33800  kl=503717.75  nell=-14197558.0  nelbo=-13693840.0  log-sigma2= [-2.63289165] RMSE=0.1789  nll_train=-236.63547  time=18915.418 
+i=33900  kl=503752.69  nell=-14199890.0  nelbo=-13696137.0  log-sigma2= [-2.63122964] RMSE=0.1789  nll_train=-236.66977  time=18971.356 
+i=34000  kl=503792.28  nell=-14202439.0  nelbo=-13698647.0  log-sigma2= [-2.63114858] RMSE=0.1789  nll_train=-236.69132  time=19027.328 
+i=34100  kl=503836.16  nell=-14201748.0  nelbo=-13697912.0  log-sigma2= [-2.63028741] RMSE=0.1789  nll_train=-236.70038  time=19083.371 
+i=34200  kl=503863.56  nell=-14205291.0  nelbo=-13701427.0  log-sigma2= [-2.63062572] RMSE=0.1789  nll_train=-236.77100  time=19139.418 
+i=34300  kl=503891.34  nell=-14205607.0  nelbo=-13701716.0  log-sigma2= [-2.63025975] RMSE=0.1789  nll_train=-236.76495  time=19195.534 
+i=34400  kl=503903.88  nell=-14207172.0  nelbo=-13703268.0  log-sigma2= [-2.62915993] RMSE=0.1789  nll_train=-236.78827  time=19251.614 
+i=34500  kl=503936.53  nell=-14207924.0  nelbo=-13703987.0  log-sigma2= [-2.62904525] RMSE=0.1789  nll_train=-236.76580  time=19307.641 
+i=34600  kl=503965.56  nell=-14210354.0  nelbo=-13706388.0  log-sigma2= [-2.63039279] RMSE=0.1789  nll_train=-236.82912  time=19363.61 
+i=34700  kl=503973.56  nell=-14210947.0  nelbo=-13706973.0  log-sigma2= [-2.62894773] RMSE=0.1789  nll_train=-236.84227  time=19419.83 
+i=34800  kl=503953.56  nell=-14212484.0  nelbo=-13708530.0  log-sigma2= [-2.62845778] RMSE=0.1789  nll_train=-236.88863  time=19475.898 
+i=34900  kl=503953.62  nell=-14213527.0  nelbo=-13709573.0  log-sigma2= [-2.63086557] RMSE=0.1788  nll_train=-236.89620  time=19532.517 
+i=35000  kl=503944.78  nell=-14215139.0  nelbo=-13711194.0  log-sigma2= [-2.62944317] RMSE=0.1788  nll_train=-236.91482  time=19588.245 
+i=35100  kl=503972.69  nell=-14216071.0  nelbo=-13712098.0  log-sigma2= [-2.62860131] RMSE=0.1788  nll_train=-236.94570  time=19644.327 
+i=35200  kl=503983.34  nell=-14218529.0  nelbo=-13714546.0  log-sigma2= [-2.62833071] RMSE=0.1788  nll_train=-236.96913  time=19700.403 
+i=35300  kl=504036.22  nell=-14223451.0  nelbo=-13719415.0  log-sigma2= [-2.62950945] RMSE=0.1788  nll_train=-237.06125  time=19756.498 
+i=35400  kl=504066.31  nell=-14221219.0  nelbo=-13717153.0  log-sigma2= [-2.62902498] RMSE=0.1788  nll_train=-237.02395  time=19812.617 
+i=35500  kl=504080.78  nell=-14222627.0  nelbo=-13718546.0  log-sigma2= [-2.63047791] RMSE=0.1788  nll_train=-237.03133  time=19868.598 
+i=35600  kl=504099.75  nell=-14229134.0  nelbo=-13725034.0  log-sigma2= [-2.63053536] RMSE=0.1788  nll_train=-237.14093  time=19924.678 
+i=35700  kl=504051.84  nell=-14225484.0  nelbo=-13721432.0  log-sigma2= [-2.63036275] RMSE=0.1788  nll_train=-237.10298  time=19980.873 
+i=35800  kl=504046.44  nell=-14229573.0  nelbo=-13725527.0  log-sigma2= [-2.63033772] RMSE=0.1788  nll_train=-237.16313  time=20037.032 
+i=35900  kl=504053.94  nell=-14233152.0  nelbo=-13729098.0  log-sigma2= [-2.6305871] RMSE=0.1788  nll_train=-237.20898  time=20093.129 
+i=36000  kl=504006.38  nell=-14226585.0  nelbo=-13722579.0  log-sigma2= [-2.62983441] RMSE=0.1788  nll_train=-237.13427  time=20149.394 
+i=36100  kl=503967.47  nell=-14234209.0  nelbo=-13730242.0  log-sigma2= [-2.631881] RMSE=0.1788  nll_train=-237.24993  time=20205.323 
+i=36200  kl=503970.19  nell=-14230889.0  nelbo=-13726919.0  log-sigma2= [-2.63199472] RMSE=0.1788  nll_train=-237.17357  time=20261.321 
+i=36300  kl=503919.44  nell=-14240923.0  nelbo=-13737004.0  log-sigma2= [-2.63292122] RMSE=0.1788  nll_train=-237.33707  time=20317.498 
+i=36400  kl=503888.81  nell=-14239823.0  nelbo=-13735934.0  log-sigma2= [-2.63293695] RMSE=0.1788  nll_train=-237.32025  time=20373.553 
+i=36500  kl=503831.16  nell=-14236152.0  nelbo=-13732321.0  log-sigma2= [-2.63356757] RMSE=0.1788  nll_train=-237.26872  time=20429.627 
+i=36600  kl=503784.44  nell=-14243687.0  nelbo=-13739903.0  log-sigma2= [-2.6337862] RMSE=0.1788  nll_train=-237.41345  time=20485.681 
+i=36700  kl=503751.09  nell=-14242744.0  nelbo=-13738993.0  log-sigma2= [-2.63396454] RMSE=0.1788  nll_train=-237.38310  time=20541.866 
+i=36800  kl=503721.78  nell=-14245171.0  nelbo=-13741449.0  log-sigma2= [-2.63613987] RMSE=0.1787  nll_train=-237.44743  time=20597.688 
+i=36900  kl=503706.66  nell=-14247107.0  nelbo=-13743400.0  log-sigma2= [-2.63586521] RMSE=0.1787  nll_train=-237.44027  time=20653.754 
+i=37000  kl=503697.34  nell=-14248757.0  nelbo=-13745060.0  log-sigma2= [-2.63741851] RMSE=0.1787  nll_train=-237.46643  time=20709.845 
+i=37100  kl=503594.31  nell=-14249133.0  nelbo=-13745539.0  log-sigma2= [-2.63622761] RMSE=0.1787  nll_train=-237.47907  time=20765.8 
+i=37200  kl=503584.41  nell=-14253667.0  nelbo=-13750083.0  log-sigma2= [-2.63655949] RMSE=0.1787  nll_train=-237.56662  time=20821.776 
+i=37300  kl=503530.66  nell=-14252695.0  nelbo=-13749164.0  log-sigma2= [-2.63758397] RMSE=0.1787  nll_train=-237.53212  time=20877.761 
+i=37400  kl=503523.25  nell=-14255615.0  nelbo=-13752092.0  log-sigma2= [-2.63621235] RMSE=0.1787  nll_train=-237.61565  time=20933.783 
+i=37500  kl=503534.81  nell=-14256590.0  nelbo=-13753055.0  log-sigma2= [-2.63704014] RMSE=0.1787  nll_train=-237.63255  time=20989.908 
+i=37600  kl=503473.06  nell=-14259293.0  nelbo=-13755820.0  log-sigma2= [-2.63829947] RMSE=0.1787  nll_train=-237.66308  time=21046.604 
+i=37700  kl=503430.44  nell=-14259348.0  nelbo=-13755918.0  log-sigma2= [-2.63852286] RMSE=0.1787  nll_train=-237.64540  time=21102.066 
+i=37800  kl=503392.44  nell=-14261827.0  nelbo=-13758435.0  log-sigma2= [-2.63825989] RMSE=0.1787  nll_train=-237.69643  time=21158.379 
+i=37900  kl=503359.44  nell=-14261832.0  nelbo=-13758473.0  log-sigma2= [-2.63776541] RMSE=0.1787  nll_train=-237.70105  time=21214.406 
+i=38000  kl=503386.69  nell=-14262913.0  nelbo=-13759526.0  log-sigma2= [-2.6387732] RMSE=0.1787  nll_train=-237.73822  time=21270.44 
+i=38100  kl=503346.22  nell=-14265899.0  nelbo=-13762553.0  log-sigma2= [-2.63873672] RMSE=0.1787  nll_train=-237.76057  time=21326.575 
+i=38200  kl=503352.03  nell=-14266863.0  nelbo=-13763511.0  log-sigma2= [-2.6388936] RMSE=0.1787  nll_train=-237.78347  time=21382.679 
+i=38300  kl=503351.94  nell=-14266819.0  nelbo=-13763467.0  log-sigma2= [-2.63917089] RMSE=0.1787  nll_train=-237.77417  time=21438.787 
+i=38400  kl=503358.31  nell=-14270601.0  nelbo=-13767243.0  log-sigma2= [-2.63776803] RMSE=0.1787  nll_train=-237.80940  time=21494.833 
+i=38500  kl=503392.81  nell=-14270249.0  nelbo=-13766856.0  log-sigma2= [-2.6373837] RMSE=0.1787  nll_train=-237.84107  time=21551.024 
+i=38600  kl=503440.03  nell=-14270286.0  nelbo=-13766846.0  log-sigma2= [-2.63749695] RMSE=0.1787  nll_train=-237.88483  time=21606.978 
+i=38700  kl=503485.53  nell=-14273136.0  nelbo=-13769650.0  log-sigma2= [-2.63530111] RMSE=0.1787  nll_train=-237.89468  time=21663.024 
+i=38800  kl=503535.81  nell=-14274681.0  nelbo=-13771145.0  log-sigma2= [-2.63596654] RMSE=0.1786  nll_train=-237.91743  time=21719.281 
+i=38900  kl=503587.41  nell=-14276849.0  nelbo=-13773262.0  log-sigma2= [-2.63592243] RMSE=0.1786  nll_train=-237.93790  time=21775.345 
+i=39000  kl=503647.16  nell=-14278557.0  nelbo=-13774910.0  log-sigma2= [-2.6344986] RMSE=0.1786  nll_train=-237.97223  time=21831.322 
+i=39100  kl=503729.91  nell=-14278314.0  nelbo=-13774584.0  log-sigma2= [-2.63321638] RMSE=0.1786  nll_train=-237.97578  time=21887.349 
+i=39200  kl=503786.22  nell=-14281569.0  nelbo=-13777783.0  log-sigma2= [-2.63396001] RMSE=0.1786  nll_train=-238.00332  time=21943.396 
+i=39300  kl=503829.22  nell=-14283328.0  nelbo=-13779499.0  log-sigma2= [-2.63292718] RMSE=0.1786  nll_train=-238.04212  time=21999.456 
+i=39400  kl=503907.34  nell=-14284795.0  nelbo=-13780888.0  log-sigma2= [-2.63109922] RMSE=0.1786  nll_train=-238.07965  time=22055.574 
+i=39500  kl=504013.38  nell=-14284609.0  nelbo=-13780596.0  log-sigma2= [-2.63012767] RMSE=0.1786  nll_train=-238.08845  time=22111.522 
+i=39600  kl=504070.19  nell=-14288178.0  nelbo=-13784108.0  log-sigma2= [-2.63075995] RMSE=0.1786  nll_train=-238.13247  time=22167.604 
+i=39700  kl=504156.16  nell=-14285414.0  nelbo=-13781258.0  log-sigma2= [-2.62848544] RMSE=0.1786  nll_train=-238.11328  time=22223.621 
+i=39800  kl=504191.44  nell=-14290604.0  nelbo=-13786413.0  log-sigma2= [-2.62827563] RMSE=0.1786  nll_train=-238.16777  time=22280.436 
+i=39900  kl=504284.66  nell=-14291605.0  nelbo=-13787320.0  log-sigma2= [-2.62781549] RMSE=0.1786  nll_train=-238.19308  time=22336.233 
+i=40000  kl=504351.81  nell=-14292680.0  nelbo=-13788328.0  log-sigma2= [-2.62724781] RMSE=0.1786  nll_train=-238.23898  time=22391.95 
+i=40100  kl=504440.78  nell=-14294254.0  nelbo=-13789813.0  log-sigma2= [-2.62637353] RMSE=0.1786  nll_train=-238.25385  time=22447.976 
+i=40200  kl=504512.06  nell=-14296272.0  nelbo=-13791760.0  log-sigma2= [-2.62524676] RMSE=0.1786  nll_train=-238.24988  time=22504.036 
+i=40300  kl=504530.41  nell=-14297870.0  nelbo=-13793340.0  log-sigma2= [-2.6265173] RMSE=0.1786  nll_train=-238.29313  time=22560.003 
+i=40400  kl=504591.78  nell=-14298798.0  nelbo=-13794206.0  log-sigma2= [-2.62600517] RMSE=0.1786  nll_train=-238.31235  time=22615.978 
+i=40500  kl=504622.88  nell=-14299527.0  nelbo=-13794904.0  log-sigma2= [-2.62587142] RMSE=0.1786  nll_train=-238.33287  time=22672.456 
+i=40600  kl=504638.66  nell=-14302197.0  nelbo=-13797558.0  log-sigma2= [-2.62543774] RMSE=0.1786  nll_train=-238.36123  time=22728.891 
+i=40700  kl=504626.16  nell=-14302832.0  nelbo=-13798206.0  log-sigma2= [-2.62726164] RMSE=0.1786  nll_train=-238.37413  time=22784.694 
+i=40800  kl=504644.66  nell=-14303590.0  nelbo=-13798945.0  log-sigma2= [-2.62591791] RMSE=0.1785  nll_train=-238.40392  time=22840.324 
+i=40900  kl=504583.16  nell=-14304517.0  nelbo=-13799934.0  log-sigma2= [-2.62669325] RMSE=0.1785  nll_train=-238.41285  time=22896.351 
+i=41000  kl=504540.44  nell=-14304994.0  nelbo=-13800454.0  log-sigma2= [-2.62718868] RMSE=0.1785  nll_train=-238.43063  time=22952.334 
+i=41100  kl=504533.44  nell=-14307178.0  nelbo=-13802645.0  log-sigma2= [-2.6276505] RMSE=0.1785  nll_train=-238.44933  time=23008.263 
+i=41200  kl=504500.91  nell=-14309266.0  nelbo=-13804765.0  log-sigma2= [-2.62716293] RMSE=0.1785  nll_train=-238.49022  time=23064.265 
+i=41300  kl=504466.81  nell=-14310002.0  nelbo=-13805535.0  log-sigma2= [-2.62830257] RMSE=0.1785  nll_train=-238.49185  time=23120.442 
+i=41400  kl=504451.25  nell=-14310609.0  nelbo=-13806158.0  log-sigma2= [-2.62794089] RMSE=0.1785  nll_train=-238.51217  time=23176.429 
+i=41500  kl=504417.09  nell=-14311899.0  nelbo=-13807482.0  log-sigma2= [-2.6278615] RMSE=0.1785  nll_train=-238.52257  time=23232.329 
+i=41600  kl=504404.12  nell=-14312956.0  nelbo=-13808552.0  log-sigma2= [-2.62864971] RMSE=0.1785  nll_train=-238.54795  time=23288.455 
+i=41700  kl=504382.06  nell=-14314126.0  nelbo=-13809744.0  log-sigma2= [-2.62912703] RMSE=0.1785  nll_train=-238.57830  time=23344.444 
+i=41800  kl=504349.22  nell=-14315407.0  nelbo=-13811058.0  log-sigma2= [-2.62943292] RMSE=0.1785  nll_train=-238.58602  time=23400.377 
+i=41900  kl=504273.28  nell=-14315220.0  nelbo=-13810947.0  log-sigma2= [-2.63002968] RMSE=0.1785  nll_train=-238.60147  time=23457.287 
+i=42000  kl=504267.25  nell=-14317426.0  nelbo=-13813159.0  log-sigma2= [-2.62903738] RMSE=0.1785  nll_train=-238.62660  time=23512.67 
+i=42100  kl=504216.97  nell=-14317030.0  nelbo=-13812813.0  log-sigma2= [-2.62920666] RMSE=0.1785  nll_train=-238.61398  time=23568.88 
+i=42200  kl=504217.19  nell=-14317394.0  nelbo=-13813177.0  log-sigma2= [-2.62981081] RMSE=0.1785  nll_train=-238.62442  time=23625.575 
+i=42300  kl=504188.59  nell=-14319150.0  nelbo=-13814961.0  log-sigma2= [-2.6303246] RMSE=0.1785  nll_train=-238.67367  time=23681.065 
+i=42400  kl=504207.31  nell=-14320275.0  nelbo=-13816068.0  log-sigma2= [-2.63023543] RMSE=0.1785  nll_train=-238.66023  time=23737.064 
+i=42500  kl=504177.59  nell=-14322078.0  nelbo=-13817900.0  log-sigma2= [-2.63097072] RMSE=0.1785  nll_train=-238.70080  time=23793.093 
+i=42600  kl=504130.34  nell=-14321046.0  nelbo=-13816916.0  log-sigma2= [-2.63051558] RMSE=0.1785  nll_train=-238.70750  time=23849.105 
+i=42700  kl=504142.16  nell=-14322716.0  nelbo=-13818574.0  log-sigma2= [-2.62940645] RMSE=0.1785  nll_train=-238.70847  time=23905.847 
+i=42800  kl=504159.06  nell=-14325208.0  nelbo=-13821049.0  log-sigma2= [-2.63135839] RMSE=0.1785  nll_train=-238.76278  time=23961.203 
+i=42900  kl=504144.34  nell=-14325703.0  nelbo=-13821559.0  log-sigma2= [-2.6306138] RMSE=0.1785  nll_train=-238.75450  time=24017.325 
+i=43000  kl=504135.25  nell=-14326720.0  nelbo=-13822585.0  log-sigma2= [-2.62981653] RMSE=0.1785  nll_train=-238.80122  time=24073.388 
+i=43100  kl=504139.28  nell=-14324741.0  nelbo=-13820602.0  log-sigma2= [-2.63103485] RMSE=0.1785  nll_train=-238.76110  time=24129.261 
+i=43200  kl=504153.53  nell=-14327600.0  nelbo=-13823446.0  log-sigma2= [-2.63130236] RMSE=0.1785  nll_train=-238.77945  time=24185.304 
+i=43300  kl=504186.72  nell=-14329468.0  nelbo=-13825281.0  log-sigma2= [-2.63076186] RMSE=0.1784  nll_train=-238.83743  time=24241.37 
+i=43400  kl=504198.28  nell=-14330372.0  nelbo=-13826174.0  log-sigma2= [-2.62997341] RMSE=0.1784  nll_train=-238.84420  time=24297.476 
+i=43500  kl=504182.0  nell=-14331021.0  nelbo=-13826839.0  log-sigma2= [-2.62877154] RMSE=0.1784  nll_train=-238.81930  time=24353.531 
+i=43600  kl=504192.72  nell=-14332548.0  nelbo=-13828355.0  log-sigma2= [-2.62911987] RMSE=0.1784  nll_train=-238.86105  time=24409.749 
+i=43700  kl=504214.09  nell=-14329640.0  nelbo=-13825426.0  log-sigma2= [-2.62833166] RMSE=0.1784  nll_train=-238.83973  time=24465.744 
+i=43800  kl=504260.19  nell=-14333388.0  nelbo=-13829128.0  log-sigma2= [-2.62869763] RMSE=0.1784  nll_train=-238.88282  time=24521.648 
+i=43900  kl=504318.72  nell=-14333168.0  nelbo=-13828849.0  log-sigma2= [-2.6288166] RMSE=0.1784  nll_train=-238.89553  time=24577.646 
+i=44000  kl=504324.66  nell=-14333321.0  nelbo=-13828996.0  log-sigma2= [-2.62708735] RMSE=0.1784  nll_train=-238.87202  time=24633.601 
+i=44100  kl=504347.06  nell=-14337189.0  nelbo=-13832842.0  log-sigma2= [-2.62786794] RMSE=0.1784  nll_train=-238.95672  time=24689.621 
+i=44200  kl=504341.47  nell=-14336467.0  nelbo=-13832126.0  log-sigma2= [-2.62745953] RMSE=0.1784  nll_train=-238.93327  time=24745.725 
+i=44300  kl=504366.72  nell=-14338121.0  nelbo=-13833754.0  log-sigma2= [-2.62746906] RMSE=0.1784  nll_train=-238.95225  time=24801.67 
+i=44400  kl=504418.56  nell=-14336076.0  nelbo=-13831657.0  log-sigma2= [-2.62579012] RMSE=0.1784  nll_train=-238.94687  time=24858.299 
+i=44500  kl=504478.53  nell=-14341926.0  nelbo=-13837447.0  log-sigma2= [-2.62674856] RMSE=0.1784  nll_train=-239.00550  time=24914.162 
+i=44600  kl=504525.06  nell=-14341021.0  nelbo=-13836496.0  log-sigma2= [-2.62630296] RMSE=0.1784  nll_train=-238.99673  time=24970.013 
+i=44700  kl=504552.56  nell=-14340342.0  nelbo=-13835789.0  log-sigma2= [-2.62429786] RMSE=0.1784  nll_train=-239.01497  time=25026.027 
+i=44800  kl=504627.22  nell=-14342846.0  nelbo=-13838219.0  log-sigma2= [-2.62409496] RMSE=0.1784  nll_train=-239.04248  time=25082.078 
+i=44900  kl=504663.12  nell=-14342382.0  nelbo=-13837719.0  log-sigma2= [-2.62342405] RMSE=0.1784  nll_train=-239.04562  time=25138.077 
+i=45000  kl=504716.78  nell=-14347620.0  nelbo=-13842903.0  log-sigma2= [-2.625175] RMSE=0.1784  nll_train=-239.12525  time=25194.133 
+i=45100  kl=504824.81  nell=-14346647.0  nelbo=-13841822.0  log-sigma2= [-2.62437367] RMSE=0.1784  nll_train=-239.12450  time=25250.209 
+i=45200  kl=504878.38  nell=-14346516.0  nelbo=-13841638.0  log-sigma2= [-2.6223948] RMSE=0.1784  nll_train=-239.09572  time=25306.722 
+i=45300  kl=504940.06  nell=-14344642.0  nelbo=-13839702.0  log-sigma2= [-2.62176085] RMSE=0.1784  nll_train=-239.08253  time=25362.365 
+i=45400  kl=504979.84  nell=-14349644.0  nelbo=-13844664.0  log-sigma2= [-2.62269807] RMSE=0.1784  nll_train=-239.15915  time=25418.887 
+i=45500  kl=505097.59  nell=-14347845.0  nelbo=-13842747.0  log-sigma2= [-2.62140441] RMSE=0.1784  nll_train=-239.11200  time=25474.544 
+i=45600  kl=505148.38  nell=-14349971.0  nelbo=-13844823.0  log-sigma2= [-2.62140083] RMSE=0.1783  nll_train=-239.17333  time=25530.53 
+i=45700  kl=505214.28  nell=-14349802.0  nelbo=-13844588.0  log-sigma2= [-2.61850762] RMSE=0.1783  nll_train=-239.17183  time=25586.549 
+i=45800  kl=505230.94  nell=-14351895.0  nelbo=-13846664.0  log-sigma2= [-2.61766744] RMSE=0.1783  nll_train=-239.19132  time=25642.764 
+i=45900  kl=505324.59  nell=-14349509.0  nelbo=-13844184.0  log-sigma2= [-2.61669183] RMSE=0.1783  nll_train=-239.13805  time=25698.772 
+i=46000  kl=505371.56  nell=-14353442.0  nelbo=-13848070.0  log-sigma2= [-2.61655474] RMSE=0.1783  nll_train=-239.23093  time=25755.124 
+i=46100  kl=505438.94  nell=-14351339.0  nelbo=-13845900.0  log-sigma2= [-2.61702967] RMSE=0.1783  nll_train=-239.18770  time=25810.929 
+i=46200  kl=505505.19  nell=-14352107.0  nelbo=-13846602.0  log-sigma2= [-2.61694336] RMSE=0.1783  nll_train=-239.19340  time=25867.885 
+i=46300  kl=505574.03  nell=-14355177.0  nelbo=-13849603.0  log-sigma2= [-2.61621404] RMSE=0.1783  nll_train=-239.26105  time=25923.119 
+i=46400  kl=505642.12  nell=-14355241.0  nelbo=-13849599.0  log-sigma2= [-2.6131258] RMSE=0.1783  nll_train=-239.26183  time=25978.962 
+i=46500  kl=505720.53  nell=-14356818.0  nelbo=-13851097.0  log-sigma2= [-2.61300015] RMSE=0.1783  nll_train=-239.28978  time=26034.909 
+i=46600  kl=505842.34  nell=-14358790.0  nelbo=-13852948.0  log-sigma2= [-2.61398482] RMSE=0.1783  nll_train=-239.31925  time=26090.939 
+i=46700  kl=505873.16  nell=-14355015.0  nelbo=-13849142.0  log-sigma2= [-2.61156583] RMSE=0.1783  nll_train=-239.26325  time=26147.043 
+i=46800  kl=505935.62  nell=-14357559.0  nelbo=-13851623.0  log-sigma2= [-2.61086726] RMSE=0.1783  nll_train=-239.28687  time=26203.03 
+i=46900  kl=505965.84  nell=-14360639.0  nelbo=-13854673.0  log-sigma2= [-2.61061597] RMSE=0.1783  nll_train=-239.34325  time=26258.98 
+i=47000  kl=506079.97  nell=-14359116.0  nelbo=-13853036.0  log-sigma2= [-2.61090326] RMSE=0.1783  nll_train=-239.33157  time=26314.897 
+i=47100  kl=506149.5  nell=-14359906.0  nelbo=-13853756.0  log-sigma2= [-2.60918927] RMSE=0.1783  nll_train=-239.34870  time=26370.877 
+i=47200  kl=506210.25  nell=-14359671.0  nelbo=-13853461.0  log-sigma2= [-2.60950494] RMSE=0.1783  nll_train=-239.33452  time=26426.806 
+i=47300  kl=506268.19  nell=-14359291.0  nelbo=-13853023.0  log-sigma2= [-2.6076479] RMSE=0.1783  nll_train=-239.33512  time=26483.713 
+i=47400  kl=506327.88  nell=-14360418.0  nelbo=-13854090.0  log-sigma2= [-2.60784793] RMSE=0.1783  nll_train=-239.36803  time=26539.122 
+i=47500  kl=506383.62  nell=-14362091.0  nelbo=-13855707.0  log-sigma2= [-2.60671282] RMSE=0.1783  nll_train=-239.37373  time=26595.042 
+i=47600  kl=506458.16  nell=-14362282.0  nelbo=-13855824.0  log-sigma2= [-2.60662198] RMSE=0.1783  nll_train=-239.36192  time=26651.006 
+i=47700  kl=506518.69  nell=-14362115.0  nelbo=-13855596.0  log-sigma2= [-2.60452604] RMSE=0.1783  nll_train=-239.38017  time=26706.93 
+i=47800  kl=506591.84  nell=-14363533.0  nelbo=-13856941.0  log-sigma2= [-2.60469532] RMSE=0.1783  nll_train=-239.38508  time=26762.851 
+i=47900  kl=506622.97  nell=-14365099.0  nelbo=-13858476.0  log-sigma2= [-2.60326123] RMSE=0.1783  nll_train=-239.42583  time=26818.968 
+i=48000  kl=506693.56  nell=-14365910.0  nelbo=-13859216.0  log-sigma2= [-2.60307217] RMSE=0.1783  nll_train=-239.43913  time=26874.875 
+i=48100  kl=506775.25  nell=-14365378.0  nelbo=-13858603.0  log-sigma2= [-2.60217094] RMSE=0.1783  nll_train=-239.42798  time=26930.874 
+i=48200  kl=506857.62  nell=-14366524.0  nelbo=-13859666.0  log-sigma2= [-2.60006022] RMSE=0.1783  nll_train=-239.44313  time=26986.805 
+i=48300  kl=506912.78  nell=-14365434.0  nelbo=-13858521.0  log-sigma2= [-2.60159278] RMSE=0.1783  nll_train=-239.42958  time=27042.832 
+i=48400  kl=507005.41  nell=-14369086.0  nelbo=-13862081.0  log-sigma2= [-2.60046315] RMSE=0.1783  nll_train=-239.48280  time=27098.91 
+i=48500  kl=507077.22  nell=-14367771.0  nelbo=-13860694.0  log-sigma2= [-2.60003948] RMSE=0.1783  nll_train=-239.46797  time=27154.651 
+i=48600  kl=507130.38  nell=-14369084.0  nelbo=-13861954.0  log-sigma2= [-2.59956503] RMSE=0.1783  nll_train=-239.47540  time=27210.761 
+i=48700  kl=507192.22  nell=-14369363.0  nelbo=-13862171.0  log-sigma2= [-2.59881854] RMSE=0.1783  nll_train=-239.49275  time=27266.692 
+i=48800  kl=507216.62  nell=-14368925.0  nelbo=-13861708.0  log-sigma2= [-2.59797835] RMSE=0.1783  nll_train=-239.48347  time=27322.535 
+i=48900  kl=507257.28  nell=-14370073.0  nelbo=-13862816.0  log-sigma2= [-2.5983572] RMSE=0.1783  nll_train=-239.49050  time=27378.494 
+i=49000  kl=507296.47  nell=-14369279.0  nelbo=-13861983.0  log-sigma2= [-2.59843183] RMSE=0.1783  nll_train=-239.48692  time=27434.639 
+i=49100  kl=507332.59  nell=-14370895.0  nelbo=-13863562.0  log-sigma2= [-2.59718585] RMSE=0.1783  nll_train=-239.50105  time=27490.345 
+i=49200  kl=507367.69  nell=-14372483.0  nelbo=-13865115.0  log-sigma2= [-2.59606791] RMSE=0.1783  nll_train=-239.50765  time=27546.331 
+i=49300  kl=507385.03  nell=-14369026.0  nelbo=-13861641.0  log-sigma2= [-2.59722519] RMSE=0.1783  nll_train=-239.51345  time=27602.424 
+i=49400  kl=507424.0  nell=-14372296.0  nelbo=-13864872.0  log-sigma2= [-2.59574127] RMSE=0.1783  nll_train=-239.52458  time=27658.253 
+i=49500  kl=507438.69  nell=-14372354.0  nelbo=-13864915.0  log-sigma2= [-2.59490824] RMSE=0.1783  nll_train=-239.53158  time=27714.333 
+i=49600  kl=507473.0  nell=-14373302.0  nelbo=-13865829.0  log-sigma2= [-2.59361649] RMSE=0.1782  nll_train=-239.57373  time=27770.314 
+i=49700  kl=507507.44  nell=-14373840.0  nelbo=-13866333.0  log-sigma2= [-2.59427667] RMSE=0.1782  nll_train=-239.55932  time=27826.176 
+i=49800  kl=507509.22  nell=-14374927.0  nelbo=-13867418.0  log-sigma2= [-2.59374952] RMSE=0.1782  nll_train=-239.57507  time=27882.362 
+i=49900  kl=507536.44  nell=-14375009.0  nelbo=-13867473.0  log-sigma2= [-2.594311] RMSE=0.1782  nll_train=-239.56040  time=27938.232 
+i=50000  kl=507547.34  nell=-14375741.0  nelbo=-13868194.0  log-sigma2= [-2.59246087] RMSE=0.1782  nll_train=-239.58723  time=27995.13 
+i=50100  kl=507570.56  nell=-14374807.0  nelbo=-13867236.0  log-sigma2= [-2.59481311] RMSE=0.1782  nll_train=-239.57597  time=28050.433 
+i=50200  kl=507581.88  nell=-14376650.0  nelbo=-13869068.0  log-sigma2= [-2.59406781] RMSE=0.1782  nll_train=-239.60342  time=28106.555 
+i=50300  kl=507599.03  nell=-14377542.0  nelbo=-13869943.0  log-sigma2= [-2.59184742] RMSE=0.1782  nll_train=-239.64293  time=28162.532 
+i=50400  kl=507618.59  nell=-14378066.0  nelbo=-13870447.0  log-sigma2= [-2.59193683] RMSE=0.1782  nll_train=-239.61780  time=28218.477 
+i=50500  kl=507640.72  nell=-14378071.0  nelbo=-13870430.0  log-sigma2= [-2.59248996] RMSE=0.1782  nll_train=-239.62582  time=28274.47 
+i=50600  kl=507646.62  nell=-14377152.0  nelbo=-13869505.0  log-sigma2= [-2.59328198] RMSE=0.1782  nll_train=-239.62108  time=28330.407 
+i=50700  kl=507669.38  nell=-14377885.0  nelbo=-13870216.0  log-sigma2= [-2.59195042] RMSE=0.1782  nll_train=-239.64553  time=28386.317 
+i=50800  kl=507681.59  nell=-14377895.0  nelbo=-13870213.0  log-sigma2= [-2.59177613] RMSE=0.1782  nll_train=-239.63600  time=28442.411 
+i=50900  kl=507690.12  nell=-14379729.0  nelbo=-13872039.0  log-sigma2= [-2.59227538] RMSE=0.1782  nll_train=-239.66428  time=28498.376 
+i=51000  kl=507671.97  nell=-14379550.0  nelbo=-13871878.0  log-sigma2= [-2.59197831] RMSE=0.1782  nll_train=-239.65227  time=28554.414 
+i=51100  kl=507664.62  nell=-14380403.0  nelbo=-13872738.0  log-sigma2= [-2.59211969] RMSE=0.1782  nll_train=-239.68673  time=28610.444 
+i=51200  kl=507708.78  nell=-14378336.0  nelbo=-13870627.0  log-sigma2= [-2.59200287] RMSE=0.1782  nll_train=-239.65590  time=28666.601 
+i=51300  kl=507699.41  nell=-14380733.0  nelbo=-13873034.0  log-sigma2= [-2.5912652] RMSE=0.1782  nll_train=-239.67962  time=28722.346 
+i=51400  kl=507710.75  nell=-14379707.0  nelbo=-13871996.0  log-sigma2= [-2.59178042] RMSE=0.1782  nll_train=-239.67517  time=28778.436 
+i=51500  kl=507701.75  nell=-14381927.0  nelbo=-13874225.0  log-sigma2= [-2.5913384] RMSE=0.1782  nll_train=-239.70658  time=28834.264 
+i=51600  kl=507714.69  nell=-14382124.0  nelbo=-13874409.0  log-sigma2= [-2.59110236] RMSE=0.1782  nll_train=-239.69412  time=28890.229 
+i=51700  kl=507712.66  nell=-14381533.0  nelbo=-13873820.0  log-sigma2= [-2.59058571] RMSE=0.1782  nll_train=-239.71353  time=28946.296 
+i=51800  kl=507727.28  nell=-14384898.0  nelbo=-13877171.0  log-sigma2= [-2.59046841] RMSE=0.1782  nll_train=-239.72497  time=29002.287 
+i=51900  kl=507773.34  nell=-14382675.0  nelbo=-13874902.0  log-sigma2= [-2.59031248] RMSE=0.1782  nll_train=-239.70418  time=29058.177 
+i=52000  kl=507722.47  nell=-14382323.0  nelbo=-13874601.0  log-sigma2= [-2.59083033] RMSE=0.1782  nll_train=-239.68603  time=29114.182 
+i=52100  kl=507717.78  nell=-14385681.0  nelbo=-13877963.0  log-sigma2= [-2.5911231] RMSE=0.1782  nll_train=-239.74850  time=29170.094 
+i=52200  kl=507722.12  nell=-14382801.0  nelbo=-13875079.0  log-sigma2= [-2.59198546] RMSE=0.1782  nll_train=-239.70530  time=29226.123 
+i=52300  kl=507756.25  nell=-14385440.0  nelbo=-13877684.0  log-sigma2= [-2.59051657] RMSE=0.1782  nll_train=-239.75583  time=29282.067 
+i=52400  kl=507765.44  nell=-14384121.0  nelbo=-13876356.0  log-sigma2= [-2.5897615] RMSE=0.1782  nll_train=-239.75100  time=29338.02 
+i=52500  kl=507763.41  nell=-14385579.0  nelbo=-13877816.0  log-sigma2= [-2.58996868] RMSE=0.1782  nll_train=-239.74833  time=29394.007 
+i=52600  kl=507778.94  nell=-14386395.0  nelbo=-13878616.0  log-sigma2= [-2.59045601] RMSE=0.1782  nll_train=-239.77783  time=29449.958 
+i=52700  kl=507782.0  nell=-14385198.0  nelbo=-13877416.0  log-sigma2= [-2.59057593] RMSE=0.1782  nll_train=-239.76815  time=29505.871 
+i=52800  kl=507769.03  nell=-14386987.0  nelbo=-13879218.0  log-sigma2= [-2.58983016] RMSE=0.1782  nll_train=-239.79050  time=29561.831 
+i=52900  kl=507770.53  nell=-14386143.0  nelbo=-13878372.0  log-sigma2= [-2.59026003] RMSE=0.1782  nll_train=-239.76557  time=29617.672 
+i=53000  kl=507765.88  nell=-14385463.0  nelbo=-13877697.0  log-sigma2= [-2.59085369] RMSE=0.1782  nll_train=-239.78778  time=29673.762 
+i=53100  kl=507732.53  nell=-14387422.0  nelbo=-13879689.0  log-sigma2= [-2.59039211] RMSE=0.1782  nll_train=-239.78802  time=29729.673 
+i=53200  kl=507750.59  nell=-14386912.0  nelbo=-13879161.0  log-sigma2= [-2.58976173] RMSE=0.1782  nll_train=-239.78502  time=29785.494 
+i=53300  kl=507747.44  nell=-14386991.0  nelbo=-13879244.0  log-sigma2= [-2.58993864] RMSE=0.1782  nll_train=-239.77857  time=29841.329 
+i=53400  kl=507758.97  nell=-14388897.0  nelbo=-13881138.0  log-sigma2= [-2.59035897] RMSE=0.1782  nll_train=-239.81457  time=29897.257 
+i=53500  kl=507752.06  nell=-14390115.0  nelbo=-13882363.0  log-sigma2= [-2.59034634] RMSE=0.1782  nll_train=-239.81853  time=29953.178 
+i=53600  kl=507740.22  nell=-14388843.0  nelbo=-13881103.0  log-sigma2= [-2.58881617] RMSE=0.1782  nll_train=-239.81200  time=30009.242 
+i=53700  kl=507749.66  nell=-14387936.0  nelbo=-13880186.0  log-sigma2= [-2.58999276] RMSE=0.1782  nll_train=-239.78250  time=30065.064 
+i=53800  kl=507752.62  nell=-14389567.0  nelbo=-13881814.0  log-sigma2= [-2.59282875] RMSE=0.1782  nll_train=-239.83418  time=30121.053 
+i=53900  kl=507739.84  nell=-14388823.0  nelbo=-13881083.0  log-sigma2= [-2.58928061] RMSE=0.1782  nll_train=-239.83220  time=30176.986 
+i=54000  kl=507753.81  nell=-14390344.0  nelbo=-13882590.0  log-sigma2= [-2.59057832] RMSE=0.1782  nll_train=-239.81748  time=30233.007 
+i=54100  kl=507753.78  nell=-14391869.0  nelbo=-13884115.0  log-sigma2= [-2.5892334] RMSE=0.1782  nll_train=-239.85938  time=30288.82 
+i=54200  kl=507740.41  nell=-14389620.0  nelbo=-13881880.0  log-sigma2= [-2.59107685] RMSE=0.1782  nll_train=-239.81695  time=30344.709 
+i=54300  kl=507765.22  nell=-14388981.0  nelbo=-13881216.0  log-sigma2= [-2.59119153] RMSE=0.1782  nll_train=-239.83073  time=30400.611 
+i=54400  kl=507760.94  nell=-14391080.0  nelbo=-13883319.0  log-sigma2= [-2.59084821] RMSE=0.1782  nll_train=-239.84737  time=30457.2 
+i=54500  kl=507765.75  nell=-14389958.0  nelbo=-13882192.0  log-sigma2= [-2.59140801] RMSE=0.1782  nll_train=-239.83967  time=30512.555 
+i=54600  kl=507761.0  nell=-14392176.0  nelbo=-13884415.0  log-sigma2= [-2.59095454] RMSE=0.1782  nll_train=-239.85027  time=30568.804 
+i=54700  kl=507750.19  nell=-14390997.0  nelbo=-13883247.0  log-sigma2= [-2.59134555] RMSE=0.1782  nll_train=-239.86310  time=30624.595 
+i=54800  kl=507789.47  nell=-14392307.0  nelbo=-13884518.0  log-sigma2= [-2.59183502] RMSE=0.1782  nll_train=-239.86392  time=30680.488 
+i=54900  kl=507771.97  nell=-14392232.0  nelbo=-13884460.0  log-sigma2= [-2.5899055] RMSE=0.1782  nll_train=-239.84422  time=30736.496 
+i=55000  kl=507773.66  nell=-14393979.0  nelbo=-13886205.0  log-sigma2= [-2.59218812] RMSE=0.1782  nll_train=-239.88627  time=30792.406 
+i=55100  kl=507788.56  nell=-14392566.0  nelbo=-13884777.0  log-sigma2= [-2.59024549] RMSE=0.1782  nll_train=-239.89390  time=30848.325 
+i=55200  kl=507800.59  nell=-14392386.0  nelbo=-13884585.0  log-sigma2= [-2.59125257] RMSE=0.1782  nll_train=-239.84857  time=30904.317 
+i=55300  kl=507821.16  nell=-14393789.0  nelbo=-13885968.0  log-sigma2= [-2.59023046] RMSE=0.1782  nll_train=-239.88488  time=30960.448 
+i=55400  kl=507799.88  nell=-14394069.0  nelbo=-13886269.0  log-sigma2= [-2.59028625] RMSE=0.1782  nll_train=-239.89553  time=31016.4 
+i=55500  kl=507794.09  nell=-14394826.0  nelbo=-13887032.0  log-sigma2= [-2.59069657] RMSE=0.1782  nll_train=-239.92282  time=31072.593 
+i=55600  kl=507788.16  nell=-14394466.0  nelbo=-13886678.0  log-sigma2= [-2.59064293] RMSE=0.1782  nll_train=-239.90497  time=31128.497 
+i=55700  kl=507823.97  nell=-14394515.0  nelbo=-13886691.0  log-sigma2= [-2.59108472] RMSE=0.1782  nll_train=-239.90553  time=31184.409 
+i=55800  kl=507836.94  nell=-14396035.0  nelbo=-13888198.0  log-sigma2= [-2.59025645] RMSE=0.1782  nll_train=-239.92295  time=31240.333 
+i=55900  kl=507835.69  nell=-14395517.0  nelbo=-13887681.0  log-sigma2= [-2.59004927] RMSE=0.1782  nll_train=-239.92608  time=31296.237 
+i=56000  kl=507846.44  nell=-14396381.0  nelbo=-13888535.0  log-sigma2= [-2.59111762] RMSE=0.1782  nll_train=-239.92887  time=31352.257 
+i=56100  kl=507830.09  nell=-14395053.0  nelbo=-13887223.0  log-sigma2= [-2.59050798] RMSE=0.1782  nll_train=-239.93007  time=31408.255 
+i=56200  kl=507884.12  nell=-14396256.0  nelbo=-13888372.0  log-sigma2= [-2.59226108] RMSE=0.1782  nll_train=-239.95673  time=31464.158 
+i=56300  kl=507931.22  nell=-14395621.0  nelbo=-13887690.0  log-sigma2= [-2.59061217] RMSE=0.1782  nll_train=-239.93073  time=31520.12 
+i=56400  kl=507906.78  nell=-14396057.0  nelbo=-13888150.0  log-sigma2= [-2.5912962] RMSE=0.1782  nll_train=-239.93603  time=31576.165 
+i=56500  kl=507928.03  nell=-14394621.0  nelbo=-13886693.0  log-sigma2= [-2.59084272] RMSE=0.1782  nll_train=-239.92930  time=31632.18 
+i=56600  kl=507935.75  nell=-14395570.0  nelbo=-13887634.0  log-sigma2= [-2.58917665] RMSE=0.1782  nll_train=-239.93615  time=31688.122 
+i=56700  kl=507962.16  nell=-14396320.0  nelbo=-13888358.0  log-sigma2= [-2.58946276] RMSE=0.1782  nll_train=-239.91800  time=31744.129 
+i=56800  kl=507988.53  nell=-14396867.0  nelbo=-13888878.0  log-sigma2= [-2.58976722] RMSE=0.1782  nll_train=-239.94923  time=31800.136 
+i=56900  kl=507985.28  nell=-14397591.0  nelbo=-13889606.0  log-sigma2= [-2.58995509] RMSE=0.1782  nll_train=-239.94607  time=31856.152 
+i=57000  kl=508006.31  nell=-14396569.0  nelbo=-13888563.0  log-sigma2= [-2.59016156] RMSE=0.1782  nll_train=-239.93685  time=31912.07 
+i=57100  kl=508023.44  nell=-14396909.0  nelbo=-13888886.0  log-sigma2= [-2.59038687] RMSE=0.1782  nll_train=-239.94723  time=31968.07 
+i=57200  kl=508030.78  nell=-14399046.0  nelbo=-13891015.0  log-sigma2= [-2.58897233] RMSE=0.1781  nll_train=-239.98793  time=32023.846 
+i=57300  kl=508046.06  nell=-14398747.0  nelbo=-13890701.0  log-sigma2= [-2.58830976] RMSE=0.1781  nll_train=-239.98410  time=32079.671 
+i=57400  kl=508046.84  nell=-14398254.0  nelbo=-13890207.0  log-sigma2= [-2.58843827] RMSE=0.1781  nll_train=-239.95148  time=32135.731 
+i=57500  kl=508031.97  nell=-14396202.0  nelbo=-13888170.0  log-sigma2= [-2.58972573] RMSE=0.1782  nll_train=-239.92952  time=32191.642 
+i=57600  kl=508073.44  nell=-14397181.0  nelbo=-13889108.0  log-sigma2= [-2.58919716] RMSE=0.1781  nll_train=-239.95310  time=32247.625 
+i=57700  kl=508058.34  nell=-14397640.0  nelbo=-13889582.0  log-sigma2= [-2.58993292] RMSE=0.1781  nll_train=-239.96953  time=32303.538 
+i=57800  kl=508113.38  nell=-14398466.0  nelbo=-13890353.0  log-sigma2= [-2.5891397] RMSE=0.1781  nll_train=-239.98120  time=32359.452 
+i=57900  kl=508099.31  nell=-14399251.0  nelbo=-13891152.0  log-sigma2= [-2.58851242] RMSE=0.1781  nll_train=-240.00320  time=32415.209 
+i=58000  kl=508115.34  nell=-14400322.0  nelbo=-13892207.0  log-sigma2= [-2.58978605] RMSE=0.1781  nll_train=-240.01187  time=32471.262 
+i=58100  kl=508142.47  nell=-14398771.0  nelbo=-13890629.0  log-sigma2= [-2.58798218] RMSE=0.1781  nll_train=-239.98318  time=32527.27 
+i=58200  kl=508169.12  nell=-14399616.0  nelbo=-13891447.0  log-sigma2= [-2.58710361] RMSE=0.1781  nll_train=-240.00732  time=32583.302 
+i=58300  kl=508176.59  nell=-14400419.0  nelbo=-13892242.0  log-sigma2= [-2.58777738] RMSE=0.1781  nll_train=-240.00405  time=32639.258 
+i=58400  kl=508197.5  nell=-14400454.0  nelbo=-13892256.0  log-sigma2= [-2.58884311] RMSE=0.1781  nll_train=-240.02413  time=32695.275 
+i=58500  kl=508208.75  nell=-14401377.0  nelbo=-13893168.0  log-sigma2= [-2.58758736] RMSE=0.1781  nll_train=-240.02802  time=32751.175 
+i=58600  kl=508226.12  nell=-14402290.0  nelbo=-13894064.0  log-sigma2= [-2.58721399] RMSE=0.1781  nll_train=-240.04247  time=32807.177 
+i=58700  kl=508239.56  nell=-14400928.0  nelbo=-13892688.0  log-sigma2= [-2.58689666] RMSE=0.1781  nll_train=-240.00262  time=32863.14 
+i=58800  kl=508271.66  nell=-14402757.0  nelbo=-13894485.0  log-sigma2= [-2.58627295] RMSE=0.1781  nll_train=-240.07308  time=32919.12 
+i=58900  kl=508283.56  nell=-14403526.0  nelbo=-13895242.0  log-sigma2= [-2.58604169] RMSE=0.1781  nll_train=-240.03713  time=32975.054 
+i=59000  kl=508309.59  nell=-14402570.0  nelbo=-13894260.0  log-sigma2= [-2.58677173] RMSE=0.1781  nll_train=-240.02982  time=33030.989 
+i=59100  kl=508320.91  nell=-14402265.0  nelbo=-13893944.0  log-sigma2= [-2.58606553] RMSE=0.1781  nll_train=-240.02515  time=33087.048 
+i=59200  kl=508347.59  nell=-14402615.0  nelbo=-13894267.0  log-sigma2= [-2.58537936] RMSE=0.1781  nll_train=-240.04272  time=33143.06 
+i=59300  kl=508395.03  nell=-14403907.0  nelbo=-13895512.0  log-sigma2= [-2.58415794] RMSE=0.1781  nll_train=-240.05795  time=33199.128 
+i=59400  kl=508417.94  nell=-14404529.0  nelbo=-13896111.0  log-sigma2= [-2.585392] RMSE=0.1781  nll_train=-240.06398  time=33255.08 
+i=59500  kl=508460.53  nell=-14404038.0  nelbo=-13895577.0  log-sigma2= [-2.58522487] RMSE=0.1781  nll_train=-240.06728  time=33311.146 
+i=59600  kl=508499.28  nell=-14405646.0  nelbo=-13897147.0  log-sigma2= [-2.58534098] RMSE=0.1781  nll_train=-240.09617  time=33367.012 
+i=59700  kl=508535.06  nell=-14404015.0  nelbo=-13895480.0  log-sigma2= [-2.58413339] RMSE=0.1781  nll_train=-240.05900  time=33422.92 
+i=59800  kl=508529.5  nell=-14410396.0  nelbo=-13901866.0  log-sigma2= [-2.58289886] RMSE=0.1781  nll_train=-240.17348  time=33478.87 
+i=59900  kl=508550.88  nell=-14405168.0  nelbo=-13896617.0  log-sigma2= [-2.58345866] RMSE=0.1781  nll_train=-240.10027  time=33534.992 
+i=60000  kl=508558.47  nell=-14405905.0  nelbo=-13897347.0  log-sigma2= [-2.58385181] RMSE=0.1781  nll_train=-240.08052  time=33590.853 
+i=60100  kl=508536.12  nell=-14404012.0  nelbo=-13895476.0  log-sigma2= [-2.58497858] RMSE=0.1781  nll_train=-240.07598  time=33646.743 
+i=60200  kl=508548.59  nell=-14405439.0  nelbo=-13896890.0  log-sigma2= [-2.5848465] RMSE=0.1781  nll_train=-240.10725  time=33702.632 
+i=60300  kl=508570.22  nell=-14406439.0  nelbo=-13897869.0  log-sigma2= [-2.58495188] RMSE=0.1781  nll_train=-240.11557  time=33758.717 
+i=60400  kl=508603.06  nell=-14405378.0  nelbo=-13896775.0  log-sigma2= [-2.58410883] RMSE=0.1781  nll_train=-240.08720  time=33814.676 
+i=60500  kl=508590.0  nell=-14406580.0  nelbo=-13897990.0  log-sigma2= [-2.5851593] RMSE=0.1781  nll_train=-240.09950  time=33870.684 
+i=60600  kl=508628.81  nell=-14412088.0  nelbo=-13903459.0  log-sigma2= [-2.58309627] RMSE=0.1781  nll_train=-240.19300  time=33926.652 
+i=60700  kl=508639.41  nell=-14414237.0  nelbo=-13905598.0  log-sigma2= [-2.58325958] RMSE=0.1781  nll_train=-240.23412  time=33982.687 
+i=60800  kl=508617.72  nell=-14411578.0  nelbo=-13902960.0  log-sigma2= [-2.58403897] RMSE=0.1781  nll_train=-240.19335  time=34038.605 
+i=60900  kl=508624.19  nell=-14407142.0  nelbo=-13898518.0  log-sigma2= [-2.58284831] RMSE=0.1781  nll_train=-240.12243  time=34094.727 
+i=61000  kl=508609.31  nell=-14406623.0  nelbo=-13898014.0  log-sigma2= [-2.58293843] RMSE=0.1781  nll_train=-240.09882  time=34150.833 
+i=61100  kl=508593.78  nell=-14411559.0  nelbo=-13902965.0  log-sigma2= [-2.58372617] RMSE=0.1781  nll_train=-240.19377  time=34206.683 
+i=61200  kl=508592.62  nell=-14408257.0  nelbo=-13899664.0  log-sigma2= [-2.58413219] RMSE=0.1781  nll_train=-240.13065  time=34262.601 
+i=61300  kl=508591.75  nell=-14411127.0  nelbo=-13902535.0  log-sigma2= [-2.58559179] RMSE=0.1781  nll_train=-240.19543  time=34318.62 
+i=61400  kl=508598.22  nell=-14408379.0  nelbo=-13899781.0  log-sigma2= [-2.58395267] RMSE=0.1781  nll_train=-240.12373  time=34374.472 
+i=61500  kl=508606.09  nell=-14410628.0  nelbo=-13902022.0  log-sigma2= [-2.5844202] RMSE=0.1781  nll_train=-240.16990  time=34430.253 
+i=61600  kl=508611.81  nell=-14410283.0  nelbo=-13901671.0  log-sigma2= [-2.58426571] RMSE=0.1781  nll_train=-240.15978  time=34486.187 
+i=61700  kl=508577.69  nell=-14409784.0  nelbo=-13901206.0  log-sigma2= [-2.58536601] RMSE=0.1781  nll_train=-240.16098  time=34542.062 
+i=61800  kl=508618.94  nell=-14412071.0  nelbo=-13903452.0  log-sigma2= [-2.58409882] RMSE=0.1781  nll_train=-240.18212  time=34598.008 
+i=61900  kl=508657.31  nell=-14416403.0  nelbo=-13907746.0  log-sigma2= [-2.58341336] RMSE=0.1781  nll_train=-240.28300  time=34654.013 
+i=62000  kl=508671.53  nell=-14411950.0  nelbo=-13903278.0  log-sigma2= [-2.58374858] RMSE=0.1781  nll_train=-240.19542  time=34709.823 
+i=62100  kl=508707.62  nell=-14414527.0  nelbo=-13905819.0  log-sigma2= [-2.58314943] RMSE=0.1781  nll_train=-240.24538  time=34765.895 
+i=62200  kl=508686.91  nell=-14420299.0  nelbo=-13911612.0  log-sigma2= [-2.58309793] RMSE=0.1781  nll_train=-240.35160  time=34821.856 
+i=62300  kl=508656.34  nell=-14418938.0  nelbo=-13910282.0  log-sigma2= [-2.58356357] RMSE=0.1781  nll_train=-240.32900  time=34877.674 
+i=62400  kl=508669.06  nell=-14419734.0  nelbo=-13911065.0  log-sigma2= [-2.58284402] RMSE=0.1781  nll_train=-240.32050  time=34933.836 
+i=62500  kl=508698.0  nell=-14421364.0  nelbo=-13912666.0  log-sigma2= [-2.5836885] RMSE=0.1781  nll_train=-240.33815  time=34989.723 
+i=62600  kl=508696.72  nell=-14412931.0  nelbo=-13904234.0  log-sigma2= [-2.58348918] RMSE=0.1781  nll_train=-240.21773  time=35045.625 
+i=62700  kl=508707.47  nell=-14418835.0  nelbo=-13910128.0  log-sigma2= [-2.58363986] RMSE=0.1781  nll_train=-240.32622  time=35101.591 
+i=62800  kl=508697.94  nell=-14415811.0  nelbo=-13907113.0  log-sigma2= [-2.58296657] RMSE=0.1781  nll_train=-240.26317  time=35157.413 
+i=62900  kl=508716.66  nell=-14421190.0  nelbo=-13912473.0  log-sigma2= [-2.58298135] RMSE=0.1781  nll_train=-240.34220  time=35213.52 
+i=63000  kl=508718.62  nell=-14415737.0  nelbo=-13907018.0  log-sigma2= [-2.58359647] RMSE=0.1781  nll_train=-240.24048  time=35269.56 
+i=63100  kl=508733.56  nell=-14421060.0  nelbo=-13912326.0  log-sigma2= [-2.58281422] RMSE=0.1781  nll_train=-240.36773  time=35325.52 
+i=63200  kl=508711.53  nell=-14423316.0  nelbo=-13914604.0  log-sigma2= [-2.5837121] RMSE=0.1781  nll_train=-240.37685  time=35381.471 
+i=63300  kl=508712.5  nell=-14413881.0  nelbo=-13905168.0  log-sigma2= [-2.58430696] RMSE=0.1781  nll_train=-240.23512  time=35437.428 
+i=63400  kl=508704.66  nell=-14420310.0  nelbo=-13911605.0  log-sigma2= [-2.58439922] RMSE=0.1781  nll_train=-240.31192  time=35493.495 
+i=63500  kl=508722.97  nell=-14417966.0  nelbo=-13909243.0  log-sigma2= [-2.58396173] RMSE=0.1781  nll_train=-240.28333  time=35549.337 
+i=63600  kl=508749.03  nell=-14421308.0  nelbo=-13912559.0  log-sigma2= [-2.58286071] RMSE=0.1781  nll_train=-240.32388  time=35605.306 
+i=63700  kl=508739.88  nell=-14422925.0  nelbo=-13914185.0  log-sigma2= [-2.58311963] RMSE=0.1781  nll_train=-240.38158  time=35661.337 
+i=63800  kl=508747.28  nell=-14416046.0  nelbo=-13907299.0  log-sigma2= [-2.58370876] RMSE=0.1781  nll_train=-240.26832  time=35717.24 
+i=63900  kl=508787.59  nell=-14420513.0  nelbo=-13911725.0  log-sigma2= [-2.58374095] RMSE=0.1781  nll_train=-240.33163  time=35773.15 
+i=64000  kl=508777.0  nell=-14424379.0  nelbo=-13915602.0  log-sigma2= [-2.58339834] RMSE=0.1781  nll_train=-240.37672  time=35829.235 
+i=64100  kl=508768.38  nell=-14422528.0  nelbo=-13913760.0  log-sigma2= [-2.5827415] RMSE=0.1781  nll_train=-240.39152  time=35885.118 
+i=64200  kl=508772.41  nell=-14424966.0  nelbo=-13916194.0  log-sigma2= [-2.58381081] RMSE=0.1781  nll_train=-240.43213  time=35941.197 
+i=64300  kl=508772.5  nell=-14424769.0  nelbo=-13915996.0  log-sigma2= [-2.58289433] RMSE=0.1781  nll_train=-240.41538  time=35997.148 
+i=64400  kl=508766.09  nell=-14423621.0  nelbo=-13914855.0  log-sigma2= [-2.58320618] RMSE=0.1781  nll_train=-240.40322  time=36053.185 
+i=64500  kl=508782.78  nell=-14423676.0  nelbo=-13914893.0  log-sigma2= [-2.58169413] RMSE=0.1781  nll_train=-240.39415  time=36109.291 
+i=64600  kl=508830.12  nell=-14427899.0  nelbo=-13919069.0  log-sigma2= [-2.58156276] RMSE=0.1781  nll_train=-240.45547  time=36165.234 
+i=64700  kl=508848.62  nell=-14426574.0  nelbo=-13917725.0  log-sigma2= [-2.58191133] RMSE=0.1781  nll_train=-240.45428  time=36221.383 
+i=64800  kl=508855.34  nell=-14426290.0  nelbo=-13917435.0  log-sigma2= [-2.58102417] RMSE=0.1781  nll_train=-240.43698  time=36277.495 
+i=64900  kl=508840.97  nell=-14428439.0  nelbo=-13919598.0  log-sigma2= [-2.58184338] RMSE=0.1781  nll_train=-240.49430  time=36333.364 
+i=65000  kl=508843.66  nell=-14426914.0  nelbo=-13918070.0  log-sigma2= [-2.58385444] RMSE=0.1781  nll_train=-240.43573  time=36389.444 
+i=65100  kl=508860.5  nell=-14429332.0  nelbo=-13920472.0  log-sigma2= [-2.5815165] RMSE=0.1781  nll_train=-240.50665  time=36445.365 
+i=65200  kl=508856.41  nell=-14431000.0  nelbo=-13922144.0  log-sigma2= [-2.58264804] RMSE=0.1781  nll_train=-240.52520  time=36501.245 
+i=65300  kl=508863.41  nell=-14427131.0  nelbo=-13918268.0  log-sigma2= [-2.58278704] RMSE=0.1780  nll_train=-240.46465  time=36557.311 
+i=65400  kl=508868.06  nell=-14430237.0  nelbo=-13921369.0  log-sigma2= [-2.58058429] RMSE=0.1781  nll_train=-240.50403  time=36613.389 
+i=65500  kl=508848.38  nell=-14429726.0  nelbo=-13920878.0  log-sigma2= [-2.58312011] RMSE=0.1780  nll_train=-240.48623  time=36669.392 
+i=65600  kl=508867.72  nell=-14431792.0  nelbo=-13922924.0  log-sigma2= [-2.58234286] RMSE=0.1780  nll_train=-240.53293  time=36725.397 
+i=65700  kl=508897.12  nell=-14432870.0  nelbo=-13923973.0  log-sigma2= [-2.58284092] RMSE=0.1780  nll_train=-240.54095  time=36781.441 
+i=65800  kl=508902.41  nell=-14427035.0  nelbo=-13918133.0  log-sigma2= [-2.58254123] RMSE=0.1780  nll_train=-240.45775  time=36837.253 
+i=65900  kl=508933.84  nell=-14432458.0  nelbo=-13923524.0  log-sigma2= [-2.58075714] RMSE=0.1780  nll_train=-240.53203  time=36893.196 
+i=66000  kl=508900.84  nell=-14432465.0  nelbo=-13923564.0  log-sigma2= [-2.58168745] RMSE=0.1780  nll_train=-240.55270  time=36949.295 
+i=66100  kl=508904.91  nell=-14431304.0  nelbo=-13922399.0  log-sigma2= [-2.58037877] RMSE=0.1780  nll_train=-240.50195  time=37005.289 
+i=66200  kl=508901.53  nell=-14433277.0  nelbo=-13924375.0  log-sigma2= [-2.58123517] RMSE=0.1780  nll_train=-240.54010  time=37061.398 
+i=66300  kl=508937.59  nell=-14434734.0  nelbo=-13925796.0  log-sigma2= [-2.58171558] RMSE=0.1780  nll_train=-240.54737  time=37117.257 
+i=66400  kl=508927.88  nell=-14433854.0  nelbo=-13924926.0  log-sigma2= [-2.58151484] RMSE=0.1780  nll_train=-240.55050  time=37173.414 
+i=66500  kl=508993.03  nell=-14434805.0  nelbo=-13925812.0  log-sigma2= [-2.57963824] RMSE=0.1780  nll_train=-240.57987  time=37229.478 
+i=66600  kl=509023.41  nell=-14436252.0  nelbo=-13927229.0  log-sigma2= [-2.58006644] RMSE=0.1780  nll_train=-240.59280  time=37285.367 
+i=66700  kl=509029.84  nell=-14436860.0  nelbo=-13927830.0  log-sigma2= [-2.58053374] RMSE=0.1780  nll_train=-240.59780  time=37341.482 
+i=66800  kl=509031.22  nell=-14437067.0  nelbo=-13928036.0  log-sigma2= [-2.5794003] RMSE=0.1780  nll_train=-240.59413  time=37397.522 
+i=66900  kl=509039.94  nell=-14438599.0  nelbo=-13929559.0  log-sigma2= [-2.57849407] RMSE=0.1780  nll_train=-240.63683  time=37453.435 
+i=67000  kl=509010.91  nell=-14437121.0  nelbo=-13928110.0  log-sigma2= [-2.57759738] RMSE=0.1780  nll_train=-240.62092  time=37509.468 
+i=67100  kl=509065.84  nell=-14438621.0  nelbo=-13929555.0  log-sigma2= [-2.57927465] RMSE=0.1780  nll_train=-240.64530  time=37565.398 
+i=67200  kl=509076.88  nell=-14438297.0  nelbo=-13929220.0  log-sigma2= [-2.57941484] RMSE=0.1780  nll_train=-240.64572  time=37621.378 
+i=67300  kl=509107.28  nell=-14439310.0  nelbo=-13930203.0  log-sigma2= [-2.57969642] RMSE=0.1780  nll_train=-240.66990  time=37677.251 
+i=67400  kl=509086.03  nell=-14441302.0  nelbo=-13932216.0  log-sigma2= [-2.57986212] RMSE=0.1780  nll_train=-240.68108  time=37733.247 
+i=67500  kl=509122.06  nell=-14440990.0  nelbo=-13931868.0  log-sigma2= [-2.57801223] RMSE=0.1780  nll_train=-240.69263  time=37789.401 
+i=67600  kl=509117.16  nell=-14442183.0  nelbo=-13933066.0  log-sigma2= [-2.57679558] RMSE=0.1780  nll_train=-240.70362  time=37845.422 
+i=67700  kl=509176.41  nell=-14441327.0  nelbo=-13932151.0  log-sigma2= [-2.57735229] RMSE=0.1780  nll_train=-240.68777  time=37901.552 
+i=67800  kl=509208.16  nell=-14443478.0  nelbo=-13934270.0  log-sigma2= [-2.57798743] RMSE=0.1780  nll_train=-240.71753  time=37957.55 
+i=67900  kl=509233.78  nell=-14443232.0  nelbo=-13933998.0  log-sigma2= [-2.57802248] RMSE=0.1780  nll_train=-240.73380  time=38013.616 
+i=68000  kl=509255.75  nell=-14444869.0  nelbo=-13935613.0  log-sigma2= [-2.57827735] RMSE=0.1780  nll_train=-240.74958  time=38069.609 
+i=68100  kl=509267.53  nell=-14445422.0  nelbo=-13936154.0  log-sigma2= [-2.57632589] RMSE=0.1780  nll_train=-240.75783  time=38125.381 
+i=68200  kl=509296.78  nell=-14445404.0  nelbo=-13936107.0  log-sigma2= [-2.5760932] RMSE=0.1780  nll_train=-240.75297  time=38181.308 
+i=68300  kl=509290.53  nell=-14446187.0  nelbo=-13936896.0  log-sigma2= [-2.57734728] RMSE=0.1780  nll_train=-240.76972  time=38237.501 
+i=68400  kl=509296.41  nell=-14446528.0  nelbo=-13937232.0  log-sigma2= [-2.57559085] RMSE=0.1780  nll_train=-240.76858  time=38293.437 
+i=68500  kl=509318.31  nell=-14445794.0  nelbo=-13936476.0  log-sigma2= [-2.5753336] RMSE=0.1780  nll_train=-240.77295  time=38349.486 
+i=68600  kl=509355.66  nell=-14445688.0  nelbo=-13936332.0  log-sigma2= [-2.57577753] RMSE=0.1780  nll_train=-240.77042  time=38405.426 
+i=68700  kl=509395.22  nell=-14447423.0  nelbo=-13938028.0  log-sigma2= [-2.5754261] RMSE=0.1780  nll_train=-240.80667  time=38461.28 
+i=68800  kl=509423.34  nell=-14449036.0  nelbo=-13939613.0  log-sigma2= [-2.57478476] RMSE=0.1780  nll_train=-240.81418  time=38517.392 
+i=68900  kl=509472.44  nell=-14449491.0  nelbo=-13940019.0  log-sigma2= [-2.5734992] RMSE=0.1780  nll_train=-240.82248  time=38574.199 
+i=69000  kl=509514.44  nell=-14448604.0  nelbo=-13939090.0  log-sigma2= [-2.57284021] RMSE=0.1780  nll_train=-240.80830  time=38629.29 
+i=69100  kl=509566.75  nell=-14450396.0  nelbo=-13940829.0  log-sigma2= [-2.5730691] RMSE=0.1780  nll_train=-240.83972  time=38685.265 
+i=69200  kl=509596.47  nell=-14450344.0  nelbo=-13940748.0  log-sigma2= [-2.573915] RMSE=0.1780  nll_train=-240.84547  time=38741.39 
+i=69300  kl=509614.16  nell=-14450829.0  nelbo=-13941215.0  log-sigma2= [-2.57251835] RMSE=0.1780  nll_train=-240.86432  time=38797.32 
+i=69400  kl=509683.19  nell=-14452398.0  nelbo=-13942715.0  log-sigma2= [-2.57114577] RMSE=0.1780  nll_train=-240.84715  time=38853.154 
+i=69500  kl=509739.78  nell=-14451753.0  nelbo=-13942013.0  log-sigma2= [-2.57178926] RMSE=0.1780  nll_train=-240.87268  time=38909.226 
+i=69600  kl=509763.72  nell=-14451997.0  nelbo=-13942233.0  log-sigma2= [-2.57017064] RMSE=0.1780  nll_train=-240.88395  time=38965.142 
+i=69700  kl=509819.69  nell=-14452559.0  nelbo=-13942739.0  log-sigma2= [-2.57077622] RMSE=0.1780  nll_train=-240.88700  time=39021.182 
+i=69800  kl=509872.75  nell=-14454244.0  nelbo=-13944371.0  log-sigma2= [-2.5689261] RMSE=0.1780  nll_train=-240.89295  time=39077.26 
+i=69900  kl=509934.16  nell=-14456782.0  nelbo=-13946848.0  log-sigma2= [-2.56955814] RMSE=0.1780  nll_train=-240.93015  time=39133.141 
+i=70000  kl=510003.06  nell=-14455628.0  nelbo=-13945625.0  log-sigma2= [-2.56796956] RMSE=0.1780  nll_train=-240.91972  time=39189.115 
+i=70100  kl=510056.72  nell=-14456446.0  nelbo=-13946389.0  log-sigma2= [-2.56748199] RMSE=0.1780  nll_train=-240.95288  time=39245.073 
+i=70200  kl=510153.41  nell=-14456123.0  nelbo=-13945970.0  log-sigma2= [-2.5663867] RMSE=0.1780  nll_train=-240.94277  time=39301.224 
+i=70300  kl=510205.22  nell=-14455436.0  nelbo=-13945231.0  log-sigma2= [-2.56544447] RMSE=0.1780  nll_train=-240.94220  time=39357.13 
+i=70400  kl=510237.66  nell=-14454797.0  nelbo=-13944559.0  log-sigma2= [-2.56564641] RMSE=0.1780  nll_train=-240.91377  time=39413.063 
+i=70500  kl=510297.34  nell=-14457069.0  nelbo=-13946772.0  log-sigma2= [-2.56521606] RMSE=0.1780  nll_train=-240.94263  time=39469.059 
+i=70600  kl=510327.22  nell=-14458498.0  nelbo=-13948171.0  log-sigma2= [-2.56372094] RMSE=0.1779  nll_train=-240.97743  time=39525.033 
+i=70700  kl=510400.22  nell=-14459196.0  nelbo=-13948796.0  log-sigma2= [-2.56348395] RMSE=0.1780  nll_train=-240.96108  time=39581.035 
+i=70800  kl=510430.75  nell=-14459184.0  nelbo=-13948753.0  log-sigma2= [-2.56352353] RMSE=0.1779  nll_train=-241.00035  time=39637.107 
+i=70900  kl=510500.5  nell=-14458666.0  nelbo=-13948166.0  log-sigma2= [-2.56310654] RMSE=0.1780  nll_train=-240.95753  time=39693.094 
+i=71000  kl=510575.0  nell=-14460072.0  nelbo=-13949497.0  log-sigma2= [-2.56138802] RMSE=0.1779  nll_train=-240.99450  time=39749.045 
+i=71100  kl=510609.94  nell=-14461182.0  nelbo=-13950572.0  log-sigma2= [-2.55985737] RMSE=0.1779  nll_train=-241.03952  time=39805.026 
+i=71200  kl=510666.34  nell=-14459976.0  nelbo=-13949310.0  log-sigma2= [-2.55997419] RMSE=0.1779  nll_train=-241.00672  time=39861.188 
+i=71300  kl=510754.09  nell=-14460737.0  nelbo=-13949983.0  log-sigma2= [-2.56037831] RMSE=0.1779  nll_train=-241.00733  time=39917.051 
+i=71400  kl=510798.5  nell=-14460222.0  nelbo=-13949424.0  log-sigma2= [-2.55848026] RMSE=0.1779  nll_train=-241.00777  time=39973.13 
+i=71500  kl=510816.28  nell=-14462601.0  nelbo=-13951785.0  log-sigma2= [-2.55834174] RMSE=0.1779  nll_train=-241.03073  time=40029.069 
+i=71600  kl=510869.66  nell=-14462090.0  nelbo=-13951220.0  log-sigma2= [-2.55793309] RMSE=0.1779  nll_train=-241.03375  time=40084.932 
+i=71700  kl=510918.72  nell=-14464729.0  nelbo=-13953810.0  log-sigma2= [-2.55797529] RMSE=0.1779  nll_train=-241.05892  time=40141.033 
+i=71800  kl=510948.16  nell=-14462643.0  nelbo=-13951695.0  log-sigma2= [-2.5576973] RMSE=0.1779  nll_train=-241.03790  time=40197.041 
+i=71900  kl=510991.78  nell=-14461707.0  nelbo=-13950715.0  log-sigma2= [-2.55756378] RMSE=0.1779  nll_train=-241.03390  time=40252.935 
+i=72000  kl=511016.72  nell=-14462599.0  nelbo=-13951582.0  log-sigma2= [-2.55543065] RMSE=0.1779  nll_train=-241.02677  time=40308.848 
+i=72100  kl=511049.69  nell=-14463591.0  nelbo=-13952541.0  log-sigma2= [-2.55640602] RMSE=0.1779  nll_train=-241.05403  time=40364.801 
+i=72200  kl=511103.34  nell=-14461870.0  nelbo=-13950767.0  log-sigma2= [-2.55677128] RMSE=0.1779  nll_train=-241.02383  time=40420.799 
+i=72300  kl=511176.44  nell=-14462326.0  nelbo=-13951150.0  log-sigma2= [-2.55393744] RMSE=0.1779  nll_train=-241.03707  time=40476.976 
+i=72400  kl=511218.22  nell=-14463126.0  nelbo=-13951908.0  log-sigma2= [-2.55407667] RMSE=0.1779  nll_train=-241.04798  time=40532.817 
+i=72500  kl=511245.31  nell=-14465034.0  nelbo=-13953789.0  log-sigma2= [-2.55444288] RMSE=0.1779  nll_train=-241.09182  time=40588.727 
+i=72600  kl=511256.78  nell=-14463617.0  nelbo=-13952360.0  log-sigma2= [-2.55374551] RMSE=0.1779  nll_train=-241.05672  time=40644.659 
+i=72700  kl=511286.19  nell=-14463603.0  nelbo=-13952317.0  log-sigma2= [-2.55282402] RMSE=0.1779  nll_train=-241.06042  time=40700.683 
+i=72800  kl=511305.06  nell=-14464041.0  nelbo=-13952736.0  log-sigma2= [-2.55276227] RMSE=0.1779  nll_train=-241.08777  time=40756.618 
+i=72900  kl=511347.84  nell=-14464643.0  nelbo=-13953295.0  log-sigma2= [-2.55334663] RMSE=0.1779  nll_train=-241.08995  time=40812.597 
+i=73000  kl=511391.38  nell=-14466850.0  nelbo=-13955459.0  log-sigma2= [-2.55202651] RMSE=0.1779  nll_train=-241.09605  time=40868.44 
+i=73100  kl=511423.81  nell=-14466156.0  nelbo=-13954732.0  log-sigma2= [-2.5516212] RMSE=0.1779  nll_train=-241.10087  time=40924.214 
+i=73200  kl=511465.41  nell=-14466958.0  nelbo=-13955493.0  log-sigma2= [-2.55196619] RMSE=0.1779  nll_train=-241.10710  time=40980.176 
+i=73300  kl=511475.62  nell=-14467827.0  nelbo=-13956351.0  log-sigma2= [-2.55166841] RMSE=0.1779  nll_train=-241.13803  time=41036.22 
+i=73400  kl=511501.31  nell=-14466133.0  nelbo=-13954632.0  log-sigma2= [-2.5509491] RMSE=0.1779  nll_train=-241.10410  time=41092.024 
+i=73500  kl=511517.91  nell=-14468578.0  nelbo=-13957060.0  log-sigma2= [-2.55056977] RMSE=0.1779  nll_train=-241.15102  time=41147.993 
+i=73600  kl=511553.19  nell=-14469046.0  nelbo=-13957493.0  log-sigma2= [-2.54968262] RMSE=0.1779  nll_train=-241.14218  time=41203.862 
+i=73700  kl=511524.19  nell=-14467293.0  nelbo=-13955769.0  log-sigma2= [-2.55035329] RMSE=0.1779  nll_train=-241.14503  time=41259.77 
+i=73800  kl=511548.75  nell=-14465933.0  nelbo=-13954384.0  log-sigma2= [-2.5502429] RMSE=0.1779  nll_train=-241.10020  time=41315.592 
+i=73900  kl=511559.5  nell=-14469143.0  nelbo=-13957584.0  log-sigma2= [-2.55017352] RMSE=0.1779  nll_train=-241.15443  time=41371.533 
+i=74000  kl=511592.09  nell=-14470206.0  nelbo=-13958614.0  log-sigma2= [-2.55076671] RMSE=0.1779  nll_train=-241.15427  time=41427.285 
+i=74100  kl=511600.53  nell=-14466014.0  nelbo=-13954413.0  log-sigma2= [-2.55055618] RMSE=0.1779  nll_train=-241.11057  time=41483.169 
+i=74200  kl=511629.56  nell=-14466321.0  nelbo=-13954691.0  log-sigma2= [-2.55064487] RMSE=0.1779  nll_train=-241.10722  time=41539.213 
+i=74300  kl=511608.56  nell=-14470545.0  nelbo=-13958936.0  log-sigma2= [-2.54978538] RMSE=0.1779  nll_train=-241.18060  time=41595.07 
+i=74400  kl=511635.88  nell=-14467849.0  nelbo=-13956213.0  log-sigma2= [-2.54936266] RMSE=0.1779  nll_train=-241.11133  time=41651.024 
+i=74500  kl=511638.31  nell=-14468858.0  nelbo=-13957220.0  log-sigma2= [-2.54942608] RMSE=0.1779  nll_train=-241.15290  time=41707.068 
+i=74600  kl=511681.38  nell=-14470216.0  nelbo=-13958535.0  log-sigma2= [-2.54892921] RMSE=0.1779  nll_train=-241.15155  time=41762.935 
+i=74700  kl=511720.03  nell=-14470069.0  nelbo=-13958349.0  log-sigma2= [-2.54938841] RMSE=0.1779  nll_train=-241.16160  time=41818.873 
+i=74800  kl=511736.62  nell=-14468298.0  nelbo=-13956561.0  log-sigma2= [-2.54922342] RMSE=0.1779  nll_train=-241.14787  time=41875.036 
+i=74900  kl=511735.53  nell=-14470953.0  nelbo=-13959217.0  log-sigma2= [-2.54796171] RMSE=0.1779  nll_train=-241.18253  time=41931.034 
+i=75000  kl=511740.38  nell=-14470517.0  nelbo=-13958777.0  log-sigma2= [-2.54827976] RMSE=0.1779  nll_train=-241.16392  time=41987.093 
+i=75100  kl=511756.0  nell=-14468627.0  nelbo=-13956871.0  log-sigma2= [-2.54758215] RMSE=0.1779  nll_train=-241.17042  time=42043.086 
+i=75200  kl=511795.69  nell=-14470794.0  nelbo=-13958998.0  log-sigma2= [-2.54807568] RMSE=0.1779  nll_train=-241.16328  time=42099.111 
+i=75300  kl=511802.12  nell=-14471414.0  nelbo=-13959612.0  log-sigma2= [-2.54650974] RMSE=0.1779  nll_train=-241.17000  time=42155.027 
+i=75400  kl=511831.81  nell=-14471183.0  nelbo=-13959351.0  log-sigma2= [-2.54724193] RMSE=0.1779  nll_train=-241.17653  time=42210.979 
+i=75500  kl=511865.84  nell=-14472150.0  nelbo=-13960284.0  log-sigma2= [-2.54681659] RMSE=0.1779  nll_train=-241.18733  time=42267.093 
+i=75600  kl=511851.97  nell=-14470343.0  nelbo=-13958491.0  log-sigma2= [-2.54801679] RMSE=0.1779  nll_train=-241.18885  time=42323.07 
+i=75700  kl=511878.25  nell=-14472795.0  nelbo=-13960917.0  log-sigma2= [-2.54716587] RMSE=0.1779  nll_train=-241.21265  time=42379.094 
+i=75800  kl=511907.31  nell=-14472398.0  nelbo=-13960491.0  log-sigma2= [-2.54552603] RMSE=0.1779  nll_train=-241.20555  time=42435.103 
+i=75900  kl=511890.94  nell=-14470456.0  nelbo=-13958565.0  log-sigma2= [-2.54678559] RMSE=0.1779  nll_train=-241.17647  time=42491.031 
+i=76000  kl=511894.66  nell=-14471761.0  nelbo=-13959866.0  log-sigma2= [-2.54564691] RMSE=0.1779  nll_train=-241.22308  time=42547.128 
+i=76100  kl=511924.03  nell=-14471973.0  nelbo=-13960049.0  log-sigma2= [-2.54567719] RMSE=0.1779  nll_train=-241.20962  time=42602.983 
+i=76200  kl=511941.41  nell=-14473528.0  nelbo=-13961587.0  log-sigma2= [-2.54636979] RMSE=0.1779  nll_train=-241.23913  time=42659.227 
+i=76300  kl=511963.62  nell=-14471934.0  nelbo=-13959970.0  log-sigma2= [-2.54641986] RMSE=0.1779  nll_train=-241.24607  time=42715.115 
+i=76400  kl=511970.56  nell=-14473593.0  nelbo=-13961622.0  log-sigma2= [-2.54548478] RMSE=0.1779  nll_train=-241.23688  time=42771.235 
+i=76500  kl=511968.09  nell=-14473258.0  nelbo=-13961290.0  log-sigma2= [-2.54483294] RMSE=0.1779  nll_train=-241.22533  time=42827.21 
+i=76600  kl=511970.44  nell=-14475568.0  nelbo=-13963598.0  log-sigma2= [-2.5453794] RMSE=0.1779  nll_train=-241.25568  time=42883.235 
+i=76700  kl=511988.91  nell=-14476188.0  nelbo=-13964199.0  log-sigma2= [-2.54586339] RMSE=0.1779  nll_train=-241.27103  time=42939.27 
+i=76800  kl=511979.12  nell=-14477182.0  nelbo=-13965203.0  log-sigma2= [-2.54578519] RMSE=0.1779  nll_train=-241.28243  time=42995.354 
+i=76900  kl=511992.88  nell=-14477520.0  nelbo=-13965527.0  log-sigma2= [-2.54505706] RMSE=0.1779  nll_train=-241.30120  time=43051.277 
+i=77000  kl=512015.12  nell=-14478019.0  nelbo=-13966004.0  log-sigma2= [-2.5446434] RMSE=0.1779  nll_train=-241.28823  time=43107.252 
+i=77100  kl=512067.16  nell=-14479553.0  nelbo=-13967486.0  log-sigma2= [-2.54365993] RMSE=0.1779  nll_train=-241.31833  time=43163.176 
+i=77200  kl=512093.28  nell=-14476926.0  nelbo=-13964833.0  log-sigma2= [-2.54303765] RMSE=0.1779  nll_train=-241.28673  time=43219.14 
+i=77300  kl=512164.0  nell=-14479027.0  nelbo=-13966863.0  log-sigma2= [-2.54345512] RMSE=0.1779  nll_train=-241.34230  time=43275.126 
+i=77400  kl=512202.31  nell=-14480705.0  nelbo=-13968503.0  log-sigma2= [-2.54160547] RMSE=0.1779  nll_train=-241.34253  time=43331.679 
+i=77500  kl=512254.78  nell=-14483144.0  nelbo=-13970889.0  log-sigma2= [-2.54175282] RMSE=0.1779  nll_train=-241.37862  time=43387.607 
+i=77600  kl=512297.91  nell=-14482196.0  nelbo=-13969898.0  log-sigma2= [-2.54132533] RMSE=0.1779  nll_train=-241.36498  time=43443.62 
+i=77700  kl=512345.12  nell=-14483072.0  nelbo=-13970727.0  log-sigma2= [-2.54026723] RMSE=0.1779  nll_train=-241.35823  time=43499.478 
+i=77800  kl=512394.5  nell=-14483347.0  nelbo=-13970952.0  log-sigma2= [-2.54111552] RMSE=0.1779  nll_train=-241.37070  time=43555.334 
+i=77900  kl=512438.75  nell=-14483911.0  nelbo=-13971472.0  log-sigma2= [-2.54048491] RMSE=0.1779  nll_train=-241.40832  time=43611.447 
+i=78000  kl=512491.25  nell=-14484102.0  nelbo=-13971611.0  log-sigma2= [-2.5406723] RMSE=0.1779  nll_train=-241.40915  time=43667.388 
+i=78100  kl=512495.28  nell=-14483974.0  nelbo=-13971479.0  log-sigma2= [-2.53848648] RMSE=0.1779  nll_train=-241.40250  time=43723.251 
+i=78200  kl=512526.69  nell=-14483726.0  nelbo=-13971199.0  log-sigma2= [-2.53938437] RMSE=0.1779  nll_train=-241.39225  time=43779.174 
+i=78300  kl=512562.47  nell=-14485307.0  nelbo=-13972745.0  log-sigma2= [-2.53816342] RMSE=0.1779  nll_train=-241.41980  time=43835.166 
+i=78400  kl=512602.25  nell=-14485454.0  nelbo=-13972852.0  log-sigma2= [-2.53767872] RMSE=0.1779  nll_train=-241.41785  time=43891.235 
+i=78500  kl=512619.47  nell=-14485633.0  nelbo=-13973014.0  log-sigma2= [-2.53738165] RMSE=0.1779  nll_train=-241.42038  time=43947.316 
+i=78600  kl=512666.28  nell=-14484982.0  nelbo=-13972316.0  log-sigma2= [-2.53744197] RMSE=0.1779  nll_train=-241.41880  time=44003.478 
+i=78700  kl=512702.22  nell=-14486414.0  nelbo=-13973712.0  log-sigma2= [-2.53670192] RMSE=0.1779  nll_train=-241.43993  time=44059.477 
+i=78800  kl=512742.62  nell=-14486518.0  nelbo=-13973775.0  log-sigma2= [-2.53784323] RMSE=0.1779  nll_train=-241.42150  time=44115.547 
+i=78900  kl=512763.47  nell=-14486549.0  nelbo=-13973786.0  log-sigma2= [-2.53618097] RMSE=0.1779  nll_train=-241.42182  time=44171.699 
+i=79000  kl=512779.22  nell=-14484649.0  nelbo=-13971870.0  log-sigma2= [-2.53713179] RMSE=0.1779  nll_train=-241.41933  time=44227.793 
+i=79100  kl=512772.53  nell=-14484436.0  nelbo=-13971663.0  log-sigma2= [-2.53701353] RMSE=0.1779  nll_train=-241.42305  time=44283.755 
+i=79200  kl=512789.0  nell=-14487457.0  nelbo=-13974668.0  log-sigma2= [-2.53536034] RMSE=0.1779  nll_train=-241.42583  time=44339.826 
+i=79300  kl=512813.25  nell=-14486802.0  nelbo=-13973989.0  log-sigma2= [-2.53710294] RMSE=0.1779  nll_train=-241.43627  time=44395.631 
+i=79400  kl=512799.5  nell=-14486467.0  nelbo=-13973668.0  log-sigma2= [-2.53718972] RMSE=0.1779  nll_train=-241.43870  time=44451.697 
+i=79500  kl=512797.0  nell=-14485886.0  nelbo=-13973089.0  log-sigma2= [-2.53537178] RMSE=0.1779  nll_train=-241.43700  time=44507.585 
+i=79600  kl=512827.47  nell=-14487239.0  nelbo=-13974412.0  log-sigma2= [-2.53545833] RMSE=0.1778  nll_train=-241.45630  time=44563.67 
+i=79700  kl=512802.97  nell=-14487028.0  nelbo=-13974225.0  log-sigma2= [-2.53511763] RMSE=0.1779  nll_train=-241.44545  time=44619.712 
+i=79800  kl=512787.19  nell=-14487904.0  nelbo=-13975117.0  log-sigma2= [-2.53612924] RMSE=0.1779  nll_train=-241.45412  time=44675.638 
+i=79900  kl=512788.19  nell=-14487822.0  nelbo=-13975034.0  log-sigma2= [-2.53506684] RMSE=0.1778  nll_train=-241.47852  time=44731.655 
+i=80000  kl=512810.88  nell=-14488409.0  nelbo=-13975598.0  log-sigma2= [-2.53623915] RMSE=0.1779  nll_train=-241.45762  time=44787.783 
+i=80100  kl=512857.91  nell=-14488189.0  nelbo=-13975331.0  log-sigma2= [-2.53586793] RMSE=0.1778  nll_train=-241.48277  time=44843.618 
+i=80200  kl=512844.34  nell=-14486273.0  nelbo=-13973429.0  log-sigma2= [-2.53583145] RMSE=0.1779  nll_train=-241.44460  time=44899.651 
+i=80300  kl=512828.47  nell=-14486572.0  nelbo=-13973744.0  log-sigma2= [-2.53449321] RMSE=0.1778  nll_train=-241.45867  time=44955.566 
+i=80400  kl=512823.31  nell=-14488095.0  nelbo=-13975272.0  log-sigma2= [-2.53558111] RMSE=0.1778  nll_train=-241.49017  time=45011.563 
+i=80500  kl=512851.88  nell=-14488589.0  nelbo=-13975737.0  log-sigma2= [-2.53478765] RMSE=0.1778  nll_train=-241.49108  time=45067.666 
+i=80600  kl=512834.03  nell=-14488844.0  nelbo=-13976010.0  log-sigma2= [-2.53610778] RMSE=0.1778  nll_train=-241.47878  time=45123.842 
+i=80700  kl=512824.22  nell=-14489314.0  nelbo=-13976490.0  log-sigma2= [-2.53583574] RMSE=0.1778  nll_train=-241.48710  time=45179.675 
+i=80800  kl=512820.56  nell=-14489648.0  nelbo=-13976827.0  log-sigma2= [-2.53598571] RMSE=0.1778  nll_train=-241.47188  time=45235.609 
+i=80900  kl=512796.06  nell=-14486849.0  nelbo=-13974053.0  log-sigma2= [-2.53515553] RMSE=0.1778  nll_train=-241.46513  time=45291.855 
+i=81000  kl=512795.0  nell=-14489294.0  nelbo=-13976499.0  log-sigma2= [-2.53687525] RMSE=0.1778  nll_train=-241.47913  time=45347.505 
+i=81100  kl=512799.25  nell=-14490119.0  nelbo=-13977320.0  log-sigma2= [-2.53545713] RMSE=0.1778  nll_train=-241.49298  time=45403.619 
+i=81200  kl=512795.47  nell=-14490720.0  nelbo=-13977925.0  log-sigma2= [-2.53575802] RMSE=0.1778  nll_train=-241.47142  time=45459.678 
+i=81300  kl=512808.0  nell=-14490299.0  nelbo=-13977491.0  log-sigma2= [-2.53679109] RMSE=0.1778  nll_train=-241.51163  time=45515.423 
+i=81400  kl=512777.94  nell=-14490788.0  nelbo=-13978010.0  log-sigma2= [-2.53601432] RMSE=0.1778  nll_train=-241.50825  time=45571.263 
+i=81500  kl=512784.34  nell=-14489862.0  nelbo=-13977078.0  log-sigma2= [-2.53648734] RMSE=0.1778  nll_train=-241.49602  time=45627.383 
+i=81600  kl=512790.78  nell=-14490874.0  nelbo=-13978083.0  log-sigma2= [-2.53613448] RMSE=0.1778  nll_train=-241.50148  time=45683.523 
+i=81700  kl=512800.03  nell=-14489725.0  nelbo=-13976925.0  log-sigma2= [-2.53665781] RMSE=0.1778  nll_train=-241.49195  time=45739.373 
+i=81800  kl=512769.44  nell=-14489702.0  nelbo=-13976933.0  log-sigma2= [-2.53533363] RMSE=0.1778  nll_train=-241.49658  time=45795.298 
+i=81900  kl=512763.5  nell=-14490444.0  nelbo=-13977680.0  log-sigma2= [-2.53641582] RMSE=0.1778  nll_train=-241.50238  time=45851.463 
+i=82000  kl=512739.19  nell=-14491175.0  nelbo=-13978436.0  log-sigma2= [-2.5363276] RMSE=0.1778  nll_train=-241.53215  time=45907.52 
+i=82100  kl=512746.53  nell=-14490943.0  nelbo=-13978196.0  log-sigma2= [-2.53680611] RMSE=0.1778  nll_train=-241.52443  time=45963.546 
+i=82200  kl=512753.97  nell=-14490606.0  nelbo=-13977852.0  log-sigma2= [-2.53644633] RMSE=0.1778  nll_train=-241.51823  time=46019.554 
+i=82300  kl=512713.22  nell=-14491266.0  nelbo=-13978553.0  log-sigma2= [-2.53613138] RMSE=0.1778  nll_train=-241.52323  time=46075.564 
+i=82400  kl=512737.12  nell=-14490140.0  nelbo=-13977403.0  log-sigma2= [-2.53680634] RMSE=0.1778  nll_train=-241.52193  time=46131.593 
+i=82500  kl=512704.81  nell=-14490872.0  nelbo=-13978167.0  log-sigma2= [-2.53653812] RMSE=0.1778  nll_train=-241.52108  time=46187.66 
+i=82600  kl=512669.59  nell=-14490358.0  nelbo=-13977688.0  log-sigma2= [-2.53720617] RMSE=0.1778  nll_train=-241.50633  time=46243.619 
+i=82700  kl=512685.62  nell=-14491587.0  nelbo=-13978901.0  log-sigma2= [-2.53649139] RMSE=0.1778  nll_train=-241.53148  time=46299.509 
+i=82800  kl=512695.16  nell=-14491168.0  nelbo=-13978473.0  log-sigma2= [-2.53829122] RMSE=0.1778  nll_train=-241.50588  time=46355.351 
+i=82900  kl=512717.81  nell=-14490820.0  nelbo=-13978102.0  log-sigma2= [-2.53668261] RMSE=0.1778  nll_train=-241.52740  time=46411.362 
+i=83000  kl=512721.62  nell=-14490448.0  nelbo=-13977726.0  log-sigma2= [-2.5369606] RMSE=0.1778  nll_train=-241.50297  time=46467.521 
+i=83100  kl=512694.88  nell=-14491842.0  nelbo=-13979147.0  log-sigma2= [-2.53853536] RMSE=0.1778  nll_train=-241.51418  time=46523.488 
+i=83200  kl=512630.22  nell=-14491176.0  nelbo=-13978546.0  log-sigma2= [-2.53730035] RMSE=0.1778  nll_train=-241.52508  time=46579.47 
+i=83300  kl=512610.09  nell=-14493686.0  nelbo=-13981076.0  log-sigma2= [-2.53837848] RMSE=0.1778  nll_train=-241.54172  time=46635.371 
+i=83400  kl=512646.81  nell=-14492754.0  nelbo=-13980107.0  log-sigma2= [-2.53757787] RMSE=0.1778  nll_train=-241.52592  time=46691.359 
+i=83500  kl=512679.47  nell=-14491532.0  nelbo=-13978853.0  log-sigma2= [-2.53868771] RMSE=0.1778  nll_train=-241.51508  time=46747.456 
+i=83600  kl=512652.88  nell=-14491390.0  nelbo=-13978737.0  log-sigma2= [-2.53838325] RMSE=0.1778  nll_train=-241.52943  time=46803.461 
+i=83700  kl=512637.94  nell=-14491769.0  nelbo=-13979131.0  log-sigma2= [-2.53706169] RMSE=0.1778  nll_train=-241.52912  time=46859.461 
+i=83800  kl=512604.84  nell=-14492273.0  nelbo=-13979668.0  log-sigma2= [-2.53771043] RMSE=0.1778  nll_train=-241.52347  time=46915.589 
+i=83900  kl=512583.22  nell=-14491913.0  nelbo=-13979330.0  log-sigma2= [-2.53762865] RMSE=0.1778  nll_train=-241.53567  time=46971.602 
+i=84000  kl=512545.31  nell=-14491089.0  nelbo=-13978544.0  log-sigma2= [-2.53741717] RMSE=0.1778  nll_train=-241.52748  time=47027.592 
+i=84100  kl=512572.62  nell=-14492387.0  nelbo=-13979814.0  log-sigma2= [-2.53874469] RMSE=0.1778  nll_train=-241.53343  time=47083.806 
+i=84200  kl=512571.34  nell=-14492736.0  nelbo=-13980165.0  log-sigma2= [-2.53779078] RMSE=0.1778  nll_train=-241.52172  time=47139.742 
+i=84300  kl=512543.75  nell=-14492713.0  nelbo=-13980169.0  log-sigma2= [-2.53868175] RMSE=0.1778  nll_train=-241.53275  time=47195.887 
+i=84400  kl=512552.53  nell=-14492297.0  nelbo=-13979744.0  log-sigma2= [-2.53845692] RMSE=0.1778  nll_train=-241.53160  time=47251.942 
+i=84500  kl=512572.16  nell=-14492232.0  nelbo=-13979660.0  log-sigma2= [-2.53907132] RMSE=0.1778  nll_train=-241.53930  time=47307.998 
+i=84600  kl=512549.59  nell=-14492651.0  nelbo=-13980101.0  log-sigma2= [-2.53852558] RMSE=0.1778  nll_train=-241.54713  time=47363.986 
+i=84700  kl=512512.38  nell=-14493001.0  nelbo=-13980489.0  log-sigma2= [-2.5383985] RMSE=0.1778  nll_train=-241.54775  time=47420.211 
+i=84800  kl=512503.38  nell=-14492915.0  nelbo=-13980412.0  log-sigma2= [-2.53821015] RMSE=0.1778  nll_train=-241.55333  time=47476.34 
+i=84900  kl=512496.66  nell=-14491456.0  nelbo=-13978959.0  log-sigma2= [-2.53983212] RMSE=0.1778  nll_train=-241.55998  time=47532.364 
+i=85000  kl=512509.59  nell=-14491460.0  nelbo=-13978950.0  log-sigma2= [-2.53951144] RMSE=0.1778  nll_train=-241.53245  time=47588.428 
+i=85100  kl=512518.62  nell=-14494032.0  nelbo=-13981513.0  log-sigma2= [-2.54006457] RMSE=0.1778  nll_train=-241.55413  time=47644.362 
+i=85200  kl=512500.59  nell=-14492665.0  nelbo=-13980164.0  log-sigma2= [-2.53990531] RMSE=0.1778  nll_train=-241.55387  time=47700.388 
+i=85300  kl=512501.0  nell=-14492979.0  nelbo=-13980478.0  log-sigma2= [-2.54105902] RMSE=0.1778  nll_train=-241.53995  time=47756.494 
+i=85400  kl=512459.97  nell=-14490651.0  nelbo=-13978191.0  log-sigma2= [-2.54090118] RMSE=0.1778  nll_train=-241.53358  time=47812.375 
+i=85500  kl=512441.56  nell=-14493466.0  nelbo=-13981024.0  log-sigma2= [-2.54044485] RMSE=0.1778  nll_train=-241.53788  time=47868.506 
+i=85600  kl=512415.06  nell=-14492818.0  nelbo=-13980403.0  log-sigma2= [-2.53966022] RMSE=0.1778  nll_train=-241.56178  time=47924.646 
+i=85700  kl=512443.62  nell=-14494087.0  nelbo=-13981643.0  log-sigma2= [-2.54054093] RMSE=0.1778  nll_train=-241.53820  time=47980.535 
+i=85800  kl=512439.62  nell=-14491421.0  nelbo=-13978981.0  log-sigma2= [-2.53930402] RMSE=0.1778  nll_train=-241.55097  time=48036.622 
+i=85900  kl=512435.75  nell=-14492957.0  nelbo=-13980521.0  log-sigma2= [-2.54009771] RMSE=0.1778  nll_train=-241.56332  time=48092.619 
+i=86000  kl=512393.72  nell=-14492666.0  nelbo=-13980272.0  log-sigma2= [-2.53964901] RMSE=0.1778  nll_train=-241.54442  time=48148.528 
+i=86100  kl=512385.19  nell=-14492458.0  nelbo=-13980073.0  log-sigma2= [-2.53983331] RMSE=0.1778  nll_train=-241.54523  time=48204.639 
+i=86200  kl=512366.62  nell=-14493214.0  nelbo=-13980847.0  log-sigma2= [-2.54122615] RMSE=0.1778  nll_train=-241.54398  time=48260.69 
+i=86300  kl=512391.88  nell=-14493397.0  nelbo=-13981005.0  log-sigma2= [-2.54013634] RMSE=0.1778  nll_train=-241.55015  time=48316.702 
+i=86400  kl=512349.62  nell=-14492982.0  nelbo=-13980632.0  log-sigma2= [-2.54004169] RMSE=0.1778  nll_train=-241.56502  time=48372.903 
+i=86500  kl=512410.75  nell=-14493201.0  nelbo=-13980790.0  log-sigma2= [-2.54070973] RMSE=0.1778  nll_train=-241.54758  time=48428.955 
+i=86600  kl=512400.75  nell=-14494570.0  nelbo=-13982169.0  log-sigma2= [-2.53968477] RMSE=0.1778  nll_train=-241.55565  time=48484.76 
+i=86700  kl=512406.81  nell=-14493237.0  nelbo=-13980830.0  log-sigma2= [-2.54136372] RMSE=0.1778  nll_train=-241.55412  time=48540.715 
+i=86800  kl=512366.31  nell=-14492859.0  nelbo=-13980493.0  log-sigma2= [-2.54110146] RMSE=0.1778  nll_train=-241.55803  time=48596.775 
+i=86900  kl=512333.03  nell=-14494361.0  nelbo=-13982028.0  log-sigma2= [-2.54088306] RMSE=0.1778  nll_train=-241.56158  time=48652.606 
+i=87000  kl=512366.62  nell=-14492714.0  nelbo=-13980347.0  log-sigma2= [-2.54008842] RMSE=0.1778  nll_train=-241.56640  time=48708.855 
+i=87100  kl=512365.94  nell=-14494595.0  nelbo=-13982229.0  log-sigma2= [-2.54023957] RMSE=0.1778  nll_train=-241.54768  time=48765.59 
+i=87200  kl=512334.0  nell=-14493321.0  nelbo=-13980987.0  log-sigma2= [-2.53981018] RMSE=0.1778  nll_train=-241.54952  time=48820.647 
+i=87300  kl=512344.31  nell=-14492776.0  nelbo=-13980432.0  log-sigma2= [-2.54073] RMSE=0.1778  nll_train=-241.54120  time=48876.69 
+i=87400  kl=512360.22  nell=-14491929.0  nelbo=-13979569.0  log-sigma2= [-2.5409534] RMSE=0.1778  nll_train=-241.54290  time=48932.504 
+i=87500  kl=512345.53  nell=-14491464.0  nelbo=-13979118.0  log-sigma2= [-2.54045463] RMSE=0.1778  nll_train=-241.55057  time=48988.543 
+i=87600  kl=512314.22  nell=-14494202.0  nelbo=-13981888.0  log-sigma2= [-2.54082513] RMSE=0.1778  nll_train=-241.56543  time=49044.66 
+i=87700  kl=512322.19  nell=-14492863.0  nelbo=-13980541.0  log-sigma2= [-2.54223108] RMSE=0.1778  nll_train=-241.55518  time=49100.732 
+i=87800  kl=512338.03  nell=-14493721.0  nelbo=-13981383.0  log-sigma2= [-2.54124117] RMSE=0.1778  nll_train=-241.54997  time=49156.781 
+i=87900  kl=512322.91  nell=-14493948.0  nelbo=-13981625.0  log-sigma2= [-2.54130292] RMSE=0.1778  nll_train=-241.54875  time=49212.901 
+i=88000  kl=512342.59  nell=-14493766.0  nelbo=-13981423.0  log-sigma2= [-2.54136276] RMSE=0.1778  nll_train=-241.55562  time=49268.999 
+i=88100  kl=512304.75  nell=-14492152.0  nelbo=-13979847.0  log-sigma2= [-2.54053164] RMSE=0.1778  nll_train=-241.56222  time=49324.919 
+i=88200  kl=512280.81  nell=-14493210.0  nelbo=-13980929.0  log-sigma2= [-2.5422554] RMSE=0.1778  nll_train=-241.57192  time=49381.013 
+i=88300  kl=512263.34  nell=-14494748.0  nelbo=-13982485.0  log-sigma2= [-2.54177761] RMSE=0.1778  nll_train=-241.57217  time=49436.936 
+i=88400  kl=512284.47  nell=-14494550.0  nelbo=-13982266.0  log-sigma2= [-2.54167652] RMSE=0.1778  nll_train=-241.58597  time=49493.031 
+i=88500  kl=512274.62  nell=-14493677.0  nelbo=-13981402.0  log-sigma2= [-2.54234862] RMSE=0.1778  nll_train=-241.57125  time=49549.111 
+i=88600  kl=512268.12  nell=-14491542.0  nelbo=-13979274.0  log-sigma2= [-2.54265785] RMSE=0.1778  nll_train=-241.54717  time=49604.992 
+i=88700  kl=512242.03  nell=-14493528.0  nelbo=-13981286.0  log-sigma2= [-2.54108024] RMSE=0.1778  nll_train=-241.55837  time=49660.959 
+i=88800  kl=512222.44  nell=-14494428.0  nelbo=-13982206.0  log-sigma2= [-2.54201198] RMSE=0.1778  nll_train=-241.55902  time=49717.005 
+i=88900  kl=512202.88  nell=-14493624.0  nelbo=-13981421.0  log-sigma2= [-2.54128194] RMSE=0.1778  nll_train=-241.55993  time=49773.056 
+i=89000  kl=512204.97  nell=-14493140.0  nelbo=-13980935.0  log-sigma2= [-2.5419302] RMSE=0.1778  nll_train=-241.57550  time=49829.034 
+i=89100  kl=512213.31  nell=-14492573.0  nelbo=-13980360.0  log-sigma2= [-2.54236364] RMSE=0.1778  nll_train=-241.55820  time=49884.959 
+i=89200  kl=512186.34  nell=-14493784.0  nelbo=-13981598.0  log-sigma2= [-2.54242992] RMSE=0.1778  nll_train=-241.56850  time=49940.936 
+i=89300  kl=512172.09  nell=-14494563.0  nelbo=-13982391.0  log-sigma2= [-2.54151821] RMSE=0.1778  nll_train=-241.57547  time=49996.804 
+i=89400  kl=512172.38  nell=-14493388.0  nelbo=-13981216.0  log-sigma2= [-2.54256153] RMSE=0.1778  nll_train=-241.58608  time=50052.734 
+i=89500  kl=512157.97  nell=-14493411.0  nelbo=-13981253.0  log-sigma2= [-2.5423162] RMSE=0.1778  nll_train=-241.55822  time=50108.75 
+i=89600  kl=512169.66  nell=-14495862.0  nelbo=-13983692.0  log-sigma2= [-2.54231834] RMSE=0.1778  nll_train=-241.57547  time=50164.931 
+i=89700  kl=512166.09  nell=-14494185.0  nelbo=-13982019.0  log-sigma2= [-2.54305744] RMSE=0.1778  nll_train=-241.57362  time=50220.739 
+i=89800  kl=512148.47  nell=-14494439.0  nelbo=-13982291.0  log-sigma2= [-2.54309559] RMSE=0.1778  nll_train=-241.59193  time=50276.72 
+i=89900  kl=512160.25  nell=-14493632.0  nelbo=-13981472.0  log-sigma2= [-2.5427537] RMSE=0.1778  nll_train=-241.58278  time=50332.742 
+i=90000  kl=512193.0  nell=-14494596.0  nelbo=-13982403.0  log-sigma2= [-2.54397941] RMSE=0.1778  nll_train=-241.56655  time=50389.002 
+i=90100  kl=512185.0  nell=-14495409.0  nelbo=-13983224.0  log-sigma2= [-2.54226708] RMSE=0.1778  nll_train=-241.58153  time=50444.837 
+i=90200  kl=512151.78  nell=-14493940.0  nelbo=-13981788.0  log-sigma2= [-2.54326081] RMSE=0.1778  nll_train=-241.57180  time=50500.77 
+i=90300  kl=512138.31  nell=-14494025.0  nelbo=-13981887.0  log-sigma2= [-2.5423708] RMSE=0.1778  nll_train=-241.56195  time=50556.781 
+i=90400  kl=512122.41  nell=-14495097.0  nelbo=-13982975.0  log-sigma2= [-2.54301691] RMSE=0.1778  nll_train=-241.56547  time=50612.875 
+i=90500  kl=512171.41  nell=-14494567.0  nelbo=-13982396.0  log-sigma2= [-2.54226518] RMSE=0.1778  nll_train=-241.56695  time=50668.594 
+i=90600  kl=512116.53  nell=-14494210.0  nelbo=-13982093.0  log-sigma2= [-2.54328966] RMSE=0.1778  nll_train=-241.57473  time=50724.606 
+i=90700  kl=512149.0  nell=-14494825.0  nelbo=-13982676.0  log-sigma2= [-2.54188061] RMSE=0.1778  nll_train=-241.57420  time=50780.593 
+i=90800  kl=512155.53  nell=-14495233.0  nelbo=-13983077.0  log-sigma2= [-2.54260015] RMSE=0.1778  nll_train=-241.57738  time=50836.573 
+i=90900  kl=512136.25  nell=-14494476.0  nelbo=-13982340.0  log-sigma2= [-2.54341602] RMSE=0.1778  nll_train=-241.58175  time=50892.977 
+i=91000  kl=512126.28  nell=-14492162.0  nelbo=-13980036.0  log-sigma2= [-2.54312134] RMSE=0.1778  nll_train=-241.53643  time=50948.515 
+i=91100  kl=512191.38  nell=-14494603.0  nelbo=-13982412.0  log-sigma2= [-2.54253292] RMSE=0.1778  nll_train=-241.55352  time=51004.76 
+i=91200  kl=512171.69  nell=-14494786.0  nelbo=-13982614.0  log-sigma2= [-2.54293895] RMSE=0.1778  nll_train=-241.60410  time=51060.531 
+i=91300  kl=512162.09  nell=-14492703.0  nelbo=-13980541.0  log-sigma2= [-2.54337788] RMSE=0.1778  nll_train=-241.55300  time=51116.422 
+i=91400  kl=512139.31  nell=-14494776.0  nelbo=-13982637.0  log-sigma2= [-2.54462719] RMSE=0.1778  nll_train=-241.58697  time=51172.488 
+i=91500  kl=512163.16  nell=-14495641.0  nelbo=-13983478.0  log-sigma2= [-2.54334021] RMSE=0.1778  nll_train=-241.60068  time=51228.319 
+i=91600  kl=512174.12  nell=-14494849.0  nelbo=-13982675.0  log-sigma2= [-2.54229498] RMSE=0.1778  nll_train=-241.54908  time=51284.325 
+i=91700  kl=512154.12  nell=-14495211.0  nelbo=-13983057.0  log-sigma2= [-2.54342985] RMSE=0.1778  nll_train=-241.57568  time=51340.296 
+i=91800  kl=512116.75  nell=-14495306.0  nelbo=-13983189.0  log-sigma2= [-2.54441476] RMSE=0.1778  nll_train=-241.61053  time=51396.283 
+i=91900  kl=512094.69  nell=-14494291.0  nelbo=-13982196.0  log-sigma2= [-2.54390359] RMSE=0.1778  nll_train=-241.55777  time=51452.375 
+i=92000  kl=512142.25  nell=-14495110.0  nelbo=-13982968.0  log-sigma2= [-2.54343057] RMSE=0.1778  nll_train=-241.59207  time=51508.269 
+i=92100  kl=512125.72  nell=-14494839.0  nelbo=-13982713.0  log-sigma2= [-2.54353833] RMSE=0.1778  nll_train=-241.57638  time=51564.37 
+i=92200  kl=512106.59  nell=-14495238.0  nelbo=-13983131.0  log-sigma2= [-2.54278564] RMSE=0.1778  nll_train=-241.58505  time=51620.368 
+i=92300  kl=512101.94  nell=-14495230.0  nelbo=-13983128.0  log-sigma2= [-2.54356122] RMSE=0.1778  nll_train=-241.59712  time=51676.319 
+i=92400  kl=512089.44  nell=-14494911.0  nelbo=-13982822.0  log-sigma2= [-2.54349852] RMSE=0.1778  nll_train=-241.59732  time=51732.375 
+i=92500  kl=512083.59  nell=-14495052.0  nelbo=-13982968.0  log-sigma2= [-2.54343343] RMSE=0.1778  nll_train=-241.58392  time=51788.354 
+i=92600  kl=512092.75  nell=-14495690.0  nelbo=-13983597.0  log-sigma2= [-2.54191971] RMSE=0.1778  nll_train=-241.58930  time=51844.4 
+i=92700  kl=512093.31  nell=-14495986.0  nelbo=-13983893.0  log-sigma2= [-2.54297161] RMSE=0.1778  nll_train=-241.58308  time=51900.457 
+i=92800  kl=512123.78  nell=-14496073.0  nelbo=-13983949.0  log-sigma2= [-2.54332089] RMSE=0.1778  nll_train=-241.58327  time=51956.507 
+i=92900  kl=512131.59  nell=-14495429.0  nelbo=-13983297.0  log-sigma2= [-2.54289436] RMSE=0.1778  nll_train=-241.58355  time=52012.372 
+i=93000  kl=512156.16  nell=-14495934.0  nelbo=-13983778.0  log-sigma2= [-2.54332852] RMSE=0.1778  nll_train=-241.60245  time=52068.35 
+i=93100  kl=512154.53  nell=-14496216.0  nelbo=-13984061.0  log-sigma2= [-2.54297471] RMSE=0.1778  nll_train=-241.60662  time=52124.298 
+i=93200  kl=512155.09  nell=-14495510.0  nelbo=-13983355.0  log-sigma2= [-2.54397035] RMSE=0.1778  nll_train=-241.60562  time=52180.15 
+i=93300  kl=512128.16  nell=-14495019.0  nelbo=-13982891.0  log-sigma2= [-2.54435277] RMSE=0.1778  nll_train=-241.59190  time=52236.258 
+i=93400  kl=512125.44  nell=-14496313.0  nelbo=-13984188.0  log-sigma2= [-2.5434103] RMSE=0.1778  nll_train=-241.60893  time=52292.221 
+i=93500  kl=512135.16  nell=-14496475.0  nelbo=-13984340.0  log-sigma2= [-2.54248261] RMSE=0.1778  nll_train=-241.60373  time=52348.274 
+i=93600  kl=512154.09  nell=-14496899.0  nelbo=-13984745.0  log-sigma2= [-2.54295826] RMSE=0.1778  nll_train=-241.60625  time=52404.264 
+i=93700  kl=512138.72  nell=-14496454.0  nelbo=-13984315.0  log-sigma2= [-2.54316759] RMSE=0.1778  nll_train=-241.59797  time=52460.163 
+i=93800  kl=512126.09  nell=-14496788.0  nelbo=-13984662.0  log-sigma2= [-2.54365158] RMSE=0.1778  nll_train=-241.60550  time=52516.121 
+i=93900  kl=512125.56  nell=-14495920.0  nelbo=-13983794.0  log-sigma2= [-2.54285002] RMSE=0.1778  nll_train=-241.58982  time=52572.21 
+i=94000  kl=512134.19  nell=-14494274.0  nelbo=-13982140.0  log-sigma2= [-2.54295397] RMSE=0.1778  nll_train=-241.58880  time=52628.082 
+i=94100  kl=512168.09  nell=-14496135.0  nelbo=-13983967.0  log-sigma2= [-2.54322314] RMSE=0.1778  nll_train=-241.57920  time=52684.041 
+i=94200  kl=512142.94  nell=-14496110.0  nelbo=-13983967.0  log-sigma2= [-2.54382396] RMSE=0.1778  nll_train=-241.59208  time=52739.88 
+i=94300  kl=512127.25  nell=-14494712.0  nelbo=-13982585.0  log-sigma2= [-2.54246712] RMSE=0.1778  nll_train=-241.59098  time=52795.669 
+i=94400  kl=512127.97  nell=-14494954.0  nelbo=-13982826.0  log-sigma2= [-2.54377913] RMSE=0.1778  nll_train=-241.57598  time=52851.574 
+i=94500  kl=512130.84  nell=-14494808.0  nelbo=-13982677.0  log-sigma2= [-2.54452991] RMSE=0.1778  nll_train=-241.57937  time=52907.559 
+i=94600  kl=512119.62  nell=-14495935.0  nelbo=-13983815.0  log-sigma2= [-2.54277349] RMSE=0.1778  nll_train=-241.60432  time=52963.511 
+i=94700  kl=512129.97  nell=-14496329.0  nelbo=-13984199.0  log-sigma2= [-2.54319692] RMSE=0.1778  nll_train=-241.60248  time=53019.45 
+i=94800  kl=512110.41  nell=-14496733.0  nelbo=-13984623.0  log-sigma2= [-2.54429173] RMSE=0.1778  nll_train=-241.61205  time=53075.329 
+i=94900  kl=512098.0  nell=-14495810.0  nelbo=-13983712.0  log-sigma2= [-2.54376864] RMSE=0.1778  nll_train=-241.60380  time=53131.114 
+i=95000  kl=512111.69  nell=-14496329.0  nelbo=-13984217.0  log-sigma2= [-2.54350162] RMSE=0.1778  nll_train=-241.60063  time=53186.994 
+i=95100  kl=512122.81  nell=-14495264.0  nelbo=-13983141.0  log-sigma2= [-2.54301047] RMSE=0.1778  nll_train=-241.58525  time=53243.035 
+i=95200  kl=512088.66  nell=-14497243.0  nelbo=-13985154.0  log-sigma2= [-2.54367852] RMSE=0.1778  nll_train=-241.60688  time=53299.048 
+i=95300  kl=512131.84  nell=-14496695.0  nelbo=-13984563.0  log-sigma2= [-2.54286742] RMSE=0.1778  nll_train=-241.60957  time=53354.963 
+i=95400  kl=512131.78  nell=-14496435.0  nelbo=-13984303.0  log-sigma2= [-2.54292607] RMSE=0.1778  nll_train=-241.59683  time=53410.887 
+i=95500  kl=512149.19  nell=-14496501.0  nelbo=-13984352.0  log-sigma2= [-2.54298234] RMSE=0.1778  nll_train=-241.60427  time=53466.867 
+i=95600  kl=512146.69  nell=-14495606.0  nelbo=-13983459.0  log-sigma2= [-2.5439713] RMSE=0.1778  nll_train=-241.60963  time=53523.014 
+i=95700  kl=512155.5  nell=-14496112.0  nelbo=-13983956.0  log-sigma2= [-2.54314971] RMSE=0.1778  nll_train=-241.61007  time=53579.021 
+i=95800  kl=512175.81  nell=-14496057.0  nelbo=-13983881.0  log-sigma2= [-2.54273486] RMSE=0.1778  nll_train=-241.60423  time=53635.134 
+i=95900  kl=512139.38  nell=-14496818.0  nelbo=-13984679.0  log-sigma2= [-2.5436182] RMSE=0.1778  nll_train=-241.59592  time=53691.309 
+i=96000  kl=512126.0  nell=-14496797.0  nelbo=-13984671.0  log-sigma2= [-2.54318881] RMSE=0.1778  nll_train=-241.61810  time=53747.16 
+i=96100  kl=512111.28  nell=-14495161.0  nelbo=-13983050.0  log-sigma2= [-2.54369879] RMSE=0.1778  nll_train=-241.59275  time=53803.161 
+i=96200  kl=512114.28  nell=-14495961.0  nelbo=-13983847.0  log-sigma2= [-2.54345822] RMSE=0.1778  nll_train=-241.59475  time=53859.074 
+i=96300  kl=512118.28  nell=-14496783.0  nelbo=-13984665.0  log-sigma2= [-2.54442906] RMSE=0.1778  nll_train=-241.60862  time=53914.963 
+i=96400  kl=512150.06  nell=-14496553.0  nelbo=-13984403.0  log-sigma2= [-2.54441452] RMSE=0.1778  nll_train=-241.59558  time=53971.0 
+i=96500  kl=512141.03  nell=-14495744.0  nelbo=-13983603.0  log-sigma2= [-2.54330301] RMSE=0.1778  nll_train=-241.61912  time=54027.01 
+i=96600  kl=512130.72  nell=-14496021.0  nelbo=-13983890.0  log-sigma2= [-2.54307389] RMSE=0.1778  nll_train=-241.59860  time=54083.162 
+i=96700  kl=512123.44  nell=-14496362.0  nelbo=-13984239.0  log-sigma2= [-2.54348683] RMSE=0.1778  nll_train=-241.58470  time=54139.033 
+i=96800  kl=512130.84  nell=-14496548.0  nelbo=-13984417.0  log-sigma2= [-2.54263711] RMSE=0.1778  nll_train=-241.58985  time=54195.019 
+i=96900  kl=512087.62  nell=-14497592.0  nelbo=-13985504.0  log-sigma2= [-2.54377151] RMSE=0.1778  nll_train=-241.60503  time=54251.041 
+i=97000  kl=512120.72  nell=-14496634.0  nelbo=-13984513.0  log-sigma2= [-2.54316044] RMSE=0.1778  nll_train=-241.61103  time=54306.931 
+i=97100  kl=512132.16  nell=-14496286.0  nelbo=-13984154.0  log-sigma2= [-2.5427165] RMSE=0.1778  nll_train=-241.59650  time=54362.967 
+i=97200  kl=512124.97  nell=-14497600.0  nelbo=-13985475.0  log-sigma2= [-2.54491019] RMSE=0.1778  nll_train=-241.62355  time=54418.849 
+i=97300  kl=512108.38  nell=-14497053.0  nelbo=-13984945.0  log-sigma2= [-2.54381227] RMSE=0.1778  nll_train=-241.59888  time=54474.926 
+i=97400  kl=512102.91  nell=-14496510.0  nelbo=-13984407.0  log-sigma2= [-2.54419947] RMSE=0.1778  nll_train=-241.58755  time=54530.997 
+i=97500  kl=512095.0  nell=-14496206.0  nelbo=-13984111.0  log-sigma2= [-2.54386759] RMSE=0.1778  nll_train=-241.59140  time=54587.034 
+i=97600  kl=512116.81  nell=-14496116.0  nelbo=-13983999.0  log-sigma2= [-2.54360342] RMSE=0.1778  nll_train=-241.59758  time=54642.947 
+i=97700  kl=512134.12  nell=-14496216.0  nelbo=-13984082.0  log-sigma2= [-2.54582024] RMSE=0.1778  nll_train=-241.61403  time=54698.865 
+i=97800  kl=512135.28  nell=-14496065.0  nelbo=-13983930.0  log-sigma2= [-2.54370594] RMSE=0.1778  nll_train=-241.62005  time=54754.934 
+i=97900  kl=512105.41  nell=-14496925.0  nelbo=-13984820.0  log-sigma2= [-2.54355741] RMSE=0.1778  nll_train=-241.59937  time=54810.936 
+i=98000  kl=512124.72  nell=-14496156.0  nelbo=-13984031.0  log-sigma2= [-2.54308987] RMSE=0.1778  nll_train=-241.59353  time=54866.898 
+i=98100  kl=512137.22  nell=-14497736.0  nelbo=-13985599.0  log-sigma2= [-2.5437212] RMSE=0.1778  nll_train=-241.61368  time=54923.047 
+i=98200  kl=512100.31  nell=-14496220.0  nelbo=-13984120.0  log-sigma2= [-2.54516816] RMSE=0.1778  nll_train=-241.59072  time=54979.123 
+i=98300  kl=512105.72  nell=-14495952.0  nelbo=-13983846.0  log-sigma2= [-2.54422712] RMSE=0.1778  nll_train=-241.61112  time=55035.001 
+i=98400  kl=512098.12  nell=-14496424.0  nelbo=-13984326.0  log-sigma2= [-2.54397082] RMSE=0.1778  nll_train=-241.59568  time=55090.968 
+i=98500  kl=512079.88  nell=-14496871.0  nelbo=-13984791.0  log-sigma2= [-2.54406548] RMSE=0.1778  nll_train=-241.60915  time=55146.992 
+i=98600  kl=512064.59  nell=-14496800.0  nelbo=-13984735.0  log-sigma2= [-2.54413581] RMSE=0.1778  nll_train=-241.60597  time=55203.066 
+i=98700  kl=512079.88  nell=-14495787.0  nelbo=-13983707.0  log-sigma2= [-2.54438877] RMSE=0.1778  nll_train=-241.62920  time=55259.016 
+i=98800  kl=512081.06  nell=-14497399.0  nelbo=-13985318.0  log-sigma2= [-2.54479194] RMSE=0.1778  nll_train=-241.60903  time=55315.077 
+i=98900  kl=512043.78  nell=-14494999.0  nelbo=-13982955.0  log-sigma2= [-2.5434339] RMSE=0.1778  nll_train=-241.60662  time=55371.102 
+i=99000  kl=512060.88  nell=-14495538.0  nelbo=-13983477.0  log-sigma2= [-2.54418373] RMSE=0.1778  nll_train=-241.61355  time=55427.123 
+i=99100  kl=512085.22  nell=-14497392.0  nelbo=-13985307.0  log-sigma2= [-2.54430509] RMSE=0.1778  nll_train=-241.61807  time=55483.184 
+i=99200  kl=512068.88  nell=-14495234.0  nelbo=-13983165.0  log-sigma2= [-2.54404902] RMSE=0.1778  nll_train=-241.60428  time=55539.103 
+i=99300  kl=512063.44  nell=-14496332.0  nelbo=-13984269.0  log-sigma2= [-2.54427147] RMSE=0.1778  nll_train=-241.59352  time=55595.189 
+i=99400  kl=512071.88  nell=-14496977.0  nelbo=-13984905.0  log-sigma2= [-2.54379559] RMSE=0.1778  nll_train=-241.63697  time=55651.194 
+i=99500  kl=512055.81  nell=-14496958.0  nelbo=-13984902.0  log-sigma2= [-2.54498243] RMSE=0.1778  nll_train=-241.61592  time=55707.278 
+i=99600  kl=512027.97  nell=-14497108.0  nelbo=-13985080.0  log-sigma2= [-2.54364634] RMSE=0.1778  nll_train=-241.60858  time=55763.319 
+i=99700  kl=511993.91  nell=-14495604.0  nelbo=-13983610.0  log-sigma2= [-2.54376817] RMSE=0.1778  nll_train=-241.61428  time=55819.24 
+i=99800  kl=511991.0  nell=-14497873.0  nelbo=-13985882.0  log-sigma2= [-2.54524636] RMSE=0.1778  nll_train=-241.62430  time=55875.395 
+i=99900  kl=512014.31  nell=-14495487.0  nelbo=-13983473.0  log-sigma2= [-2.54404831] RMSE=0.1778  nll_train=-241.59465  time=55931.455 
+i=100000  kl=512065.88  nell=-14496455.0  nelbo=-13984389.0  log-sigma2= [-2.54344463] RMSE=0.1778  nll_train=-241.61887  time=55987.514 
+
+kl = 512065.88
+nell = -14496687.0
+nelbo = -13984621.0
+log-sigma2 =  [-2.54344463]
+log-lengthscale =  [-0.42278916]
+W =  [  1.06300600e-02  -4.76748263e-03  -3.45665053e-03   5.94120286e-03
+   1.00065917e-02   5.37602464e-03   3.55022773e-03   7.79967289e-03
+   3.88489431e-03  -3.34858312e-03  -5.17760124e-03   6.67824782e-03
+  -4.96893097e-03   1.47790639e-02   9.60485172e-03   2.36524921e-02
+  -9.05807782e-03  -1.45799536e-02  -1.23817222e-02  -3.73100978e-04
+  -2.61269254e-03  -1.09283095e-02   1.75219104e-02   1.21042980e-02
+  -1.09588075e-02   7.09582679e-03   1.22293280e-02  -3.70726385e-03
+   6.53888006e-03   1.89478172e-03  -5.71963051e-03   5.68476366e-03
+   4.38256888e-03  -1.72393844e-02   1.64000038e-02   1.78692453e-02
+   2.41010431e-02   4.36676759e-03   4.40858491e-02   3.00151091e-02
+   4.54884544e-02   1.31468074e-02  -1.02340113e-02  -9.43087414e-03
+  -1.34887416e-02  -2.24725809e-05  -8.39090720e-03   1.40218588e-03
+  -3.50355380e-03  -1.26916254e-02   7.28893094e-03   6.65846048e-04
+  -1.17297983e-03   5.98816294e-03   1.33265229e-02   1.42245321e-03
+  -9.13816132e-03  -3.62210814e-03   1.85297020e-02   1.18712219e-03
+   1.20353783e-02   4.55699675e-03   1.49712078e-02   2.32859161e-02
+   7.76103511e-02   8.72426555e-02   1.64773196e-01   2.46352702e-01
+   2.21385360e-01   1.14911661e-01  -1.41177207e-01  -2.02571467e-01
+  -1.33064941e-01  -1.11281000e-01  -1.65775940e-01  -1.88683614e-01
+  -8.12728107e-02  -2.82228384e-02  -1.06431022e-02   2.27560173e-03
+  -3.26815341e-03   3.61047406e-03  -2.05363557e-02  -3.13725579e-03
+  -5.71524678e-03   6.69114152e-03  -1.11781596e-03   5.81431948e-03
+  -1.38411764e-03  -2.27871491e-03   2.58546025e-02   7.76236802e-02
+   1.26004830e-01   2.31867537e-01   3.30254525e-01   3.70178998e-01
+   2.10943714e-01  -5.28852306e-02  -2.11208314e-01  -2.60107785e-01
+  -3.35213006e-01  -4.63267088e-01  -5.40435851e-01  -4.05896902e-01
+  -1.69587076e-01  -6.19567335e-02  -4.26818430e-02  -1.82223544e-02
+  -1.85514148e-02   4.01147548e-03   2.22048778e-02   6.54365402e-03
+  -3.06813954e-03   6.15340564e-03   2.87484471e-03   3.45253153e-04
+   2.49957796e-02   5.01842983e-02   1.24615304e-01   2.16753513e-01
+   4.49479550e-01   6.72932446e-01   7.10341275e-01   1.86385810e-01
+  -3.62820983e-01  -8.35252553e-02   1.04360950e+00   1.62576365e+00
+   1.70786643e+00   1.37162232e+00   2.18185663e-01  -6.83180451e-01
+  -6.84557915e-01  -2.68654346e-01   3.11851799e-02   1.02085039e-01
+   4.77595069e-02   2.76814103e-02   2.40333825e-02   4.93847299e-03
+   1.86590031e-02   7.56989047e-03  -1.57079119e-02  -5.44632785e-03
+   3.18311565e-02   1.41921893e-01   3.99622530e-01   6.15921915e-01
+   8.88982594e-01   9.44105268e-01   4.90650415e-01  -5.24480999e-01
+  -1.05302000e+00   3.68844904e-02   1.80215883e+00   2.07141042e+00
+   1.67541063e+00   1.04177487e+00  -3.31000954e-01  -1.50103593e+00
+  -1.40957522e+00  -6.92365289e-01  -4.86580133e-02   2.42499605e-01
+   1.97551355e-01   9.41828191e-02   3.44316512e-02   8.28282721e-03
+   1.00033786e-02  -5.87589340e-04  -7.38807116e-03   1.80292111e-02
+   1.23223476e-01   3.51766616e-01   6.72501028e-01   8.65261316e-01
+   1.05898035e+00   6.82057083e-01  -4.08392921e-02  -6.99483395e-01
+  -5.08609116e-01   8.97985935e-01   2.33251739e+00   2.20808411e+00
+   1.20963025e+00   1.46117732e-01  -1.07964396e+00  -1.58204043e+00
+  -1.15490866e+00  -7.50513673e-01  -4.28802788e-01  -3.34563628e-02
+   1.96075335e-01   1.20847695e-01   7.91063532e-02  -3.09867132e-03
+  -1.06608635e-02  -2.09598336e-04  -9.34644230e-03  -1.55331148e-02
+   1.16433971e-01   4.04575765e-01   7.20936179e-01   8.35530102e-01
+   4.51476812e-01  -1.80122778e-01  -5.77088594e-01  -4.66206610e-01
+  -2.90626436e-01   4.66291517e-01   1.00731301e+00   6.45708859e-01
+  -4.82994646e-01  -1.37134719e+00  -2.11322069e+00  -2.02780938e+00
+  -1.00531256e+00  -5.65352559e-01  -7.29088604e-01  -5.66039145e-01
+  -1.09805003e-01   8.80304947e-02   2.72147562e-02   2.67953984e-03
+   1.30841520e-03   3.66475359e-02   1.36778634e-02   6.33674935e-02
+   2.16249913e-01   5.22633255e-01   8.45846951e-01   5.95023751e-01
+  -1.57610223e-01  -6.39946640e-01  -4.45385009e-01  -2.01412469e-01
+  -4.70405698e-01  -3.48897874e-01  -1.30848989e-01  -4.22855109e-01
+  -1.87735677e+00  -2.50008440e+00  -2.67176294e+00  -2.07657099e+00
+  -9.75271821e-01  -6.05259299e-01  -8.35811496e-01  -9.71746504e-01
+  -4.42570150e-01  -7.41739273e-02   1.77513734e-02   6.97497511e-03
+   3.51755670e-03   2.31304597e-02   4.38904390e-02   1.55520976e-01
+   3.36262554e-01   7.13290036e-01   8.69723737e-01   3.16834539e-01
+  -4.74578023e-01  -8.52785528e-01  -4.47742939e-01  -3.34472775e-01
+  -8.70286942e-01  -1.01510632e+00  -4.45489556e-01  -6.24859214e-01
+  -2.43893552e+00  -2.90738726e+00  -2.79220676e+00  -1.82863081e+00
+  -1.32183421e+00  -1.06029665e+00  -8.26862574e-01  -7.65967667e-01
+  -5.12844682e-01  -6.63622990e-02  -4.83642146e-03   2.55432795e-04
+  -1.41801434e-02   1.79732516e-02   9.26273689e-02   1.39466926e-01
+   3.40313703e-01   5.69048285e-01   5.89714110e-01  -3.33783515e-02
+  -6.93978071e-01  -9.14024830e-01  -6.24382377e-01  -6.74383938e-01
+  -1.24353874e+00  -1.44488573e+00  -1.82349086e-01  -6.95093751e-01
+  -2.25657535e+00  -2.52602053e+00  -2.02157140e+00  -1.33755612e+00
+  -1.62167394e+00  -1.61709988e+00  -7.61298120e-01  -3.65163058e-01
+  -2.51141846e-01  -2.68865041e-02   1.88500378e-02  -6.30398560e-03
+   1.41064562e-02   6.98901713e-03   3.01834047e-02   8.43748823e-02
+   2.29706675e-01   3.31515163e-01   2.17649221e-01  -2.25436568e-01
+  -1.17205691e+00  -1.44313180e+00  -1.38648427e+00  -1.25392258e+00
+  -1.96199214e+00  -1.77867436e+00  -3.36430162e-01  -1.17483819e+00
+  -2.27910376e+00  -2.12959075e+00  -8.81419420e-01  -7.23122656e-01
+  -1.64363015e+00  -1.89431596e+00  -8.54080975e-01  -1.95187882e-01
+  -1.08223103e-01   2.97952741e-02   2.70184479e-03   1.11812185e-02
+   7.34366430e-03   1.06952703e-02  -2.21871268e-02   1.22462939e-02
+   1.28022239e-01  -2.13959999e-03  -3.72595377e-02  -6.22165561e-01
+  -1.59388769e+00  -2.01917362e+00  -1.83824503e+00  -1.71558177e+00
+  -2.31277490e+00  -1.51760757e+00  -9.54259813e-01  -1.93410218e+00
+  -2.83153534e+00  -1.62711501e+00   1.18550442e-01  -8.17699879e-02
+  -1.20578337e+00  -1.74504745e+00  -1.01233578e+00  -3.68925422e-01
+  -2.08734632e-01   2.48242859e-02   1.93915498e-02  -1.22577325e-02
+   6.00864086e-03  -1.93563255e-03  -1.36260446e-02  -1.38638951e-02
+   9.08773616e-02  -3.16957086e-02  -8.35266337e-02  -9.00212646e-01
+  -1.74023318e+00  -1.98694181e+00  -1.53993452e+00  -1.56486976e+00
+  -2.05772376e+00  -1.14094496e+00  -1.73422384e+00  -2.53444815e+00
+  -2.57920408e+00  -7.84342527e-01   6.62373185e-01   5.93778610e-01
+  -4.36784297e-01  -1.31344151e+00  -8.57933581e-01  -4.75549728e-01
+  -3.66397142e-01   3.22693810e-02   2.34350376e-02  -6.40319707e-03
+   4.74395650e-03  -4.35148366e-03  -9.64588602e-04  -8.18615686e-03
+   2.53388397e-02   1.85470954e-02  -1.75598085e-01  -1.09000862e+00
+  -1.29922974e+00  -8.39660764e-01  -3.48995507e-01  -6.98427439e-01
+  -9.13565874e-01  -5.79817176e-01  -1.28520012e+00  -1.82250571e+00
+  -1.34589100e+00   3.23428363e-01   1.34731185e+00   1.16702712e+00
+   5.69590963e-02  -8.24407935e-01  -7.14757025e-01  -5.65749645e-01
+  -4.30571288e-01  -1.79254322e-03   1.42206289e-02   5.94532583e-03
+  -4.43582656e-04  -7.08169024e-03   5.99632226e-03  -2.62615196e-02
+   7.54221678e-02   1.47684976e-01  -4.28053260e-01  -1.18418038e+00
+  -2.94043541e-01   7.50184357e-01   1.37512755e+00   1.13913405e+00
+   1.19812012e+00   1.09582448e+00   2.70170063e-01  -3.25846195e-01
+   5.60355671e-02   1.50776541e+00   2.16699076e+00   1.70428991e+00
+   2.93448180e-01  -5.59231639e-01  -7.22692668e-01  -5.43540418e-01
+  -2.94422686e-01   8.92502889e-02   1.15338480e-02   1.67486556e-02
+   1.24463486e-03  -3.61405360e-03  -6.23574946e-03  -8.12856331e-02
+   2.01517716e-01   1.48319051e-01  -6.84016824e-01  -1.39144921e+00
+  -2.06188932e-02   1.32753432e+00   2.12877107e+00   2.34820890e+00
+   2.54128051e+00   2.23777342e+00   1.25258636e+00   7.25149155e-01
+   9.60715413e-01   2.16896653e+00   2.56445694e+00   1.89951229e+00
+   6.46840870e-01  -2.18695104e-01  -6.60496235e-01  -3.13621193e-01
+  -3.27146500e-02   2.01412424e-01   3.64858583e-02  -1.89644145e-03
+  -1.20141888e-02  -9.30914190e-03  -5.47382515e-03  -7.39980265e-02
+   2.47872174e-01   6.04797564e-02  -7.88563371e-01  -1.60271454e+00
+  -6.65215552e-01   5.06706536e-01   1.49388850e+00   2.17196512e+00
+   2.15090132e+00   2.11932111e+00   1.68779731e+00   1.15161741e+00
+   1.31967592e+00   1.99239647e+00   2.43437743e+00   2.11054564e+00
+   1.01800179e+00  -2.98769265e-01  -5.78927755e-01   3.50693874e-02
+   3.42447162e-01   2.54122287e-01   2.44703200e-02   8.08467157e-03
+   1.14834551e-02  -1.69508252e-02  -1.41779128e-02  -7.62273744e-02
+   1.80296630e-01   6.30314322e-03  -6.49235249e-01  -1.52767766e+00
+  -1.06941223e+00  -5.00114977e-01   2.39241123e-01   9.96586323e-01
+   8.80589426e-01   1.55018795e+00   1.51361287e+00   9.40892398e-01
+   4.57181990e-01   1.15874994e+00   2.25127244e+00   1.96082056e+00
+   7.24305749e-01  -5.42092741e-01  -1.60148650e-01   4.90255296e-01
+   5.26623189e-01   2.31149882e-01   1.40885916e-02   1.18412608e-02
+  -1.58497225e-02   2.64310278e-03  -1.90672223e-02  -7.51895234e-02
+   7.18316063e-02  -2.97631979e-01  -6.07437253e-01  -1.13506734e+00
+  -9.92886007e-01  -6.30645573e-01  -7.25764811e-01  -7.41250098e-01
+  -1.02906954e+00   3.55855435e-01   4.55192268e-01  -3.24096322e-01
+  -1.24838543e+00   2.47161627e-01   1.54210031e+00   9.84650433e-01
+  -2.87576497e-01  -5.55191696e-01   2.62059510e-01   6.76755607e-01
+   4.90161240e-01   1.81701049e-01  -1.96232498e-02  -2.15373058e-02
+   5.77409519e-03  -3.23416665e-03  -6.49334770e-03  -7.11663589e-02
+  -1.10220283e-01  -7.09025979e-01  -8.23907197e-01  -6.58527374e-01
+  -2.96832383e-01  -3.51109266e-01  -1.23337364e+00  -2.26877809e+00
+  -2.17012429e+00  -7.49950588e-01  -2.35552728e-01  -1.11768484e+00
+  -1.92595458e+00  -5.62409520e-01   2.68062115e-01  -4.67137337e-01
+  -8.04855406e-01  -1.74357012e-01   4.68162149e-01   5.19921064e-01
+   2.65915185e-01   9.17536318e-02  -4.47586225e-03  -5.72887249e-03
+   1.01538301e-02  -1.78068355e-02  -5.37266396e-03  -1.87381469e-02
+  -1.15399256e-01  -7.04236686e-01  -1.08508027e+00  -7.57495701e-01
+  -2.85358399e-01  -5.40280998e-01  -1.48205578e+00  -2.08894253e+00
+  -1.86654198e+00  -6.22899532e-01   9.23803076e-02  -8.29598665e-01
+  -2.33022833e+00  -1.43429828e+00  -1.32207823e+00  -1.44778788e+00
+  -6.41826630e-01   9.45072845e-02   3.61311078e-01   2.51755536e-01
+   1.71713263e-01   3.93366776e-02   4.97677829e-04  -1.31868580e-02
+   6.04364462e-03  -1.19663542e-02  -3.61971790e-03  -1.88035029e-03
+  -8.25462192e-02  -4.84498858e-01  -1.14135540e+00  -1.23653030e+00
+  -9.83923852e-01  -1.21984875e+00  -1.15485990e+00  -7.72958279e-01
+  -5.04739463e-01   1.14115365e-01   8.12256515e-01  -3.49312246e-01
+  -2.58480501e+00  -2.70612335e+00  -2.28203583e+00  -1.20957398e+00
+  -6.13838434e-02   3.51805657e-01   3.21666330e-01   2.34386519e-01
+   1.16978042e-01   1.15711512e-02  -5.47360862e-03   1.35721890e-02
+  -6.12603780e-03  -5.78537537e-03  -1.58725809e-02   8.44302122e-05
+  -2.71880608e-02  -1.74950421e-01  -6.07014120e-01  -1.40270603e+00
+  -1.96290302e+00  -1.85215795e+00  -4.77616161e-01   7.50951111e-01
+   8.33420038e-01   8.61020446e-01   1.34632266e+00  -6.47771299e-01
+  -3.11877131e+00  -2.94665933e+00  -1.72671902e+00  -4.90150094e-01
+   2.61042297e-01   4.26244438e-01   3.17500234e-01   1.71667084e-01
+   4.75157797e-02  -9.50191636e-03   1.09258201e-02   1.41302554e-03
+   7.53698545e-03   1.00409985e-03  -3.28994752e-03   5.47927106e-03
+  -3.42796408e-02   2.07100082e-02  -1.68513983e-01  -5.84528625e-01
+  -1.29265058e+00  -1.51044440e+00  -9.44959521e-01  -3.33021671e-01
+  -5.94610214e-01  -8.13498378e-01  -1.65114641e-01  -6.46397114e-01
+  -1.46832192e+00  -1.34914958e+00  -7.18427598e-01  -1.12645671e-01
+   2.43649676e-01   3.46411109e-01   2.44876534e-01   1.26081854e-01
+   2.36268472e-02   1.41840205e-02   5.40165883e-03  -8.19989480e-03
+  -9.16333869e-03   1.97414169e-03   4.82440740e-03  -2.37632915e-03
+   7.08308304e-03  -1.71703249e-02  -8.78049955e-02  -2.59970576e-01
+  -5.15467823e-01  -4.59096998e-01  -8.21195319e-02   4.11700904e-02
+  -2.48265639e-01  -7.40334094e-02   4.65554297e-01   4.64887917e-01
+  -1.31705850e-01  -3.44061881e-01  -2.39312634e-01  -7.73937330e-02
+   5.40280640e-02   6.56875670e-02   7.47735724e-02   3.25816646e-02
+   2.50140689e-02   1.83313712e-02  -5.15610818e-03   5.28093800e-03
+  -3.88146960e-03   1.31755769e-02  -2.69880728e-03  -2.83823884e-03
+   9.65472311e-03  -1.03880540e-02  -3.74635831e-02  -1.66462764e-01
+  -3.23522329e-01  -3.16116899e-01  -2.41330996e-01  -3.77464831e-01
+  -4.64292854e-01  -2.34253153e-01   1.90144524e-01   3.71018767e-01
+   1.45965129e-01  -3.52551267e-02  -7.67777339e-02  -5.18655442e-02
+  -2.85379477e-02  -1.47267440e-02  -8.00619461e-03   4.07343090e-04
+   1.38930290e-03  -3.72803863e-03  -7.49557884e-03   6.53143786e-03
+   2.68950826e-03  -2.33611767e-03  -1.03793889e-02   1.65838655e-02
+   5.91235294e-04  -7.15677347e-03   2.77697155e-03  -1.86024662e-02
+  -4.23439691e-04  -4.75790491e-03   7.26730237e-03  -5.63929742e-03
+   6.42855186e-03   5.61202168e-02   1.56084329e-01   2.23278135e-01
+   1.05421007e-01   1.20698726e-02  -1.52280193e-03  -1.34222135e-02
+   8.98768287e-03  -1.92644633e-02  -3.94452270e-03  -1.52738625e-02
+   2.05505639e-02   3.55341844e-03  -1.93220435e-03   4.06600069e-03]
+

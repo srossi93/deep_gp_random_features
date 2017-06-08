@@ -23,10 +23,11 @@ from .dataset import DataSet
 from . import utils
 import time
 from .dgp_interface import DGPRFF_Interface
-from sklearn.decomposition import PCA
+from sklearn.decomposition import PCA, KernelPCA
 from sklearn.manifold import Isomap
 from pprint import pprint
 import pandas as pd
+import os
 
 current_milli_time = lambda: int(round(time.time() * 1000))
 
@@ -158,6 +159,7 @@ class DgpRff_LVM(DGPRFF_Interface):
         return nelbo, kl, ell, layer_out
 
     def initialize_latents(self, data, method='PCA'):
+        print('Latent initialization using', method)
         if method == 'PCA':
             pca = PCA(n_components=self.d_in[0])
             pca.fit(data.X)
@@ -165,18 +167,75 @@ class DgpRff_LVM(DGPRFF_Interface):
             assign_op = tf.assign(self.latents, pca_latent)
             self.session.run(assign_op)
             return
-        else:
-            isomap = Isomap(100, n_components=self.d_in[0])
+        elif method == 'KernelPCA':
+            kpca = KernelPCA(n_components=self.d_in[0], kernel='rbf',
+                             n_jobs=1)
+            kpca.fit(data.X)
+            kpca_latent = kpca.transform(data.X)
+            assign_op = tf.assign(self.latents, kpca_latent)
+            self.session.run(assign_op)
+            return
+        elif method == 'ISOMAP':
+            isomap = Isomap(n_neighbors=100, n_components=self.d_in[0],
+                            n_jobs=-1)
             isomap.fit(data.X)
             isomap_latent = isomap.transform(data.X)
             assign_op = tf.assign(self.latents, isomap_latent)
             self.session.run(assign_op)
             return
+        else:
+            random_latent = np.random.random([self.d_in[0], self.num_examples]).T
+            assign_op = tf.assign(self.latents, random_latent)
+            self.session.run(assign_op)
+            return
+
+    def print_latent_space(self, data, filename, iteration):
+        is_cluster = True
+        latents = pd.DataFrame(self.session.run(self.latents), columns=['x', 'y'])
+        labels = pd.DataFrame(data.Y)
+        for i in range(len(data.Y[0])):
+            class_name = 'class'+str(i)
+            latents[class_name] = labels[i]
+
+        #latents['class0'] = labels[0]
+        #latents['class1'] = labels[1]
+        #latents['class2'] = labels[2]
+
+        if (is_cluster == False):
+            if (len(latents)>5000):
+                latents = latents[:5000]
+            fig = plt.figure()
+            ax = fig.add_subplot(1,1,1)
+            for i in range(len(data.Y[0])):
+                class_name = 'class'+str(i)
+                ax.scatter(latents[latents[class_name]==1].x, latents[latents[class_name]==1].y, s=2.5, label=class_name)
+
+            #ax.scatter(latents[latents['class0']==1].x, latents[latents['class0']==1].y, s=2.5, label='class0')
+            #ax.scatter(latents[latents['class1']==1].x, latents[latents['class1']==1].y, s=2.5, label='class1')
+            #ax.scatter(latents[latents['class2']==1].x, latents[latents['class2']==1].y, s=2.5, label='class2')
+            ax.legend()
+            plt.ylabel('latent_dimension[1]')
+            plt.xlabel('latent_dimension[0]')
+            plt.title('Distribution of training samples in the latent space - Iter '+repr(iteration))
+
+            filename='./img/'+filename+'.pdf'
+            plt.savefig(filename)
+            plt.close()
+        else:
+            directory = '../test_mnist/'
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+            filename = directory + filename + '.csv'
+            latents.to_csv(path_or_buf=filename, sep=",", index=False)
+
 
     ## Function that learns the deep GP model with random Fourier feature approximation
-    def learn(self, data, learning_rate, mc_train, batch_size, n_iterations, optimizer = None, display_step=100, test = None, mc_test=None, loss_function=None, duration = 1000000, less_prints=False, plot_iter=False):
+    def learn(self, data, learning_rate, mc_train, batch_size, n_iterations, \
+              optimizer = None, display_step=100, test = None, mc_test=None, \
+              loss_function=None, duration = 1000000, less_prints=False, \
+              initializer='RANDOM'):
         total_train_time = 0
-
+        self.initializer=initializer
 
         #Z = tf.Variable(tf.ones([len(data.Y), self.d_in[0]], tf.float32), name='latent_variable', trainable=True)
 
@@ -213,7 +272,9 @@ class DgpRff_LVM(DGPRFF_Interface):
         summary_writer = tf.summary.FileWriter('logs/', self.session.graph)
 
         # Initialize latent position
-        self.initialize_latents(data, 'PCA')
+        self.initialize_latents(data, initializer)
+
+        self.print_latent_space(data, 'iter_0', iteration=0)
 
         if not(less_prints):
             #X = tf.Variable(tf.zeros([mc_train, Din]), trainable=True)
@@ -221,6 +282,7 @@ class DgpRff_LVM(DGPRFF_Interface):
             print("Initial kl=" + repr(kl) + "  nell=" + repr(-ell) + "  nelbo=" + repr(nelbo), end=" ")
             print("  log-sigma2 =", self.session.run(self.log_theta_sigma2))
 
+        plot_iter = False
         if plot_iter:
             latents = pd.DataFrame(self.session.run(self.latents), columns=['x', 'y'])
             labels = pd.DataFrame(data.Y)
@@ -254,7 +316,7 @@ class DgpRff_LVM(DGPRFF_Interface):
 
             ## Present one batch of data to the DGP
             start_train_time = current_milli_time()
-            #batch = data.next_batch(batch_size)
+            #batch = data.next_batch(self.num_examples)
 
             monte_carlo_sample_train = mc_train
             if (current_milli_time() - start_train_time) < (1000 * 60 * duration / 2.0):
@@ -280,7 +342,7 @@ class DgpRff_LVM(DGPRFF_Interface):
                 start_predict_time = current_milli_time()
 
                 if less_prints:
-                    print("i=" + repr(iteration), end = " ")
+                    print("i=" + repr(iteration+1), end = " ")
 
                 else:
                     nelbo, kl, ell, _ = self.session.run(self.get_nelbo(),
@@ -289,25 +351,10 @@ class DgpRff_LVM(DGPRFF_Interface):
 
                     print(" log-sigma2=", self.session.run(self.log_theta_sigma2), end=" ")
 
-                    if plot_iter:
-                        latents = pd.DataFrame(self.session.run(self.latents), columns=['x', 'y'])
-                        labels = pd.DataFrame(data.Y)
-                        latents['class0'] = labels[0]
-                        latents['class1'] = labels[1]
-                        latents['class2'] = labels[2]
+                    save_img = False
+                    if save_img:
+                        self.print_latent_space(data, 'iter_'+repr(iteration+1), iteration=(iteration+1))
 
-                        fig = plt.figure()
-                        ax = fig.add_subplot(1,1,1)
-
-                        ax.scatter(latents[latents['class0']==1].x, latents[latents['class0']==1].y, s=2.5, label='class0')
-                        ax.scatter(latents[latents['class1']==1].x, latents[latents['class1']==1].y, s=2.5, label='class1')
-                        ax.scatter(latents[latents['class2']==1].x, latents[latents['class2']==1].y, s=2.5, label='class2')
-                        ax.legend()
-                        plt.ylabel('latent_dimension[1]')
-                        plt.xlabel('latent_dimension[0]')
-                        plt.title('Distribution of training samples in the latent space - Iter '+repr(iteration+1))
-
-                        plt.savefig('iter_'+repr(iteration+1)+'.pdf')
                     # print(" log-lengthscale=", self.session.run(self.log_theta_lengthscale), end=" ")
                     # print(" Omega=", self.session.run(self.mean_Omega[0][0,:]), end=" ")
                     # print(" W=", self.session.run(self.mean_W[0][0,:]), end=" ")
@@ -340,7 +387,7 @@ class DgpRff_LVM(DGPRFF_Interface):
         #saver = tf.train.Saver()
         #save_path = saver.save(self.session, model_path)
         #print("Model saved in file: %s" % save_path)
-
+        self.print_latent_space(data, 'iter_final', iteration=n_iterations)
         return
 
     ## Return predictions on some data

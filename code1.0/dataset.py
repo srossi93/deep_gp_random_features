@@ -14,11 +14,15 @@
 
 import numpy as np
 import tensorflow as tf
+import pandas as pd
+from pprint import pprint
 
 ## DataSet class
 class DataSet():
 
     def __init__(self, X, Y, shuffle = True):
+        #X = X[:10]
+        #Y = Y[:10]
         self._num_examples = X.shape[0]
         perm = np.arange(self._num_examples)
         if (shuffle):
@@ -30,9 +34,20 @@ class DataSet():
         self._Din = X.shape[1]
         self._Dout = Y.shape[1]
 
+
     def next_batch(self, batch_size, latent_variables=None):
         start = self._index_in_epoch
         self._index_in_epoch += batch_size
+        if batch_size == self._num_examples and self._epochs_completed <= 2:
+            self._epochs_completed += 1
+            perm = np.random.permutation(self._num_examples)
+            self._X = self._X[perm]
+            return self._X, self._Y
+        else:
+            self._epochs_completed += 1
+            return self._X, self._Y
+
+
         if (self._index_in_epoch > self._num_examples) and (start != self._num_examples):
             self._index_in_epoch = self._num_examples
         if self._index_in_epoch > self._num_examples:   # Finished epoch
@@ -75,3 +90,11 @@ class DataSet():
     @property
     def Y(self):
         return self._Y
+
+    def to_dataframe(self):
+        X_df = pd.DataFrame(self.X)
+        Y_df = pd.DataFrame(self.Y)
+        for i in range(len(self.Y[0])):
+            class_name = 'class'+str(i)
+            X_df[class_name] = Y_df[i]
+        return X_df

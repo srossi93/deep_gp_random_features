@@ -77,9 +77,10 @@ def get_flags():
     flags.DEFINE_integer('duration', 10000000, 'Duration of job in minutes')
 
     # Flags for unsupervised learning
-    flags.DEFINE_boolean('LVM', False, 'Model to perform Non-linear Principal Component Analysis with DGP-LVM')
+    flags.DEFINE_boolean('LVM', False, 'Model to perform non-linear dimensionality reduction with DGP-LVM')
     flags.DEFINE_string('initializer', "RANDOM", "Initializer for the latent variables")
-
+    flags.DEFINE_boolean('clustering', False, 'Model to perform clustering with DGP_LVM')
+    
     # Flags for use in cluster experiments
     tf.app.flags.DEFINE_string("dataset", "", "Dataset name")
     tf.app.flags.DEFINE_string("fold", "1", "Dataset fold")

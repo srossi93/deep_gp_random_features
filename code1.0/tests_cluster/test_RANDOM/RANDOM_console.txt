@@ -1,4 +1,4 @@
-1000
+ 1000
 Learning with --learning_rate=0.01 --optimizer=adam --mc_test=10 --mc_train=50 --n_iterations=50000 --initializer=RANDOM --nl=1 --n_rff=100 --df=3 --kernel_type=RBF
 Latent initialization using  RANDOM
 Initial kl=0.0  nell=69128.938  nelbo=69128.938   log-sigma2 = [ 0.]

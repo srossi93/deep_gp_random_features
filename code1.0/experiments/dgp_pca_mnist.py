@@ -164,6 +164,4 @@ if __name__ == '__main__':
               FLAGS.display_step, test, FLAGS.mc_test, error_rate, FLAGS.duration, FLAGS.less_prints,
               FLAGS.initializer)
 
-    #pred, nll_test = dgp.predict(test, 1)
-    #print((pred))
-    #print(nll_test)
+    

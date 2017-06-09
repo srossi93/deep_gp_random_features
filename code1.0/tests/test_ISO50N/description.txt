@@ -1,1 +1,0 @@
-omega = 0, theta = 0, nrff = 20, ISOMAP initialization with 50 neigh.

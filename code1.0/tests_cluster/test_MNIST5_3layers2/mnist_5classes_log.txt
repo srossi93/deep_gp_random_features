@@ -4,6 +4,7 @@ Extracting MNIST_data/t10k-images-idx3-ubyte.gz
 Extracting MNIST_data/t10k-labels-idx1-ubyte.gz
 (60000, 10)
 30596
+Omega learned variationally 
 Learning with --learning_rate=0.01 --optimizer=adam --mc_test=1 --mc_train=10 --n_iterations=100000 --initializer=PCA --nl=3 --n_rff=50 --df=5 --kernel_type=RBF
 Latent initialization using PCA
 Initial kl=0.0  nell=96721528.0  nelbo=96721528.0   log-sigma2 = [ 0.  0.  0.]

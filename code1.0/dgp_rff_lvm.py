@@ -36,7 +36,8 @@ current_milli_time = lambda: int(round(time.time() * 1000))
 class DgpRff_LVM(DGPRFF_Interface):
 
 
-    def __init__(self, likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM=True):
+    def __init__(self, likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, \
+                 kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM=True, clustering=False):
         """
         :param likelihood_fun: Likelihood function
         :param num_examples: total number of input samples
@@ -52,16 +53,29 @@ class DgpRff_LVM(DGPRFF_Interface):
         :param Omega_fixed: Whether the Omega weights should be fixed throughout the optimization
         :param theta_fixed: Whether covariance parameters should be fixed throughout the optimization
         :param learn_Omega: How to treat Omega - fixed (from the prior), optimized, or learned variationally
-        :param LVM: Flag to perform Non-linear Principal Component Analysis with DGPLVM
+        :param LVM: Flag to perform Non-linear Probabilistic Principal Component Analysis with DGPLVM
+        :param clustering:
         """
 
         #self.X = tf.Variable(tf.zeros([1, d_in]), name='s', trainable=False)
 
-        self.batchSize = 100
+        #self.batchSize = 100
+        self.LVM = LVM
+
+        # TODO: set clustering to be a flag to pass to the constructor
+        self.clustering = clustering
+
+        if self.clustering:
+            if df != d_in:
+                raise ValueError('Wrong d_in for the Soft Max')
+            if n_layers < 2:
+                raise ValueError('Wrong n_layers for the Soft Max')
+
         self.latents = tf.Variable(tf.random_normal([num_examples, d_in]), name='latents', trainable=True)
-        self.LVM = True
-        self.s = tf.Variable(1e-1, name='s_parameter', trainable=False, dtype=tf.float64)
-        self.gamma = tf.Variable(1e-3, name='gamma_parameter', trainable=False, dtype=tf.float64)
+            #self.p = tf.Variable(tf.random_normal([num_examples, d_in]), name='soft_max_probabilities', trainable=False)
+
+        #self.s = tf.Variable(1e-1, name='s_parameter', trainable=False, dtype=tf.float64)
+        #self.gamma = tf.Variable(1e-3, name='gamma_parameter', trainable=False, dtype=tf.float64)
         super(DgpRff_LVM, self).__init__(likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM)
 
         #self.p, self.q, self.kl = self.compute_affinity_obs()
@@ -88,33 +102,43 @@ class DgpRff_LVM(DGPRFF_Interface):
         self.layer = []
         self.layer.append(tf.multiply(tf.ones([self.mc, batch_size, Din]), X))
 
+
+
+
         ## Forward propagate information from the input to the output through hidden layers
         Omega_from_q  = self.sample_from_Omega()
         W_from_q = self.sample_from_W()
-        # TODO: basis features should be in a different class
+
+
         for i in range(N_L):
-            layer_times_Omega = tf.matmul(self.layer[i], Omega_from_q[i])  # X * Omega
+            if self.clustering and i == 0:
+                denominator = tf.reduce_sum(tf.exp(self.layer[0]), reduction_indices=[2], keep_dims=True)
+                #print(denominator.shape)
+                self.p = tf.div(tf.exp(self.layer[0]), denominator,  )
+                self.layer.append(self.p)
+            else:
+                layer_times_Omega = tf.matmul(self.layer[i], Omega_from_q[i])  # X * Omega
 
-            ## Apply the activation function corresponding to the chosen kernel - PHI
-            if self.kernel_type == "RBF":
-                Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(axis=2, values=[tf.cos(layer_times_Omega), tf.sin(layer_times_Omega)])
-            if self.kernel_type == "arccosine":
-                if self.arccosine_degree == 0:
-                    Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(axis=2, values=[tf.sign(tf.maximum(layer_times_Omega, 0.0))])
-                if self.arccosine_degree == 1:
-                    Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(axis=2, values=[tf.maximum(layer_times_Omega, 0.0)])
-                if self.arccosine_degree == 2:
-                    Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(axis=2, values=[tf.square(tf.maximum(layer_times_Omega, 0.0))])
+                ## Apply the activation function corresponding to the chosen kernel - PHI
+                if self.kernel_type == "RBF":
+                    Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(axis=2, values=[tf.cos(layer_times_Omega), tf.sin(layer_times_Omega)])
+                if self.kernel_type == "arccosine":
+                    if self.arccosine_degree == 0:
+                        Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(axis=2, values=[tf.sign(tf.maximum(layer_times_Omega, 0.0))])
+                    if self.arccosine_degree == 1:
+                        Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(axis=2, values=[tf.maximum(layer_times_Omega, 0.0)])
+                    if self.arccosine_degree == 2:
+                        Phi = tf.exp(0.5 * self.log_theta_sigma2[i]) / (tf.sqrt(1. * self.n_rff[i])) * tf.concat(axis=2, values=[tf.square(tf.maximum(layer_times_Omega, 0.0))])
 
-            F = tf.matmul(Phi, W_from_q[i])
-            if self.feed_forward and not (i == (N_L-1)): ## In the feed-forward case, no concatenation in the last layer so that F has the same dimensions of Y
-                F = tf.concat(axis=2, values=[F, self.layer[0]])
+                F = tf.matmul(Phi, W_from_q[i])
+                if self.feed_forward and not (i == (N_L-1)): ## In the feed-forward case, no concatenation in the last layer so that F has the same dimensions of Y
+                    F = tf.concat(axis=2, values=[F, self.layer[0]])
 
-            self.layer.append(F)
+                self.layer.append(F)
 
         ## Output layer
         layer_out = self.layer[N_L]
-
+        #pprint(self.layer)
         ## Given the output layer, we compute the conditional likelihood across all samples
         ll = self.likelihood.log_cond_prob(Y, layer_out)
 
@@ -195,26 +219,30 @@ class DgpRff_LVM(DGPRFF_Interface):
             self.session.run(assign_op)
             return
 
-    def print_latent_space(self, data, filename, iteration):
-        is_cluster = True
-        latents = pd.DataFrame(self.session.run(self.latents), columns=['x', 'y'])
+    def print_latent_space(self, data, filename, iteration, printSoftMax=False):
+        is_cluster = False
+        if printSoftMax:
+            p = tf.reduce_mean(self.p, reduction_indices=[0])
+            latents = self.session.run(p, feed_dict={self.Y: data.X, self.mc: 1}).T[:2].T
+            filename=filename+'_sm'
+        else:
+            latents = np.array(self.session.run(self.latents)).T[:2].T
+            filename=filename+'_lat'
+        latents = pd.DataFrame(latents, columns=['x', 'y'])
         labels = pd.DataFrame(data.Y)
         for i in range(len(data.Y[0])):
-            class_name = 'class'+str(i)
+            class_name = 'class' + str(i)
             latents[class_name] = labels[i]
 
-        #latents['class0'] = labels[0]
-        #latents['class1'] = labels[1]
-        #latents['class2'] = labels[2]
 
         if (is_cluster == False):
-            if (len(latents)>5000):
+            if (len(latents) > 5000):
                 latents = latents[:5000]
             fig = plt.figure()
             ax = fig.add_subplot(1,1,1)
             for i in range(len(data.Y[0])):
                 class_name = 'class'+str(i)
-                ax.scatter(latents[latents[class_name]==1].x, latents[latents[class_name]==1].y, s=2.5, label=class_name)
+                ax.scatter(latents[latents[class_name]==1].x, latents[latents[class_name]==1].y, s=.5, label=class_name)
 
             #ax.scatter(latents[latents['class0']==1].x, latents[latents['class0']==1].y, s=2.5, label='class0')
             #ax.scatter(latents[latents['class1']==1].x, latents[latents['class1']==1].y, s=2.5, label='class1')
@@ -228,7 +256,7 @@ class DgpRff_LVM(DGPRFF_Interface):
             plt.savefig(filename)
             plt.close()
         else:
-            directory = '../test_mnist/'
+            directory = '../tests_cluster/'
             if not os.path.exists(directory):
                 os.makedirs(directory)
             filename = directory + filename + '.csv'
@@ -239,7 +267,8 @@ class DgpRff_LVM(DGPRFF_Interface):
     def learn(self, data, learning_rate, mc_train, batch_size, n_iterations, \
               optimizer = None, display_step=100, test = None, mc_test=None, \
               loss_function=None, duration = 1000000, less_prints=False, \
-              initializer='RANDOM'):
+              initializer='RANDOM', save_img=False):
+
         total_train_time = 0
         self.initializer=initializer
 
@@ -296,7 +325,7 @@ class DgpRff_LVM(DGPRFF_Interface):
             #print(self.session.run(self.q), end='\n\n')
             #print(self.session.run(self.kl))
             #print(self.session.run(tf.reduce_sum(self.q)))
-
+            #pprint(self.session.run(self.p, feed_dict={self.Y: data.X, self.mc: mc_train}))
             ## Stop after a given budget of minutes is reached
             if (total_train_time > 1000 * 60 * duration):
                 break
@@ -338,19 +367,23 @@ class DgpRff_LVM(DGPRFF_Interface):
 
                     print(" log-sigma2=", self.session.run(self.log_theta_sigma2), end=" ")
 
-                    save_img = False
+
                     if save_img:
                         self.print_latent_space(data, 'iter_'+repr(iteration+1), iteration=(iteration+1))
-
+                        self.print_latent_space(data, 'iter_'+repr(iteration+1), iteration=(iteration+1), printSoftMax=True)
                     # print(" log-lengthscale=", self.session.run(self.log_theta_lengthscale), end=" ")
                     # print(" Omega=", self.session.run(self.mean_Omega[0][0,:]), end=" ")
                     # print(" W=", self.session.run(self.mean_W[0][0,:]), end=" ")
 
                 if loss_function is not None:
-
                     pred, nll_train = self.predict(data, mc_test)
                     elapsed_time = total_train_time + (current_milli_time() - start_predict_time)
-                    print(loss_function.get_name() + "=" + "%.4f" % loss_function.eval(data.X, pred), end = " ")
+                    if self.clustering:
+                        tmp = tf.reduce_mean(self.p, reduction_indices=[0])
+                        p = self.session.run(tmp, feed_dict={self.Y: data.X, self.mc: mc_test})
+                        print(loss_function.get_name() + "=" + "%.4f" % loss_function.eval(data.Y, p), end = " ")
+                    else:
+                        print(loss_function.get_name() + "=" + "%.4f" % loss_function.eval(data.X, pred), end = " ")
                     print(" nll_train=" + "%.5f" % (nll_train / len(data.X)), end = " ")
 
                 print(" time=" + repr(elapsed_time/1000.), end = " ")
@@ -367,7 +400,6 @@ class DgpRff_LVM(DGPRFF_Interface):
         print("log-sigma2 = ", self.session.run(self.log_theta_sigma2))
         print("log-lengthscale = ", self.session.run(self.log_theta_lengthscale))
         #print("Omega = ", self.session.run(self.mean_Omega[0][0,:]))
-        print("W = ", self.session.run(self.mean_W[0][0,:]))
         print("")
 
         #model_path = './models/model.ckpt'
@@ -375,6 +407,12 @@ class DgpRff_LVM(DGPRFF_Interface):
         #save_path = saver.save(self.session, model_path)
         #print("Model saved in file: %s" % save_path)
         self.print_latent_space(data, 'iter_final', iteration=n_iterations)
+        self.print_latent_space(data, 'iter_final', iteration=n_iterations, printSoftMax=True)
+
+        if self.clustering:
+            p = tf.reduce_mean(self.p, reduction_indices=[0])
+            self.p = self.session.run(p, feed_dict={self.Y: data.X, self.mc: 100})
+        #print(self.p)
         return
 
         ## Return predictions on some data

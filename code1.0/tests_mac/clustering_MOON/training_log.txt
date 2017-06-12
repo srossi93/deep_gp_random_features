@@ -1,0 +1,44 @@
+Training size: 1000
+Learning with --learning_rate=0.01 --optimizer=adam --mc_test=1 --mc_train=1 --n_iterations=25000 --initializer=RANDOM --nl=2 --n_rff=200 --df=2 --kernel_type=RBF
+Latent initialization using RANDOM
+Initial kl=0.0  nell=7105.4575  nelbo=7105.4575   log-sigma2 = [ 0.  0.]
+i=1000  kl=53.624321  nell=4853.5308  nelbo=4907.1553  log-sigma2= [ 0.  0.] RMSE=0.6867  nll_train=3.32187  time=9.2
+i=2000  kl=126.93455  nell=1705.2897  nelbo=1832.2242  log-sigma2= [ 0.  0.] RMSE=0.9575  nll_train=6.61290  time=17.674
+i=3000  kl=311.20215  nell=6051.665  nelbo=6362.8672  log-sigma2= [ 0.  0.] RMSE=0.3367  nll_train=0.67532  time=29.225
+i=4000  kl=397.88861  nell=662.82825  nelbo=1060.7168  log-sigma2= [ 0.  0.] RMSE=0.4718  nll_train=1.48274  time=39.863
+i=5000  kl=476.68512  nell=510.47577  nelbo=987.16089  log-sigma2= [ 0.  0.] RMSE=0.7115  nll_train=3.57801  time=50.941
+i=6000  kl=543.01196  nell=839.33026  nelbo=1382.3423  log-sigma2= [ 0.  0.] RMSE=0.4225  nll_train=1.15673  time=62.167
+i=7000  kl=606.80084  nell=142.18973  nelbo=748.9906  log-sigma2= [ 0.  0.] RMSE=0.2955  nll_train=0.48319  time=71.728
+i=8000  kl=753.94263  nell=1944.0291  nelbo=2697.9717  log-sigma2= [ 0.        -1.8911351] RMSE=0.2477  nll_train=0.57745  time=82.426
+i=9000  kl=905.64886  nell=-1392.6165  nelbo=-486.96759  log-sigma2= [ 0.         -2.44612408] RMSE=0.1057  nll_train=-1.62120  time=92.201
+i=10000  kl=978.29034  nell=-1603.4862  nelbo=-625.19586  log-sigma2= [ 0.         -2.64365458] RMSE=0.0863  nll_train=-1.93513  time=101.73
+i=11000  kl=991.5824  nell=-1923.439  nelbo=-931.85657  log-sigma2= [ 0.         -2.75748038] RMSE=0.1042  nll_train=-1.68445  time=111.211
+i=12000  kl=982.3913  nell=-1639.7878  nelbo=-657.39655  log-sigma2= [ 0.         -2.80734086] RMSE=0.0810  nll_train=-2.10002  time=120.84
+i=13000  kl=971.80688  nell=-1465.4751  nelbo=-493.66821  log-sigma2= [ 0.         -2.91794395] RMSE=0.0902  nll_train=-1.93238  time=130.501
+i=14000  kl=957.23627  nell=-313.45648  nelbo=643.77979  log-sigma2= [ 0.         -2.97333789] RMSE=0.0852  nll_train=-2.03901  time=140.581
+i=15000  kl=942.53424  nell=-1549.719  nelbo=-607.18475  log-sigma2= [ 0.         -3.05249166] RMSE=0.0887  nll_train=-1.98183  time=151.094
+i=16000  kl=924.55408  nell=-1960.2946  nelbo=-1035.7405  log-sigma2= [ 0.         -3.10069823] RMSE=0.0999  nll_train=-1.76804  time=161.573
+i=17000  kl=907.45654  nell=-2054.4766  nelbo=-1147.02  log-sigma2= [ 0.         -3.15913296] RMSE=0.0876  nll_train=-2.00390  time=172.108
+i=18000  kl=899.7453  nell=-1953.1249  nelbo=-1053.3796  log-sigma2= [ 0.         -3.21171188] RMSE=0.0889  nll_train=-1.99391  time=184.507
+i=19000  kl=888.06708  nell=-2062.5713  nelbo=-1174.5042  log-sigma2= [ 0.         -3.26817584] RMSE=0.0834  nll_train=-2.07906  time=196.388
+i=20000  kl=874.54468  nell=-2133.354  nelbo=-1258.8093  log-sigma2= [ 0.         -3.30681252] RMSE=0.0801  nll_train=-2.15408  time=207.306
+i=21000  kl=862.49683  nell=-1897.6523  nelbo=-1035.1555  log-sigma2= [ 0.         -3.34070325] RMSE=0.0947  nll_train=-1.87623  time=218.132
+i=22000  kl=854.10669  nell=-1831.8938  nelbo=-977.78711  log-sigma2= [ 0.         -3.39465332] RMSE=0.1177  nll_train=-1.34526  time=229.313
+i=23000  kl=847.29169  nell=-1983.9955  nelbo=-1136.7039  log-sigma2= [ 0.         -3.43435073] RMSE=0.1184  nll_train=-1.35875  time=238.778
+i=24000  kl=840.08612  nell=-1627.5063  nelbo=-787.42023  log-sigma2= [ 0.         -3.45579147] RMSE=0.0983  nll_train=-1.79673  time=248.477
+i=25000  kl=833.97607  nell=-841.74982  nelbo=-7.7737427  log-sigma2= [ 0.        -3.4489882] RMSE=0.0983  nll_train=-1.80004  time=258.928
+
+kl = 833.97607
+nell = -1645.2823
+nelbo = -811.30627
+log-sigma2 =  [ 0.        -3.4489882]
+log-lengthscale =  [ 0.06931472 -0.70269948]
+
+Confusion matrix, without normalization
+[[  6 494]
+ [489  11]]
+Normalized confusion matrix
+[[ 0.012  0.988]
+ [ 0.978  0.022]]
+
+Score = 0.933089028749

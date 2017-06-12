@@ -38,7 +38,7 @@ class DataSet():
     def next_batch(self, batch_size, latent_variables=None):
         start = self._index_in_epoch
         self._index_in_epoch += batch_size
-        if batch_size == self._num_examples and self._epochs_completed <= 2:
+        if batch_size == self._num_examples and self._epochs_completed < 0:
             self._epochs_completed += 1
             perm = np.random.permutation(self._num_examples)
             self._X = self._X[perm]

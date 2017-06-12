@@ -451,12 +451,18 @@ class DgpRff_LVM(DGPRFF_Interface):
                 nll = -tf.reduce_sum(-np.log(mc_test) + utils.logsumexp(self.likelihood.log_cond_prob(self.Y, self.layer_out), 0), 1)
 
         # More training data than prediction data. We fill the remaining samples with 0
-        if self.num_examples >= len(X):
+        elif len(X) < self.num_examples:
             X2 = np.concatenate([X, np.zeros((self.num_examples - len(X), X.shape[1]))])
             Y2 = np.concatenate([Y, np.zeros((self.num_examples - len(Y), Y.shape[1]))])
             p, nll = self.session.run([out, nll], feed_dict={self.X:X2, self.Y: Y2, self.mc:mc_test})
             pred.append(p[:len(X)])
             neg_ll.append(nll[:len(X)])
+
+        # Same number of training and prediction samples. This is also part of training iterations
+        else:
+            p, nll = self.session.run([out, nll], feed_dict={self.X:X, self.Y: Y, self.mc:mc_test})
+            pred.append(p)
+            neg_ll.append(nll)
 
         #mean_pred = np.mean(pred, 0)
         return np.concatenate(pred), np.concatenate(neg_ll)

@@ -9,7 +9,7 @@ import itertools
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 from tensorflow.contrib.learn.python.learn.datasets import base
 from tensorflow.contrib.learn.python.learn.datasets.mnist import extract_images, extract_labels
@@ -20,7 +20,6 @@ from sklearn.datasets import make_moons, make_blobs, make_circles
 from dataset import DataSet
 from dgp_rff_lvm import DgpRff_LVM
 from pprint import pprint
-from tabulate import tabulate
 
 warnings.filterwarnings('ignore')
 
@@ -55,44 +54,6 @@ def get_confusion_matrix(real, predicted):
     cm = confusion_matrix(new_real, new_predicted)
     return cm
 
-def plot_confusion_matrix(cm, classes,
-                          normalize=False,
-                          title='ConfusionMatrix',
-                          cmap=plt.cm.Blues):
-
-    plt.imshow(cm, interpolation='nearest', cmap=cmap)
-    plt.title(title)
-    plt.colorbar()
-    tick_marks = np.arange(len(classes))
-    plt.xticks(tick_marks, classes, rotation=45)
-    plt.yticks(tick_marks, classes)
-
-    if normalize:
-        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-        print("Normalized confusion matrix")
-    else:
-        print('Confusion matrix, without normalization')
-
-    print(tabulate(pd.DataFrame(cm), headers='keys', tablefmt='psql'))
-
-    thresh = cm.max() / 2.
-    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-        plt.text(j, i, cm[i, j],
-                 horizontalalignment="center",
-                 color="white" if cm[i, j] > thresh else "black")
-
-    #plt.tight_layout()
-    plt.ylabel('True label')
-    plt.xlabel('Predicted label')
-    if normalize:
-        filename='./img/'+title+'_normalized.pdf'
-    else:
-        filename='./img/'+title+'.pdf'
-    plt.savefig(filename)
-    plt.close()
-
-
-
 
 if __name__ == '__main__':
     FLAGS = utils.get_flags()
@@ -115,23 +76,6 @@ if __name__ == '__main__':
         for i in range(len(l)):
             labels[i,l[i]] = 1
         data = DataSet(data_X, labels, shuffle=False)
-
-        df = data.to_dataframe()
-        fig = plt.figure()
-        ax = fig.add_subplot(1,1,1)
-        for i in range(len(data.Y[0])):
-            class_name = 'class'+str(i)
-            ax.scatter(df[df[class_name]==1][0], df[df[class_name]==1][1], s=.5, label=class_name)
-        #plt.scatter(data_X[:,0], data_X[:,1], s=1, c=l, cmap=plt.cm.jet_r)
-        ax.legend()
-        plt.ylabel('observed_dimension[1]')
-        plt.xlabel('observed_dimension[0]')
-        plt.title('Distribution of training samples in the observed space')
-
-        filename='./img/'+name+'_assignment_dataset.pdf'
-        plt.savefig(filename)
-        plt.close()
-        #plt.show()
 
         print('\n\nTraining size: ' + str(len(data.X)))
 
@@ -174,47 +118,4 @@ if __name__ == '__main__':
         print('Silhouette Score........: %.4f' % score[3])
 
         cm = get_confusion_matrix(data.Y, dgp.p)
-        plot_confusion_matrix(cm, range(len(dgp.p[0])), title=name+'_confusion_matrix')
-
-        ######
-        #  PRINT ASSIGNMENT IN THE OBSERVED SPACE
-        ######
-
-        data_assignment = DataSet(data.X, np.round(dgp.p), shuffle=False)
-        df =  data_assignment.to_dataframe()
-        fig = plt.figure()
-        ax = fig.add_subplot(1,1,1)
-        for i in range(len(data_assignment.Y[0])):
-            class_name = 'class'+str(i)
-            ax.scatter(df[df[class_name]==1][0], df[df[class_name]==1][1], s=.5, label=class_name)
-        #plt.scatter(data_X[:,0], data_X[:,1], s=1, c=l, cmap=plt.cm.jet_r)
-        ax.legend()
-        plt.ylabel('observed_dimension[1]')
-        plt.xlabel('observed_dimension[0]')
-        plt.title('Cluster assignment')
-
-        filename='./img/'+name+'_assignment_cluster.pdf'
-        plt.savefig(filename)
-        plt.close()
-
-
-        #plot_confusion_matrix(cm, ['0', '1'], normalize=True)
-
-
-
-
-    #fig = plt.figure(figsize=[50, 50])
-    #ax = fig.add_subplot(1,1,1)
-    #plt.scatter(data_X[:,0], data_X[:,1], s=15, c=l, cmap=plt.cm.RdYlGn)
-
-    #for i in range(data.num_examples):
-    #    ax.annotate("%.2f" % (dgp.p[i][0]), (data.X[i,0],data.X[i,1]),)
-
-    #ax.legend()
-    #plt.ylabel('observed_dimension[1]')
-    #plt.xlabel('observed_dimension[0]')
-    #plt.title('Distribution of training samples in the observed space')
-
-    #filename='./img/assignement_obs.pdf'
-    #plt.savefig(filename)
-    #plt.close()
+	print(pd.DataFrame(cm))

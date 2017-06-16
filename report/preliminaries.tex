@@ -1,0 +1,86 @@
+%!TEX root = report.tex
+
+\section{Preliminaries}
+
+This section will be dedicated to review the main idea behind Gaussian Processes (\gp) and a possible deep architecture built on top of them (\dgp).
+
+\subsection{Gaussian Process}
+
+A Gaussian process (\gp) is a generalization of the Gaussian probability distribution: whereas a probability distribution describes random variables which are scalars or vectors (for multivariate distributions), a stochastic process governs the properties of functions. Even though there are two different perspectives for looking at a \gp, for the following formulation of the \dgp, here it's present only the weight-space view.
+
+The weight-space representation of \gp for regression is the natural extension of the Bayesian linear regression, where the the number of features for each sample is potentially infinite. Consider a supervised learning problem where a set of input vectors $\Xvect = [\xvect_1, \ldots, \xvect_\nobs]^{\top}$ is associated with a set of labels $Y = [y_1, \ldots, y\nobs]^{\top}$, where $\xvect_i \in R^{D_{\mathrm{in}}}$ and $y_i \in R$.
+
+Stating from the input $X$, the design matrix $\Phivect$ can be computed applying a set of potentially non linear basis functions. Specifically, we introduce the function $\phi(\xvect)$ which maps a $D_{in}$-dimensional input vector x into an $F$  dimensional feature space as follow:
+\begin{equation}
+    \Phi_i = \phi(\xvect_i) \quad \mbox{with} \quad \phi:R^{D_{\mathrm{in}}}    \rightarrow R^F
+\end{equation}
+
+As long as the projections are fixed functions and independent on the parameters, the model is still linear in the parameters, and therefore analytically tractable.
+
+Without entering into details, it can be proved that, for both training and prediction, the model is defined exclusively in terms of inner products in the input space that can be lifted into feature space by replacing occurrences of those product with a function $k(\xvect_0, \xvect_1)$, such that:
+
+\begin{equation}
+    k(\xvect_0, \xvect_1) = \phi(\xvect_0)^\top\phi(\xvect_1)
+\end{equation}
+
+This technique is particularly useful in situations where it is more convenient to compute the kernel than the feature vectors themselves. Moreover, since both in training and in prediction matrix inversion (which computational cost is $\bigO(n^3)$) are involved, when the number of features starts increasing, it's more convenient to invert a $\nobs\times\nobs$ matrix than a $F\times F$ one. In addition to that, since kernel functions can be computed without building the feature vectors and the mapping function $\phi$, it's also possible to infer an infinite feature space dimension while keeping all the computations feasible.
+
+One of the most famous kernels, also called covariance function, that embeds an infinite feature space dimension is the Radial Basis Function (\rbf), defined as follows
+
+\begin{equation} \label{eq:covariance:rbf:ard}
+k_{\mathrm{rbf}}(\xvect, \xvect^{\prime}) =
+\exp\left[-\frac{1}{2} \left\| \xvect - \xvect^{\prime} \right\|^{\top}  \right]
+\end{equation}
+
+It will be used in the following treatise as starting point for making \gp{s} scalable in a deep architecture.
+
+\subsection{Deep Gaussian Processes}
+
+
+%\input{figures/diagram.tex}
+In this work, we build the deep architecture following the model firstly introduced by \citet{Filippone2017}. Generally, in deep models, the mapping between inputs and labels is expressed as a composition of functions
+\begin{equation}
+\fvect(\xvect) = \left(\fvect^{(N_{\mathrm{h}} - 1)} \circ \ldots \circ \fvect^{(0)}\right)(\xvect),
+\end{equation}
+where, in this case, each of the $N_{\mathrm{h}}$ layers is finite set of \gp{s}.
+
+In contrast to Deep Neural Networks (\dnn{s}), where each of the hidden layers implements a parametric function of its inputs, in \dgp{s} these functions are assigned a \gp prior, and are therefore nonparametric.
+
+\subsubsection{Random Fourier Expansion}
+
+With reference to the Bochner's theorem, any continuous covariance function $k(\xvect_i, \xvect_j) = k(\xvect_i - \xvect_j)$ is positive definite if and only if it can be rewritten as the Fourier transform of a non-negative measure $p(\omegavect)$. Denoting the spectral frequencies by $\omegavect$, in the case of the \rbf covariance in equation~\ref{eq:covariance:rbf:ard}, this yields:
+
+\begin{equation}
+k_{\mathrm{rbf}}(\xvect_i - \xvect_j) = \int p(\omegavect) \exp\left[i (\xvect_i - \xvect_j)^{\top} \omegavect \right] d\omegavect \text{.}
+\end{equation}
+
+Because the covariance function and the non-negative measures are real, we can drop the unnecessary complex part of the argument of the expectation, keeping $\cos((\xvect_i - \xvect_j)^{\top} \omegavect)$ that can be rewritten as
+$\cos(\xvect_i^{\top} \omegavect) \cos(\xvect_j^{\top} \omegavect) + \sin(\xvect_i^{\top} \omegavect) \sin(\xvect_j^{\top} \omegavect)$.
+% Note that an alternative representation using only cosines can be found by introducing a uniformly distributed phase term \citep{Rahimi08,Gal16}.
+
+The importance of the expansion above is that it allows us to interpret the covariance function as an expectation that can be estimated using Monte Carlo.
+Defining $\zvect(\xvect | \omegavect) = [\cos(\xvect^{\top} \omegavect), \sin(\xvect^{\top} \omegavect)]^{\top}$,
+the covariance function can be therefore unbisedly approximated as % by the following (unbiased) Monte Carlo estimate
+\begin{equation}
+%% k_{\mathrm{rbf}}(\xvect_i, \xvect_j | \thetavect) \approx \frac{\sigma^2}{N_{\mathrm{RF}}} \sum_{r=1}^{N_{\mathrm{RF}}} \zvect(\xvect_i | \tilde{\omegavect}_r)^{\top} \zvect(\xvect_j | \tilde{\omegavect}_r) \text{,}
+k_{\mathrm{rbf}}(\xvect_i, \xvect_j) \approx \frac{1}{N_{\mathrm{RF}}} \sum_{r=1}^{N_{\mathrm{RF}}} \zvect(\xvect_i | \tilde{\omegavect}_r)^{\top} \zvect(\xvect_j | \tilde{\omegavect}_r) \text{,}
+\end{equation}
+with $\tilde{\omegavect}_{r} \sim p(\omegavect)$.
+%% In practice, this expansion leads to an explicit representation of the mapping induced by the choice of covariance function.
+This has an important practical implication, as it provides the means to access an approximate explicit representation of the mapping induced by the covariance function that, in the \rbf case, we know is infinite dimensional.
+
+\subsubsection{Deep Architecture}
+
+With reference to \citet{Filippone2017} work, the architecture that will be used as starting point for the analysis of the unsupervised case is represented in Figure \ref{fig:DGP:diagram}.
+
+\input{figures/diagram.tex}
+
+Considering a \dgp with \rbf covariances, using the aforementioned expension, we have that
+\begin{equation}
+\Phi_{\mathrm{rbf}}^{(l)} = \sqrt{\frac{(\sigma^2)^{(l)}}{N_{\mathrm{RF}}^{(l)}}} \left[ \cos\left(F^{(l)} \Omega^{(l)}\right), \sin\left(F^{(l)} \Omega^{(l)}\right) \right] \text{,}
+\end{equation}
+and
+%% \begin{equation}
+$
+F^{(l+1)} = \Phi_{\mathrm{rbf}}^{(l)} W^{(l)} % \text{.}
+$.

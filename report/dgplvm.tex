@@ -1,0 +1,61 @@
+%!TEX root = report.tex
+
+\section{Deep models for dimensionality reduction}
+One of the most important problems in unsupervised learning is to represent the observed data $\Yvect$ (with $\yvect_i \in R^{D_\mathrm{obs}}$) in some lower dimensional embedded space $\Xvect$ (with $\xvect_i \in R^{D_\mathrm{lat}}$). In a probabilistic model, the $\Xvect$ space is also known as \emph{latent space}, while all the variables $\xvect_i \in \Xvect$ are called \emph{latent variables}.
+
+In the last decades, a lot of effort has been put in action for building the ``optimal'' mapping function between $R^{\Dobs}$ and $R^{\Dlat}$ (see, for instance, \noteSR{Put references to PCA and Kernel PCA}). In the next sections, we will review the key idea of Latent Variable Model and its natural extension to \gplvm.
+
+\subsection{Dual Probabilistic PCA}
+Typically, in the context of dimensionality reduction, we specify a latent variable model that relate a set of latent variables $\Xvect \in R^{\nobs\times \Dlat}$ to a set of observed variables $\Yvect \in R^{\nobs\times \Dobs}$, through a set of potentially non linear parameters. The model is defined probabilistically, the latent variables are marginalized and the parameters are maximized.
+
+\citet{Lawrence2005} proved that, for a particular choice of Gaussian likelihood, this is the same as marginalize the parameters and maximize the latent variables. Moreover, it can be proved that for a particular choice of prior distribution on the parameters, this probabilistic model is equivalent to the probabilistic PCA \citep{Bishop1999}.
+
+Let's start by specifying a prior for $\Wvect$ and let it be a simple spherical Gaussian distribution:
+
+\begin{equation}
+    p(\Wvect) = \prod_{i=0}^{\Dobs-1}\N(\wvect_i\vert\zerovect, \Ivect)
+\end{equation}
+
+The corresponding log-likelihood is
+
+\begin{equation}
+    \label{eq:likelihood:lvm:lawrence}
+    \log p(\Yvect\vert\Xvect,\sigma^2) =  - \dfrac{\Dobs}{2}\ln\vert\Kvect\vert - \dfrac{1}{2}\Tr\left(\Kvect^{-1}\Yvect\Yvect^\top\right) + \alpha\text{,}
+\end{equation}
+
+where $\Kvect = \Xvect\Xvect^\top + \sigma^2\Ivect$ and $\alpha = -\tfrac{\nobs\Dobs}{2}\ln(2\pi)$ is normalization constant independent with the latents.
+
+\citet{Lawrence2005} proved that the maximization of the likelihood in Equation \ref{eq:likelihood:lvm:lawrence} with respect to the latent variables $\Xvect$ turns out to be the solution of the eigenvalue problem of the classic PCA.
+
+If fact, the solution of this optimization problem can be written in closed form as it follows
+
+\begin{equation}
+    \label{eq:ppca:latent:solution}
+    \Xvect = \Uvect\Lvect\Vvect^\top
+\end{equation}
+
+where $\Uvect$ is an $\nobs\times\Dlat$ matrix whose columns are the first $\Dlat$ eigenvectors of $\Yvect\Yvect^\top$, $\Lvect$ is the associated diagonal eigenvalue matrix and $\Vvect$ is eventually a $\Dobs\times\Dobs$ rotation matrix.
+
+\subsection{Gaussian process latent variable model}
+
+From the analysis of Equation (\ref{eq:likelihood:lvm:lawrence}), we can immediately see that the marginal likelihood for dual probabilistic PCA is a product of $\Dobs$ independent Gaussian processes with linear covariance function.
+
+What will be done next is to replace the inner product kernel with a covariance function so that it allows non-linear functions to obtain a non-linear latent variable model. Due to the close relationship with the linear model, which has an interpretation as probabilistic PCA, such a model can be interpreted as a non-linear probabilistic version of PCA or, as it will be referred to, Gaussian process latent variable model (or \gplvm).
+
+Unfortunately, though, in general there is not closed form solution of the maximization of the likelihood and therefore the
+resulting models will not be optimizable through an eigenvalue problem. The covariance function that will be used in the following examples is the Squared Exponential in Equation (\ref{eq:covariance:rbf:ard}). As result, the log-likelihood is a highly non-linear function of the latents and the parameters. We are therefore forced to use automatic optimisation tools, such as the stochastic gradients and \adam optimizer \citep{Kingma2015} already implemented in \tensorflow.
+
+\subsubsection{Extension to deep models}
+
+In the previous sections, we showed how the problem of dimensionality reduction can be connected to a \gplvm. Now, we will show that, without great changes in the formulation, this model can be extended to \dgplvm. This is justified by the fact that when the functional relationship between variables is non-stationary, traditional \gp{s} fail, while \dgp can better adapt to handle non-stationary functions.
+
+In the \dgplvm, the likelihood associated to the model is optimized using variational inference. Let $p(\Yvect\vert\Xvect,\Xi)$ the likelihood of the model, where $\Xi$ is the set of all parameters. As proved by \citet{Filippone2017}, defining $\LL$ the log-likelihood and $\mathcal{E} = \E_{q(\Wvect)} \left( \log\left[ p\left(\Yvect | \Xvect, \Wvect, \Xi\right) \right] \right)$, we obtain
+
+\begin{equation}
+\LL \geq \mathcal{E}
+%% \E_{q(\Wvect)} \left( \log\left[ p\left(Y | X, \Wvect, \Omegavect, \Thetavect\right) \right] \right)
+- \mathrm{DKL}\left[q(\Wvect) \| p\left(\Wvect\right)\right] \text{,}
+\end{equation}
+where $q(\Wvect)$ acts as an approximation to the posterior over all the weights $p(\Wvect | \Yvect, \Xvect, \Xi)$.
+
+Optimizing the variational lower bound with respect to $q(\Wvect)$ and to $\Xvect$, we will obtain a model equivalent to a deep Gaussian process latent variable model (or, as it will be referred to, \dgplvm).

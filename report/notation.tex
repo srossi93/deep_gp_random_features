@@ -1,0 +1,158 @@
+\definecolor{mygreen}{rgb}{0.2, 0.7, 0.2}
+\definecolor{myorange}{rgb}{0.9, 0.5, 0.0}
+
+\newcommand\noteMF[1]{\textcolor{red}{MF - #1}}
+\newcommand\noteKC[1]{\textcolor{blue}{KC - #1}}
+\newcommand\notePM[1]{\textcolor{mygreen}{PM - #1}}
+\newcommand\noteSR[1]{\textcolor{myorange}{SR - #1}}
+
+\newcommand{\nobs}{n} % Number of observations
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathcal{N}}
+%\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\LL}{\mathcal{L}}
+% \newcommand{\vv}{\mathbf{v}}
+\newcommand{\uu}{\mathbf{u}}
+% \newcommand{\zz}{\mathbf{z}}
+% \newcommand{\mm}{\mathbf{m}}
+\newcommand{\ee}{\mathbf{e}}
+
+% \newcommand{\KL}{\mathrm{KL}}
+% \newcommand{\xnew}{x_{*}}
+% \newcommand{\xvectnew}{\mathbf{x}_{*}}
+% \newcommand{\tildexxnew}{\tilde{\mathbf{x}}_{*}}
+
+%% \newcommand{\T}{\mathrm{T}}
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\const}{\mathrm{const.}}
+\newcommand{\diag}{\mathrm{diag}}
+\newcommand{\Tr}{\mathrm{Tr}}
+%% \newcommand{\vectorize}{\mathrm{vec}}
+
+
+\newcommand{\norm}{\mathcal{N}}
+%% \newcommand{\expdist}{\mathcal{E}}
+%% \newcommand{\DP}{\mathcal{DP}}
+%% \newcommand{\Beta}{\mathcal{B}}
+%% \newcommand{\Ga}{\mathcal{G}}
+%% \newcommand{\Wi}{\mathcal{W}}
+%% \newcommand{\St}{\mathrm{St}}
+%% \newcommand{\expfam}{\mathcal{E}}
+
+\newcommand{\avect}{\mathbf{a}}
+\newcommand{\dvect}{\mathbf{d}}
+\newcommand{\fvect}{\mathbf{f}}
+\newcommand{\gvect}{\mathbf{g}}
+\newcommand{\Ivect}{\mathbf{I}}
+\newcommand{\Kvect}{\mathbf{K}}
+\newcommand{\hvect}{\mathbf{h}}
+\newcommand{\Lvect}{\mathbf{L}}
+\newcommand{\mvect}{\mathbf{m}}
+\newcommand{\pvect}{\mathbf{p}}
+\newcommand{\svect}{\mathbf{s}}
+\newcommand{\uvect}{\mathbf{u}}
+\newcommand{\Uvect}{\mathbf{U}}
+\newcommand{\vvect}{\mathbf{v}}
+\newcommand{\Vvect}{\mathbf{V}}
+\newcommand{\zvect}{\mathbf{z}}
+\newcommand{\xvect}{\mathbf{x}}
+\newcommand{\Xvect}{\mathbf{X}}
+\newcommand{\yvect}{\mathbf{y}}
+\newcommand{\Yvect}{\mathbf{Y}}
+\newcommand{\wvect}{\mathbf{w}}
+\newcommand{\Wvect}{\mathbf{W}}
+\newcommand{\tvect}{\mathbf{t}}
+\newcommand{\zerovect}{\mathbf{0}}
+\newcommand{\onesvect}{\mathbf{1}}
+
+\newcommand{\Dobs}{D_\mathrm{obs}}
+\newcommand{\Dlat}{D_\mathrm{lat}}
+
+\newcommand{\betavect}{\boldsymbol{\beta}}
+\newcommand{\thetavect}{\boldsymbol{\theta}}
+\newcommand{\Thetavect}{\mathbf{\Theta}}
+\newcommand{\psivect}{\boldsymbol{\psi}}
+\newcommand{\Psivect}{\boldsymbol{\Psi}}
+\newcommand{\Phivect}{\boldsymbol{\Phi}}
+\newcommand{\Pivect}{\boldsymbol{\Pi}}
+\newcommand{\etavect}{\boldsymbol{\eta}}
+\newcommand{\rhovect}{\boldsymbol{\rho}}
+\newcommand{\tauvect}{\boldsymbol{\tau}}
+\newcommand{\nuvect}{\boldsymbol{\nu}}
+\newcommand{\muvect}{\boldsymbol{\mu}}
+\newcommand{\omegavect}{\boldsymbol{\omega}}
+\newcommand{\Omegavect}{\mathbf{\Omega}}
+\newcommand{\sigmavect}{\boldsymbol{\sigma}}
+\newcommand{\zetavect}{\boldsymbol{\zeta}}
+\newcommand{\varepsilonvect}{\boldsymbol{\epsilon}}
+\newcommand{\deltavect}{\boldsymbol{\delta}}
+
+\newcommand{\bigO}{\mathcal{O}}
+
+
+\newcommand{\name}[1]{{\textsc{#1}}\xspace}
+
+\newcommand{\mcmc}{\name{mcmc}}
+
+% DATASETS
+% Small
+\newcommand{\cifar}{\name{cifar10}}
+%% \newcommand{\rectangleshort}{\name{rect-img}}
+%% \newcommand{\rectangle}{\name{rectangles-image}}
+\newcommand{\mnisteight}{\textsc{mnist}8\textsc{m}\xspace}
+%% \newcommand{\mining}{\name{mining}}
+\newcommand{\protein}{\name{protein}}
+\newcommand{\powerplant}{\name{powerplant}}
+\newcommand{\spam}{\name{spam}}
+\newcommand{\eeg}{\name{eeg}}
+\newcommand{\usps}{\name{usps}}
+% Medium
+%% \newcommand{\sarcos}{\name{sarcos}} % sarcos all
+\newcommand{\mnist}{\name{mnist}} % mnist all
+%% \newcommand{\mnistbin}{\name{mnist-b}}
+%% \newcommand{\sarcostwo}{\name{sarcos-2}}
+% Large
+\newcommand{\airline}{\name{airline}}
+
+% Models
+\newcommand{\autogp}{\textsc{a}uto\textsc{gp}\xspace}
+\newcommand{\gpflow}{\textsc{gpf}low\xspace}
+\newcommand{\tensorflow}{\textsc{T}ensor\textsc{F}low\xspace}
+
+\newcommand{\arccosine}{\name{arc-cosine}}
+\newcommand{\dbnthree}{\name{DBN}}
+\newcommand{\svdkl}{\name{SV-DKL}}
+\newcommand{\dgprbf}{\textsc{dgp}-\textsc{rbf}\xspace}
+\newcommand{\dgparc}{\textsc{dgp}-\textsc{arc}\xspace}
+\newcommand{\dgpep}{\textsc{dgp}-\textsc{ep}\xspace}
+\newcommand{\dgpvar}{\textsc{dgp}-\textsc{var}\xspace}
+
+\newcommand{\gplvm}{\name{gplvm}}
+\newcommand{\dgplvm}{\name{dgplvm}}
+\newcommand{\gp}{\name{gp}}
+\newcommand{\gps}{\textsc{gp}s\xspace}
+\newcommand{\dgp}{\name{dgp}}
+\newcommand{\dgps}{\textsc{dgp}s\xspace}
+\newcommand{\dnn}{\name{dnn}}
+\newcommand{\dnns}{\textsc{dnn}s\xspace}
+\newcommand{\svm}{\name{svm}}
+\newcommand{\svms}{\textsc{svm}s\xspace}
+\newcommand{\vargp}{\textsc{var}-\textsc{gp}\xspace}
+
+\newcommand{\ard}{\name{ard}}
+\newcommand{\softmax}{\name{softmax}}
+
+\newcommand{\relu}{{\textsc{r}}e\name{lu}}
+
+\newcommand{\arc}{\name{arc}}
+\newcommand{\rbf}{\name{rbf}}
+
+\newcommand{\adam}{\name{adam}}
+
+% Metrics
+\newcommand{\mnll}{\name{mnll}}
+\newcommand{\rmse}{\name{rmse}}
+\newcommand{\nelbo}{\name{nelbo}}

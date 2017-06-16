@@ -1,0 +1,125 @@
+\documentclass{article}
+
+\pdfoutput=1
+
+\usepackage[accepted]{icml2017}
+%
+% This option will print headings for the title of your paper and
+% headings for the authors names, plus a copyright note at the end of
+% the first column of the first page.
+
+\usepackage{natbib}
+%\usepackage{hyperref}
+% use Times
+\usepackage{times}
+% For figures
+\usepackage{graphicx} % more modern
+%\usepackage{epsfig} % less modern
+\usepackage{subfigure}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{filter discard warning=false}
+
+\usepackage{amsmath}
+%% \usepackage{amsthm}
+%% % \usepackage[english]{babel}
+%% \usepackage{tocloft}
+\usepackage{color}
+%% \usepackage{multirow}
+%% % \selectlanguage{english}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{bm}
+\usepackage{url}
+\usepackage{enumitem}
+\usepackage{xspace}
+
+\input{notation}
+\linespread{1.2}
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{Deep Gaussian Processes for Unsupervised Learning}
+
+\newcommand{\quoteauthor}[3]{\begin{quotation} \textit{#1} \end{quotation} \begin{flushright} - #2, \textit{#3}\end{flushright} }
+
+
+\begin{document}
+
+% If your paper is accepted and the title of your paper is very long,
+% the style will print as headings an error message. Use the following
+% command to supply a shorter title of your paper so that it can be
+% used as headings.
+%
+%\runningtitle{I use this title instead because the last one was very long}
+
+% If your paper is accepted and the number of authors is large, the
+% style will print as headings an error message. Use the following
+% command to supply a shorter version of the authors names so that
+% they can be used as headings (for example, use only the surnames)
+%
+%\runningauthor{Surname 1, Surname 2, Surname 3, ...., Surname n}
+
+\twocolumn[
+\icmltitle{Deep Gaussian Processes for Unsupervised Learning}
+
+% It is OKAY to include author information, even for blind
+% submissions: the style file will automatically remove it for you
+% unless you've provided the [accepted] option to the icml2017
+% package.
+
+% list of affiliations. the first argument should be a (short)
+% identifier you will use later to specify author affiliations
+% Academic affiliations should list Department, University, City, Region, Country
+% Industry affiliations should list Company, City, Region, Country
+
+% you can specify symbols, otherwise they are numbered in order
+% ideally, you should not use this facility. affiliations will be numbered
+% in order of appearance and this is the preferred way.
+\icmlsetsymbol{equal}{*}
+
+\begin{icmlauthorlist}
+\icmlauthor{Simone Rossi}{eurecom}
+\icmlauthor{Maurizio Filippone}{eurecom}
+\end{icmlauthorlist}
+
+\icmlaffiliation{eurecom}{Department of Data Science, EURECOM, France}
+
+\icmlcorrespondingauthor{Simone Rossi}{rossi@eurecom.fr}
+\icmlcorrespondingauthor{Maurizio Filippone}{maurizio.filippone@eurecom.fr}
+
+% You may provide any keywords that you
+% find helpful for describing your paper; these are used to populate
+% the "keywords" metadata in the PDF but will not be shown in the document
+\icmlkeywords{Deep Gaussian Processes, Clustering}
+
+\vskip 0.3in
+]
+
+% this must go after the closing bracket ] following \twocolumn[ ...
+
+% This command actually creates the footnote in the first column
+% listing the affiliations and the copyright notice.
+% The command takes one argument, which is text to display at the start of the footnote.
+% The \icmlEqualContribution command is standard text for equal contribution.
+% Remove it (just {}) if you do not need this facility.
+
+%\printAffiliationsAndNotice{}  % leave blank if no need to mention equal contribution
+
+\input{abstract}
+\input{intro}
+\input{relatedwork}
+\input{preliminaries}
+\input{dgplvm}
+\input{softmaxdgp}
+\input{experiments}
+%\input{conclusions}
+%\input{acks}
+
+\bibliography{report}
+\bibliographystyle{icml2017}
+
+%\input{supplement}
+
+
+\end{document}

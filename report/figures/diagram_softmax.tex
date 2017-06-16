@@ -1,0 +1,103 @@
+\def\layersep{1.6cm}
+\def\scale{0.8}
+\definecolor{myblue}{rgb}{0.2, 0.2, 0.8}
+
+
+\begin{figure}[t]
+\begin{tikzpicture}[shorten >=1pt,->,draw=green!50!black, node distance=\layersep]
+    \tikzstyle{every pin edge}=[<-,shorten <=1pt]
+    \tikzstyle{neuron}=[circle,minimum size=10pt,inner sep=0pt, draw=black]
+
+    \tikzstyle{data neuron}=[neuron, fill=yellow!50!red];
+    \tikzstyle{output neuron}=[neuron, fill=blue!50];
+    \tikzstyle{hidden neuron}=[neuron];
+    \tikzstyle{annot} = [text width=4em, text centered];
+    \tikzstyle{annot-weight} = [text centered, fill=white!20, rectangle, draw];
+
+    %% % Draw the input layer nodes
+    %% \foreach \name / \y in {1,...,4}
+    %%     \node[data neuron, pin=left:{\scriptsize $X$ \#\y}] (F0-\name) at (0,-\y) {};
+
+    % Draw the input layer nodes
+    \foreach \name / \y in {1,...,4}
+        \node[data neuron] (F0-\name) at (0,\scale*-\y) {};
+
+    % Draw the first hidden layer nodes - Phi^{(0)}
+    %\foreach \name / \y in {1,...,5}
+    %    \path[yshift=\scale*0.5cm]
+    %        node[hidden neuron] (Phi0-\name) at (\layersep,\scale*-\y cm) {};
+
+    % Draw the layer node for F^{(1)}
+    \foreach \name / \y in {1,...,4}
+        \path[yshift=\scale]
+            node[output neuron] (F1-\name) at (1 * \layersep,\scale*-\y) {};
+
+    % Draw the second hidden layer nodes - Phi^{(1)}
+    \foreach \name / \y in {1,...,5}
+        \path[yshift=\scale*0.5cm]
+            node[hidden neuron] (Phi1-\name) at (2 * \layersep,\scale*-\y cm) {};
+
+    % Draw the layer node for F^{(1)}
+    \foreach \name / \y in {1,...,3}
+        \path[yshift=\scale*-0.5cm]
+            node[output neuron] (F2-\name) at (3 * \layersep,\scale*-\y) {};
+
+    \foreach \name / \y in {1,...,3}
+        \path[yshift=\scale*-0.5cm]
+            node[data neuron] (Y-\name) at (4 * \layersep,\scale*-\y) {};
+
+    % Draw Thetas
+    %\node[annot] (theta-0) at (0.5 * \layersep,\scale*-4.5) {\scriptsize\red{$\thetavect$}$^{(0)}$};
+    %\node[annot] (theta-1) at (2.5 * \layersep,\scale*-4.5) {\scriptsize\red{$\thetavect$}$^{(1)}$};
+
+
+    %% \node[output neuron,pin={[pin edge={->}]right:{\scriptsize $F^{(1)}$}}, right of=Phi1-3] (F2) {};
+
+
+    % Connect every node in the input layer with every node in the
+    % hidden layer.
+    %\foreach \source in {1,...,4}
+    %    \foreach \dest in {1,...,5}
+    %        \path (F0-\source) edge (Phi0-\dest);
+
+    % Connect every node in the hidden layer with the output layer
+    \foreach \source in {1,...,4}
+        \foreach \dest in {1,...,4}
+            \path (F0-\source) edge (F1-\dest);
+
+    % Connect every node in the hidden layer with the output layer
+    \foreach \source in {1,...,4}
+        \foreach \dest in {1,...,5}
+            \path (F1-\source) edge (Phi1-\dest);
+
+    % Connect every node in the hidden layer with the output layer
+    \foreach \source in {1,...,5}
+        \foreach \dest in {1,...,3}
+            \path (Phi1-\source) edge (F2-\dest);
+
+    % Connect every node in the hidden layer with the output layer
+    \foreach \source in {1,...,3}
+        \foreach \dest in {1,...,3}
+            \path (F2-\source) edge (Y-\dest);
+
+    % Annotate the layers
+    \node[annot,above of=Phi0-1, node distance=0.6cm] (Layer-Phi0) {{\scriptsize $\colorlatent{\Pivect}$}};
+    \node[annot,left of=Layer-Phi0] {{\scriptsize $\colordata{X}$}};
+    %\node[annot,right of=Layer-Phi0] {{\scriptsize $\colorlatent{\Pivect}$}};
+    \node[annot,above of=Phi1-1, node distance=0.6cm] (Layer-Phi1) {{\scriptsize $\Phi^{(1)}$}};
+    \node[annot,right of=Layer-Phi1] {{\scriptsize $\colorlatent{F}^{(2)}$}};
+    \node[annot,above of=Y-1, node distance=1.35cm] (Layer-Y) {{\scriptsize $\colordata{Y}$}};
+
+
+    \node[annot-weight] (Omega-Phi0) at (0.5 * \layersep, \scale*-2.5) {{\scriptsize $\colorweights{\softmax}$}};
+    %\node[annot-weight,right of=Omega-Phi0] (W-Phi0) {{\scriptsize $\colorweights{W}^{(0)}$}};
+    \node[annot-weight] (Omega-Phi1) at (1.5 * \layersep, \scale*-2.5) {{\scriptsize $\colorweights{\Omega}^{(1)}$}};
+    \node[annot-weight,right of=Omega-Phi1] (W-Phi1) {{\scriptsize $\colorweights{W}^{(1)}$}};
+
+    %\path (theta-0) edge[red] (Omega-Phi0);
+    %\path (theta-1) edge[red] (Omega-Phi1);
+
+\end{tikzpicture}
+\caption{The \dgp approximation used for building the deep model. At each hidden layer \gp{s} are replaced by their two-layer weight-space approximation. Random-features $\Phi^{(l)}$ are obtained using a weight matrix $\Omega^{(l)}$. This is followed by a linear transformation parameterized by weights $W^{(l)}$. }
+\label{fig:DGP:diagram}
+\end{figure}

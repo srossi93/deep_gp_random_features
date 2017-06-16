@@ -1,0 +1,14 @@
+\subsection{Related work}
+
+TODO 
+%Following the original proposal of \dgp models in \citet{Damianou13}, there have been several attempts to extend \gp inference techniques to \dgp{s}.Notable examples include the extension of inducing point approximations \citep{Hensman14,Dai15} and Expectation Propagation \citep{Bui16}. Sequential inference for training \dgp{s} has also been investigated in \citet{Wang16}. A recent example of a \dgp ``natively'' formulated as a variational model appears in \citet{Tran16}. Our work is the first to employ random feature expansions to approximate \dgp{s} as \dnn{s}. The expansion of the squared exponential covariance for \dgp{s} leads to trigonometric \dnn{s}, whose properties were studied in \citet{Sopena99}. Meanwhile, the expansion of the arc-cosine covariance is inspired by \citet{Cho14}, and it allows us to show that \dgp{s} with such covariance can be approximated with \dnn{s} having \relu activations.
+
+%The connection between \dgp{s} and \dnn{s} has been pointed out in several papers, such as \citet{Neal96} and \citet{Duvenaud14}, where pathologies with deep nets are investigated. The approximate \dgp model described in our work becomes a \dnn with low-rank weight matrices, which have been used in, e.g., \citet{Novikov15,Sainath13,Denil13} as a regularization mechanism. Dropout is another technique to speed-up training and improve generalization of \dnn{s} that has recently been linked to variational inference \citep{Gal16}.
+
+%Random Fourier features for large scale kernel machines were proposed in \citet{Rahimi08}, and their application to \gp{s} appears in \citet{Gredilla10}. In the case of squared exponential covariances, variational learning of the posterior over the frequencies was proposed in \citet{Gal15} to avoid potential overfitting caused by optimizing these variables. These approaches are special cases of our \dgp model when using no hidden layers.
+
+%In our work, we learn the proposed approximate \dgp model using stochastic variational inference. Variational learning for \dnn{s} was first proposed in \citet{Graves11}, and later extended to include the reparameterization trick to clamp randomness in the computation of the gradient with respect to the posterior over the weights \citep{Kingma14,Rezende14}, and to include a Gaussian mixture prior over the weights \citep{Blundell15}.
+
+
+% \mcmc inference of Bayesian \dnn{s} was studied in \citet{Neal96}. --> not needed
+% We adapt the Elliptical Slice Sampling algorithm in \citet{Murray10b} to obtain an \mcmc sampler for a two-layer \dgp model with Gaussian likelihood.

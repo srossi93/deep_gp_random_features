@@ -8,14 +8,14 @@ import numpy as np
 def plot_from_file(filename, num_classes, iteration):
     df = pd.read_csv(filename, sep=',')
 
-    if (len(df)>5000):
-        df = df[:5000]
+    #if (len(df)>10000):
+    #    df = df[:10000]
 
     fig = plt.figure()
     ax = fig.add_subplot(1,1,1)
     for i in range(num_classes):
         class_name = 'class'+str(i)
-        ax.scatter(df[df[class_name]==1].x, df[df[class_name]==1].y, s=2.5, label=class_name)
+        ax.scatter(df[df[class_name]==1].x, df[df[class_name]==1].y, s=1, label=class_name)
 
     ax.legend()
     plt.ylabel('latent_dimension[1]')

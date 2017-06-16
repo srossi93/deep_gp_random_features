@@ -22,7 +22,6 @@ from sklearn.datasets import make_moons, make_blobs, make_circles
 from dataset import DataSet
 from dgp_rff_lvm import DgpRff_LVM
 from pprint import pprint
-from tabulate import tabulate
 
 warnings.filterwarnings('ignore')
 
@@ -61,10 +60,7 @@ def get_confusion_matrix(real, predicted):
     cm = confusion_matrix(new_real, new_predicted)
     return cm
 
-def plot_confusion_matrix(cm, classes,
-                          normalize=False,
-                          title='ConfusionMatrix',
-                          cmap=plt.cm.Blues):
+def plot_confusion_matrix(cm, classes, normalize=False, title='ConfusionMatrix', cmap=plt.cm.Blues):
 
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
     plt.title(title)
@@ -98,6 +94,16 @@ def plot_confusion_matrix(cm, classes,
     plt.close()
 
 
+def print_scores(data, dgp):
+    score = get_score(data.X, data.Y, dgp.p)
+    print('\nDataset: %s' % name)
+    print('Adjusted Rand Score.....: %.4f' % score[0])
+    print('Mutual Information Score: %.4f' % score[1])
+    print('Fowlkes-Mallows Index...: %.4f' % score[2])
+    print('Silhouette Score........: %.4f' % score[3])
+
+    cm = get_confusion_matrix(data.Y, dgp.p)
+    plot_confusion_matrix(cm, range(len(dgp.p[0])), title=name+'_confusion_matrix')
 
 
 if __name__ == '__main__':
@@ -138,8 +144,9 @@ if __name__ == '__main__':
         plt.savefig(filename)
         plt.close()
         #plt.show()
+        print('\n\nDataset: %s' % name )
 
-        print('\n\nTraining size: ' + str(len(data.X)))
+        print('\nTraining size: ' + str(len(data.X)))
 
         error_rate = losses.ARIscore(data.Din)
 
@@ -162,7 +169,13 @@ if __name__ == '__main__':
               '--nl='+            str(FLAGS.nl)+' '+
               '--n_rff='+         str(FLAGS.n_rff)+' '+
               '--df='+            str(FLAGS.df)+' '+
-              '--kernel_type='+   str(FLAGS.kernel_type))
+              '--kernel_type='+   str(FLAGS.kernel_type)+' '+
+              '--is_ard='+        str(FLAGS.is_ard)+' '+
+              '--feed_forward='+  str(FLAGS.feed_forward)+' '+
+              '--q_Omega_fixed='+ str(FLAGS.q_Omega_fixed)+' '+
+              '--theta_fixed='+   str(FLAGS.theta_fixed)+' '+
+              '--learn_Omega='+   str(FLAGS.learn_Omega)+' '+
+              '--clustering='+    str(FLAGS.clustering))
 
         dgp.learn(data, FLAGS.learning_rate, FLAGS.mc_train, FLAGS.batch_size, FLAGS.n_iterations, optimizer,
                   FLAGS.display_step, data, FLAGS.mc_test, error_rate, FLAGS.duration, FLAGS.less_prints,
@@ -172,15 +185,7 @@ if __name__ == '__main__':
         #  PRINT METRICS
         ######
 
-        score = get_score(data.X, labels, dgp.p)
-        print('\nDataset: %s' % name)
-        print('Adjusted Rand Score.....: %.4f' % score[0])
-        print('Mutual Information Score: %.4f' % score[1])
-        print('Fowlkes-Mallows Index...: %.4f' % score[2])
-        print('Silhouette Score........: %.4f' % score[3])
-
-        cm = get_confusion_matrix(labels, dgp.p)
-        plot_confusion_matrix(cm, range(len(dgp.p[0])), title=name+'_confusion_matrix')
+        print_scores(data, dgp)
 
         ######
         #  PRINT ASSIGNMENT IN THE OBSERVED SPACE

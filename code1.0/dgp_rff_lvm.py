@@ -219,8 +219,8 @@ class DgpRff_LVM(DGPRFF_Interface):
             self.session.run(assign_op)
             return
 
-    def print_latent_space(self, data, filename, iteration, printSoftMax=False ):
-        is_cluster = False
+    def print_latent_space(self, data, filename, iteration, printSoftMax=False):
+        is_cluster = True
         if printSoftMax:
             p = tf.reduce_mean(self.p, reduction_indices=[0])
             latents = self.session.run(p, feed_dict={self.Y: data.X, self.mc: 1}).T[:2].T

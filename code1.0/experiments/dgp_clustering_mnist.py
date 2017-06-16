@@ -37,7 +37,7 @@ def get_score(dataset, real, predicted):
     #    new_predicted.append(np.argmax(predicted[i]))
 
 
-    return (adjusted_rand_score(new_real, new_predicted), normalized_mutual_info_score(new_real, new_predicted), fowlkes_mallows_score(new_real, new_predicted), silhouette_score(dataset, new_predicted))
+    return (adjusted_rand_score(new_real, new_predicted), normalized_mutual_info_score(new_real, new_predicted), fowlkes_mallows_score(new_real, new_predicted))
 
 def get_confusion_matrix(real, predicted):
     num_classes = len(real[0])
@@ -179,6 +179,14 @@ def import_mnist():
 
     return data, test, val
 
+def print_scores(data, pred, d_name, c_name):
+    score = get_score(data.X, data.Y, pred)
+    print('\nDataset: %s\nAlgorithm: %s' % (d_name, c_name))
+    print('-------------------------------------')
+    print('Adjusted Rand Score.....: %.4f' % score[0])
+    print('Mutual Information Score: %.4f' % score[1])
+    print('Fowlkes-Mallows Index...: %.4f' % score[2])
+
 
 if __name__ == '__main__':
     FLAGS = utils.get_flags()
@@ -187,23 +195,6 @@ if __name__ == '__main__':
 
     data, test, _ = import_mnist()
     name = 'mnist'
-
-    df = data.to_dataframe()
-    fig = plt.figure()
-    ax = fig.add_subplot(1,1,1)
-    for i in range(len(data.Y[0])):
-        class_name = 'class'+str(i)
-        ax.scatter(df[df[class_name]==1][0], df[df[class_name]==1][1], s=.5, label=class_name)
-    #plt.scatter(data_X[:,0], data_X[:,1], s=1, c=l, cmap=plt.cm.jet_r)
-    ax.legend()
-    plt.ylabel('observed_dimension[1]')
-    plt.xlabel('observed_dimension[0]')
-    plt.title('Distribution of training samples in the observed space')
-
-    filename='./img/'+name+'_assignment_dataset.pdf'
-    plt.savefig(filename)
-    plt.close()
-    #plt.show()
 
     print('\n\nTraining size: ' + str(len(data.X)))
 
@@ -237,56 +228,7 @@ if __name__ == '__main__':
     ######
     #  PRINT METRICS
     ######
-
-    score = get_score(data.X, data.Y, dgp.p)
-    print('\nDataset: %s' % name)
-    print('Adjusted Rand Score.....: %.4f' % score[0])
-    print('Mutual Information Score: %.4f' % score[1])
-    print('Fowlkes-Mallows Index...: %.4f' % score[2])
-    print('Silhouette Score........: %.4f' % score[3])
-
     cm = get_confusion_matrix(data.Y, dgp.p)
-    plot_confusion_matrix(cm, range(len(dgp.p[0])), title=name+'_confusion_matrix')
-
-    ######
-    #  PRINT ASSIGNMENT IN THE OBSERVED SPACE
-    ######
-
-    data_assignment = DataSet(data.X, np.round(dgp.p), shuffle=False)
-    df =  data_assignment.to_dataframe()
-    fig = plt.figure()
-    ax = fig.add_subplot(1,1,1)
-    for i in range(len(data_assignment.Y[0])):
-        class_name = 'class'+str(i)
-        ax.scatter(df[df[class_name]==1][0], df[df[class_name]==1][1], s=.5, label=class_name)
-    #plt.scatter(data_X[:,0], data_X[:,1], s=1, c=l, cmap=plt.cm.jet_r)
-    ax.legend()
-    plt.ylabel('observed_dimension[1]')
-    plt.xlabel('observed_dimension[0]')
-    plt.title('Cluster assignment')
-
-    filename='./img/'+name+'_assignment_cluster.pdf'
-    plt.savefig(filename)
-    plt.close()
-
-
-        #plot_confusion_matrix(cm, ['0', '1'], normalize=True)
-
-
-
-
-    #fig = plt.figure(figsize=[50, 50])
-    #ax = fig.add_subplot(1,1,1)
-    #plt.scatter(data_X[:,0], data_X[:,1], s=15, c=l, cmap=plt.cm.RdYlGn)
-
-    #for i in range(data.num_examples):
-    #    ax.annotate("%.2f" % (dgp.p[i][0]), (data.X[i,0],data.X[i,1]),)
-
-    #ax.legend()
-    #plt.ylabel('observed_dimension[1]')
-    #plt.xlabel('observed_dimension[0]')
-    #plt.title('Distribution of training samples in the observed space')
-
-    #filename='./img/assignement_obs.pdf'
-    #plt.savefig(filename)
-    #plt.close()
+    print_scores(data, dgp.p, name, 'DGPLVM')
+    print('Confusion matrix:')
+    print(cm)

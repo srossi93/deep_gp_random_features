@@ -5,5 +5,5 @@
 *~
 *.DS_Store
 *tfevents*
-
+*out/*
 

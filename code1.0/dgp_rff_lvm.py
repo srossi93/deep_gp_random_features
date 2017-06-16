@@ -219,7 +219,7 @@ class DgpRff_LVM(DGPRFF_Interface):
             self.session.run(assign_op)
             return
 
-    def print_latent_space(self, data, filename, iteration, printSoftMax=False):
+    def print_latent_space(self, data, filename, iteration, printSoftMax=False ):
         is_cluster = False
         if printSoftMax:
             p = tf.reduce_mean(self.p, reduction_indices=[0])
@@ -370,7 +370,7 @@ class DgpRff_LVM(DGPRFF_Interface):
 
                     if save_img:
                         self.print_latent_space(data, 'iter_'+repr(iteration+1), iteration=(iteration+1))
-                        self.print_latent_space(data, 'iter_'+repr(iteration+1), iteration=(iteration+1), printSoftMax=True)
+                        self.print_latent_space(data, 'iter_'+repr(iteration+1), iteration=(iteration+1), printSoftMax=True) if self.clustering else 0
                     # print(" log-lengthscale=", self.session.run(self.log_theta_lengthscale), end=" ")
                     # print(" Omega=", self.session.run(self.mean_Omega[0][0,:]), end=" ")
                     # print(" W=", self.session.run(self.mean_W[0][0,:]), end=" ")
@@ -406,8 +406,9 @@ class DgpRff_LVM(DGPRFF_Interface):
         #saver = tf.train.Saver()
         #save_path = saver.save(self.session, model_path)
         #print("Model saved in file: %s" % save_path)
-        self.print_latent_space(data, 'iter_final', iteration=n_iterations)
-        self.print_latent_space(data, 'iter_final', iteration=n_iterations, printSoftMax=True)
+        if save_img:
+            self.print_latent_space(data, 'iter_final', iteration=n_iterations)
+            self.print_latent_space(data, 'iter_final', iteration=n_iterations, printSoftMax=True) if self.clustering else 0
 
         if self.clustering:
             p = tf.reduce_mean(self.p, reduction_indices=[0])

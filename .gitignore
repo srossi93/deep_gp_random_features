@@ -6,4 +6,5 @@
 *.DS_Store
 *tfevents*
 
-
+code1.0/MNIST_data/
+code1.0/img/

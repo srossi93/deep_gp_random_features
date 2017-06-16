@@ -9,6 +9,8 @@ import itertools
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 from tensorflow.contrib.learn.python.learn.datasets import base
@@ -23,6 +25,10 @@ from pprint import pprint
 from tabulate import tabulate
 
 warnings.filterwarnings('ignore')
+
+# Example of use
+# export PYTHONPATH="${PYTHONPATH}:."
+# python2.7 experiments/dgp_clustering.py --seed=12345 --theta_fixed=7500 --is_ard=True --optimizer=adam --nl=2 --learning_rate=0.01 --n_rff=100 --df=2 --batch_size=1000 --mc_train=1 --mc_test=1 --n_iterations=10000 --display_step=1000 --learn_Omega=optim --initializer=PCA --clustering=True
 
 def get_score(dataset, real, predicted):
     num_classes = len(real[0])
@@ -99,7 +105,7 @@ if __name__ == '__main__':
     tf.set_random_seed(FLAGS.seed)
     np.random.seed(FLAGS.seed)
 
-    data0, l0 = make_moons(1500, noise=1e-1)
+    data0, l0 = make_moons(1500, noise=.05)
     data1, l1 = make_circles(1500, noise=1e-1, factor=0.1)
     data2, l2 = make_blobs(1500, n_features=2, centers=2, cluster_std=1e-0)
     data3, l3 = make_blobs(1500, n_features=10, centers=3, cluster_std=2.5e-0)
@@ -166,14 +172,14 @@ if __name__ == '__main__':
         #  PRINT METRICS
         ######
 
-        score = get_score(data.X, data.Y, dgp.p)
+        score = get_score(data.X, labels, dgp.p)
         print('\nDataset: %s' % name)
         print('Adjusted Rand Score.....: %.4f' % score[0])
         print('Mutual Information Score: %.4f' % score[1])
         print('Fowlkes-Mallows Index...: %.4f' % score[2])
         print('Silhouette Score........: %.4f' % score[3])
 
-        cm = get_confusion_matrix(data.Y, dgp.p)
+        cm = get_confusion_matrix(labels, dgp.p)
         plot_confusion_matrix(cm, range(len(dgp.p[0])), title=name+'_confusion_matrix')
 
         ######

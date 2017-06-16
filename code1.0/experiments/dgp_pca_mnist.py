@@ -145,7 +145,7 @@ if __name__ == '__main__':
     dgp = DgpRff_LVM(like, data.num_examples, 2, data.X.shape[1], FLAGS.nl, \
                  FLAGS.n_rff, FLAGS.df, FLAGS.kernel_type, FLAGS.kernel_arccosine_degree,\
                  FLAGS.is_ard, FLAGS.feed_forward, FLAGS.q_Omega_fixed, FLAGS.theta_fixed, \
-                 FLAGS.learn_Omega, True)
+                 FLAGS.learn_Omega, True, FLAGS.clustering)
 
     ## Learning
     print('Learning with'+' '+
@@ -163,5 +163,3 @@ if __name__ == '__main__':
     dgp.learn(data, FLAGS.learning_rate, FLAGS.mc_train, FLAGS.batch_size, FLAGS.n_iterations, optimizer,
               FLAGS.display_step, test, FLAGS.mc_test, error_rate, FLAGS.duration, FLAGS.less_prints,
               FLAGS.initializer)
-
-    

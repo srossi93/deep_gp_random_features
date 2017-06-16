@@ -117,9 +117,9 @@ class DGPRFF_Interface(object):
         if self.is_ard:
             self.llscale0 = []
             for i in range(self.nl):
-                self.llscale0.append(tf.constant(.1 * np.log(self.d_in[i]), tf.float32))
+                self.llscale0.append(tf.constant(.5 * np.log(self.d_in[i]) - np.log(2) , tf.float32))
         else:
-            self.llscale0 = tf.constant(.1 * np.log(self.d_in), tf.float32)
+            self.llscale0 = tf.constant(.5 * np.log(self.d_in) - np.log(2), tf.float32)
 
         if self.is_ard:
             self.log_theta_lengthscale = []

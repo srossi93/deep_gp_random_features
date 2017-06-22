@@ -17,7 +17,7 @@ from __future__ import print_function
 import tensorflow as tf
 import numpy as np
 import matplotlib
-matplotlib.use('Agg')
+#matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from dataset import DataSet
 import utils
@@ -117,7 +117,7 @@ class DGPRFF_Interface(object):
         if self.is_ard:
             self.llscale0 = []
             for i in range(self.nl):
-                self.llscale0.append(tf.constant(.5 * np.log(self.d_in[i]) - np.log(2) , tf.float32))
+                self.llscale0.append(tf.constant(.5 * np.log(self.d_in[i]) - np.log(2), tf.float32))
         else:
             self.llscale0 = tf.constant(.5 * np.log(self.d_in) - np.log(2), tf.float32)
 

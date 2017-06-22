@@ -55,6 +55,12 @@ class DgpRff(dgp_interface.DGPRFF_Interface):
         self.LVM = False
         super(DgpRff, self).__init__(likelihood_fun, num_examples, d_in, d_out, n_layers, n_rff, df, kernel_type, kernel_arccosine_degree, is_ard, feed_forward, q_Omega_fixed, theta_fixed, learn_Omega, LVM)
 
+                ## Builds whole computational graph with relevant quantities as part of the class
+        self.loss, self.kl, self.ell, self.layer_out = self.get_nelbo()
+        #
+        #        ## Initialize the session
+        self.session = tf.Session()
+
 
     ## Returns the expected log-likelihood term in the variational lower bound
     def get_ell(self):

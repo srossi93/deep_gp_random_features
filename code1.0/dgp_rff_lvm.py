@@ -18,7 +18,7 @@ import tensorflow as tf
 import numpy as np
 import math
 import matplotlib
-matplotlib.use('Agg')
+#matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from dataset import DataSet
 import utils
@@ -27,7 +27,7 @@ import time
 from dgp_interface import DGPRFF_Interface
 from sklearn.decomposition import PCA, KernelPCA
 from sklearn.manifold import Isomap
-from pprint import pprint
+#from pprint import pprint
 import pandas as pd
 import os
 
@@ -102,9 +102,6 @@ class DgpRff_LVM(DGPRFF_Interface):
         self.layer = []
         self.layer.append(tf.multiply(tf.ones([self.mc, batch_size, Din]), X))
 
-
-
-
         ## Forward propagate information from the input to the output through hidden layers
         Omega_from_q  = self.sample_from_Omega()
         W_from_q = self.sample_from_W()
@@ -113,8 +110,7 @@ class DgpRff_LVM(DGPRFF_Interface):
         for i in range(N_L):
             if self.clustering and i == 0:
                 denominator = tf.reduce_sum(tf.exp(self.layer[0]), reduction_indices=[2], keep_dims=True)
-                #print(denominator.shape)
-                self.p = tf.div(tf.exp(self.layer[0]), denominator,  )
+                self.p = tf.div(tf.exp(self.layer[0]), denominator,)
                 self.layer.append(self.p)
             else:
                 layer_times_Omega = tf.matmul(self.layer[i], Omega_from_q[i])  # X * Omega
@@ -220,7 +216,7 @@ class DgpRff_LVM(DGPRFF_Interface):
             return
 
     def print_latent_space(self, data, filename, iteration, printSoftMax=False):
-        is_cluster = True
+        is_cluster = False
         if printSoftMax:
             p = tf.reduce_mean(self.p, reduction_indices=[0])
             latents = self.session.run(p, feed_dict={self.Y: data.X, self.mc: 1}).T[:2].T
@@ -269,6 +265,7 @@ class DgpRff_LVM(DGPRFF_Interface):
               loss_function=None, duration = 1000000, less_prints=False, \
               initializer='RANDOM', save_img=False):
 
+        np.set_printoptions(precision=3)
         total_train_time = 0
         self.initializer=initializer
 
@@ -309,7 +306,10 @@ class DgpRff_LVM(DGPRFF_Interface):
         # Initialize latent position
         self.initialize_latents(data, initializer)
 
-        self.print_latent_space(data, 'iter_0', iteration=0)
+        if save_img:
+            self.print_latent_space(data, 'iter_0', iteration=0) if not self.clustering else 0
+            self.print_latent_space(data, 'iter_0', iteration=0, printSoftMax=True) if self.clustering else 0
+
 
         if not(less_prints):
             #X = tf.Variable(tf.zeros([mc_train, Din]), trainable=True)
@@ -366,10 +366,10 @@ class DgpRff_LVM(DGPRFF_Interface):
                     print("i=" + repr(iteration+1)  + "  kl=" + repr(kl) + "  nell=" + repr(-ell)  + "  nelbo=" + repr(nelbo), end=" ")
 
                     print(" log-sigma2=", self.session.run(self.log_theta_sigma2), end=" ")
-
+                    #print(" log-lengthscale=", repr(self.session.run(self.log_theta_lengthscale)), end=' ')
 
                     if save_img:
-                        self.print_latent_space(data, 'iter_'+repr(iteration+1), iteration=(iteration+1))
+                        self.print_latent_space(data, 'iter_'+repr(iteration+1), iteration=(iteration+1)) if not self.clustering else 0
                         self.print_latent_space(data, 'iter_'+repr(iteration+1), iteration=(iteration+1), printSoftMax=True) if self.clustering else 0
                     # print(" log-lengthscale=", self.session.run(self.log_theta_lengthscale), end=" ")
                     # print(" Omega=", self.session.run(self.mean_Omega[0][0,:]), end=" ")
@@ -413,7 +413,8 @@ class DgpRff_LVM(DGPRFF_Interface):
         if self.clustering:
             p = tf.reduce_mean(self.p, reduction_indices=[0])
             self.p = self.session.run(p, feed_dict={self.Y: data.X, self.mc: 100})
-        #print(self.p)
+
+        #self.latents = self.session.run(self.latents, feed_dict={self.Y: data.X, self.mc: 100})
         return
 
         ## Return predictions on some data
@@ -445,6 +446,8 @@ class DgpRff_LVM(DGPRFF_Interface):
         #print(tf.get_default_graph().get_tensor_by_name('latents_1:0'))
         return variational_parameters
 
+
+    #def predict_new_data(self )
 
     def sample_latent_space(self, data):
         s = range(10)

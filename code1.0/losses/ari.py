@@ -2,7 +2,7 @@ from sklearn.metrics import adjusted_rand_score
 import numpy as np
 import loss
 
-class ARIscore(loss.Loss):
+class ARI(loss.Loss):
     def __init__(self, dout):
         loss.Loss.__init__(self,dout)
 

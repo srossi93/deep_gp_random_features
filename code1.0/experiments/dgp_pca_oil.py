@@ -157,13 +157,12 @@ if __name__ == '__main__':
 
     data, test, _ = import_oil(reduced_number_classes=False)
 
-    print('Training size: ' + str(len(data.X)))
-    print('Test size: ' + str(len(test.X)))
+    print('\n\nTraining size: ' + str(len(data.X)))
     #pprint(data.to_dataframe())
 
 
     ## Here we define a custom loss for dgp to show
-    error_rate = losses.ARIscore(data.Dout)
+    error_rate = losses.RootMeanSqError(data.Dout) if not FLAGS.clustering else losses.NMI(data.Dout)
 
     ## Likelihood
     like = likelihoods.Gaussian()
@@ -172,7 +171,7 @@ if __name__ == '__main__':
     optimizer = utils.get_optimizer(FLAGS.optimizer, FLAGS.learning_rate)
 
     ## Main dgp object
-    dgp = DgpRff_LVM(like, data.num_examples, FLAGS.df, data.X.shape[1], FLAGS.nl, \
+    dgp = DgpRff_LVM(like, data.num_examples, FLAGS.latent_dimensions, data.X.shape[1], FLAGS.nl, \
                  FLAGS.n_rff, FLAGS.df, FLAGS.kernel_type, FLAGS.kernel_arccosine_degree,\
                  FLAGS.is_ard, FLAGS.feed_forward, FLAGS.q_Omega_fixed, FLAGS.theta_fixed, \
                  FLAGS.learn_Omega, True, FLAGS.clustering)
@@ -182,7 +181,7 @@ if __name__ == '__main__':
     if not os.path.exists(directory):
         os.makedirs(directory)
     #sys.stdout = open(directory+'log.log', 'w')
-    print('Learning with'+' '+
+    print('\nLearning with'+' '+
           '--learning_rate='+ str(FLAGS.learning_rate)+' '+
           '--optimizer='+     str(FLAGS.optimizer)+' '+
           '--mc_test='+       str(FLAGS.mc_test)+' '+
@@ -192,14 +191,20 @@ if __name__ == '__main__':
           '--nl='+            str(FLAGS.nl)+' '+
           '--n_rff='+         str(FLAGS.n_rff)+' '+
           '--df='+            str(FLAGS.df)+' '+
-          '--kernel_type='+   str(FLAGS.kernel_type))
+          '--kernel_type='+   str(FLAGS.kernel_type)+' '+
+          '--is_ard='+        str(FLAGS.is_ard)+' '+
+          '--feed_forward='+  str(FLAGS.feed_forward)+' '+
+          '--q_Omega_fixed='+ str(FLAGS.q_Omega_fixed)+' '+
+          '--theta_fixed='+   str(FLAGS.theta_fixed)+' '+
+          '--learn_Omega='+   str(FLAGS.learn_Omega)+' '+
+          '--clustering='+    str(FLAGS.clustering)+' '+
+          '--latent_dimensions='+str(FLAGS.latent_dimensions)+'\n')
 
     dgp.learn(data, FLAGS.learning_rate, FLAGS.mc_train, FLAGS.batch_size, FLAGS.n_iterations, optimizer,
               FLAGS.display_step, test, FLAGS.mc_test, error_rate, FLAGS.duration, FLAGS.less_prints,
-              FLAGS.initializer, save_img=False)
+              FLAGS.initializer, save_img=True)
 
-    cm = get_confusion_matrix(data.Y, dgp.p)
-    plot_confusion_matrix(cm, ['horizontally', 'nested', 'homogeneous'])
+    print(confusion_matrix(np.argmax(data.Y, 1), np.argmax(dgp.p, 1))) if FLAGS.clustering else 0
 
     #wrong_assignment = 0
     #for i in range(data.num_examples):

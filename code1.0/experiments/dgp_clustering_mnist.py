@@ -171,11 +171,11 @@ def import_mnist():
     val = DataSet(validation_images, validation_labels, shuffle=False)
 
     #print(np.array(data.Y).shape)
-    train_data_df = data.to_dataframe()
+    #train_data_df = data.to_dataframe()
 
-    tmp = train_data_df[(train_data_df['class0'] == 1.) | (train_data_df['class1'] == 1.) | (train_data_df['class2'] == 1.)]
-    data = DataSet(np.array(tmp.drop(tmp.columns[[-10, -9, -8, -7, -6, -5, -4, -3, -2, -1]], axis=1).values.tolist()),
-                   np.array(tmp[['class0', 'class1', 'class2']].values.tolist()))
+    #tmp = train_data_df[(train_data_df['class0'] == 1.) | (train_data_df['class1'] == 1.) | (train_data_df['class2'] == 1.)]
+    #data = DataSet(np.array(tmp.drop(tmp.columns[[-10, -9, -8, -7, -6, -5, -4, -3, -2, -1]], axis=1).values.tolist()),
+    #               np.array(tmp[['class0', 'class1', 'class2']].values.tolist()))
 
     return data, test, val
 
@@ -198,13 +198,13 @@ if __name__ == '__main__':
 
     print('\n\nTraining size: ' + str(len(data.X)))
 
-    error_rate = losses.ARIscore(data.Din)
+    error_rate = losses.NMI(data.Din)
 
     like = likelihoods.Gaussian()
 
     optimizer = utils.get_optimizer(FLAGS.optimizer, FLAGS.learning_rate)
 
-    dgp = DgpRff_LVM(like, data.num_examples, FLAGS.df, data.X.shape[1], FLAGS.nl, \
+    dgp = DgpRff_LVM(like, data.num_examples, FLAGS.latent_dimensions, data.X.shape[1], FLAGS.nl, \
                  FLAGS.n_rff, FLAGS.df, FLAGS.kernel_type, FLAGS.kernel_arccosine_degree,\
                  FLAGS.is_ard, FLAGS.feed_forward, FLAGS.q_Omega_fixed, FLAGS.theta_fixed, \
                  FLAGS.learn_Omega, True, FLAGS.clustering)
@@ -219,11 +219,15 @@ if __name__ == '__main__':
           '--nl='+            str(FLAGS.nl)+' '+
           '--n_rff='+         str(FLAGS.n_rff)+' '+
           '--df='+            str(FLAGS.df)+' '+
-          '--kernel_type='+   str(FLAGS.kernel_type))
+          '--kernel_type='+   str(FLAGS.kernel_type)+' '+
+          '--is_ard='+        str(FLAGS.is_ard)+' '+
+          '--feed_forward='+  str(FLAGS.feed_forward)+' '+
+          '--q_Omega_fixed='+ str(FLAGS.q_Omega_fixed)+' '+
+          '--theta_fixed='+   str(FLAGS.theta_fixed)+' '+
+          '--learn_Omega='+   str(FLAGS.learn_Omega)+' '+
+          '--clustering='+    str(FLAGS.clustering))
 
-    dgp.learn(data, FLAGS.learning_rate, FLAGS.mc_train, FLAGS.batch_size, FLAGS.n_iterations, optimizer,
-              FLAGS.display_step, data, FLAGS.mc_test, error_rate, FLAGS.duration, FLAGS.less_prints,
-              FLAGS.initializer, save_img=False)
+    dgp.learn(data, FLAGS.learning_rate, FLAGS.mc_train, FLAGS.batch_size, FLAGS.n_iterations, optimizer, FLAGS.display_step, data, FLAGS.mc_test, error_rate, FLAGS.duration, FLAGS.less_prints, FLAGS.initializer, save_img=False)
 
     ######
     #  PRINT METRICS

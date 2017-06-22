@@ -11,6 +11,9 @@
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
+##
+## Example of use
+# python2.7 experiments/dgp_pca_mnist.py --seed=12345 --theta_fixed=5000 --is_ard=True --optimizer=adam --nl=2 --learning_rate=0.01 --n_rff=100 --df=2 --batch_size=1000 --mc_train=1 --mc_test=1 --n_iterations=10000 --display_step=1000 --learn_Omega=optim --initializer=PCA --clustering=False
 
 import numpy as np
 import tensorflow as tf

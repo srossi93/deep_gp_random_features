@@ -263,7 +263,7 @@ class DgpRff_LVM(DGPRFF_Interface):
     def learn(self, data, learning_rate, mc_train, batch_size, n_iterations, \
               optimizer = None, display_step=100, test = None, mc_test=None, \
               loss_function=None, duration = 1000000, less_prints=False, \
-              initializer='RANDOM', save_img=False):
+              initializer='RANDOM', save_img=True):
 
         np.set_printoptions(precision=3)
         total_train_time = 0

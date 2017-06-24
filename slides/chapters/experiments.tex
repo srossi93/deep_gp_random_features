@@ -1,0 +1,145 @@
+%!TEX root = dgplvm.tex
+\newlength\figureheight
+\newlength\figurewidth
+
+\section{Experiments}
+
+\subsection{Experiments on Dimensionality Reduction}
+\begin{frame}{Oil dataset}
+    \begin{minipage}{.48\textwidth}
+        It is dataset modeling non-intrusive measurements on a oil. The flow in the pipe can be \textbf{horizontally stratified}, \textbf{nested annular} or \textbf{homogeneous}. The data lives in a 12-dimensional measurement space, but is known to live on a reduced dimensionality.
+    \end{minipage}
+    \begin{minipage}{.48\textwidth}
+        \begin{figure}
+            \includegraphics[width=\textwidth]{oil_dim2.pdf}
+        \end{figure}
+    \end{minipage}
+\end{frame}
+
+%\begin{frame}{Experiment on number of hidden layers}
+%    \setlength\figureheight{.5\textheight}
+%    \setlength\figurewidth{\textwidth}
+%    \input{images/RMSE_oil_numberOfHiddenLayerExperiment}
+%
+%    \setlength\figureheight{.5\textheight}
+%    \setlength\figurewidth{\textwidth}
+%    \input{images/NLL_oil_numberOfHiddenLayerExperiment}
+%\end{frame}
+
+
+
+\begin{frame}{Experiment on Number of Latent Dimensions}
+    \setlength\figureheight{.9\textheight}
+    \setlength\figurewidth{\textwidth}
+    \begin{figure}
+        \input{images/RMSE_oil_numberOfLatentVariableExperiment}
+        \caption{Reconstruction error (RMSE)}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Experiment on Number of Hidden Layers}
+    \small
+    \begin{minipage}{.48\textwidth}
+        \setlength\figureheight{\textheight}
+        \setlength\figurewidth{.9\textwidth}
+        \begin{figure}
+            \input{images/RMSE_oil_numberOfHiddenLayerExperiment}
+            %\caption{Reconstruction error (RMSE)}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{.48\textwidth}
+        \setlength\figureheight{\textheight}
+        \setlength\figurewidth{.9\textwidth}
+        \begin{figure}
+            \input{images/NLL_oil_numberOfHiddenLayerExperiment}
+            %\caption{Negative loglikelihood}
+        \end{figure}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Experiment on Latent Space Initilisation}
+    \small
+    \setlength\figureheight{.49\textheight}
+    \setlength\figurewidth{\textwidth}
+
+    \input{images/RMSE_oil_latentsInitilisationExperiment}
+    \setlength\figureheight{.49\textheight}
+    \setlength\figurewidth{\textwidth}
+    \input{images/NLL_oil_latentsInitilisationExperiment}
+
+\end{frame}
+
+\begin{frame}{MNIST}
+    \begin{minipage}{.49\textwidth}
+        \includegraphics[width=\textwidth]{mnist_5classes_2dim.pdf}
+    \end{minipage}
+    \begin{minipage}{.49\textwidth}
+        \flushright
+        \setlength\figureheight{.49\textheight}
+        \setlength\figurewidth{.95\textwidth}
+        \input{images/RMSE_MNIST_visualisationExperiment.tex}\\
+        \flushright
+        \input{images/NLL_MNIST_visualisationExperiment.tex}
+    \end{minipage}
+
+\end{frame}
+
+\subsection{Experiments on Clustering}
+
+\begin{frame}{Experiments on Clustering - Blobs}
+    \begin{minipage}{.49\textwidth}
+        \centering
+        \setlength\figureheight{.65\textheight}
+        \setlength\figurewidth{1.2\textwidth}
+        \input{images/blobs_assignment_obs.tex}
+        \\
+        \includegraphics[height=.49\textheight, width=.99\textwidth, keepaspectratio]{blobs_confusion_matrix.png}
+    \end{minipage}
+    \begin{minipage}{.49\textwidth}
+        \centering
+        \setlength\figureheight{.65\textheight}
+        \setlength\figurewidth{1.2\textwidth}
+        \input{images/blobs_assignment_softmax.tex}
+        \\
+        \hfill{}\input{images/blobs_assignment_cluster.tex}
+    \end{minipage}
+\end{frame}
+
+
+\begin{frame}{Experiments on Clustering - Moons}
+    \begin{minipage}{.49\textwidth}
+        \centering
+        \setlength\figureheight{.65\textheight}
+        \setlength\figurewidth{1.2\textwidth}
+        \input{images/moons_assignment_obs.tex}
+        \\
+        \includegraphics[height=.49\textheight, width=.99\textwidth, keepaspectratio]{moons_confusion_matrix.png}
+    \end{minipage}
+    \begin{minipage}{.49\textwidth}
+        \centering
+        \setlength\figureheight{.65\textheight}
+        \setlength\figurewidth{1.2\textwidth}
+        \input{images/moons_assignment_softmax.tex}
+        \\
+        \hfill{}\input{images/moons_assignment_cluster.tex}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Experiments on Clustering - Circles}
+    \begin{minipage}{.49\textwidth}
+        \centering
+        \setlength\figureheight{.65\textheight}
+        \setlength\figurewidth{1.2\textwidth}
+        \input{images/circles_assignment_obs.tex}
+        \\
+        \includegraphics[height=.49\textheight, width=.99\textwidth, keepaspectratio]{circles_confusion_matrix.png}
+    \end{minipage}
+    \begin{minipage}{.49\textwidth}
+        \centering
+        \setlength\figureheight{.65\textheight}
+        \setlength\figurewidth{1.2\textwidth}
+        \input{images/circles_assignment_softmax.tex}
+        \\
+        \hfill{}\input{images/circles_assignment_cluster.tex}
+    \end{minipage}
+\end{frame}

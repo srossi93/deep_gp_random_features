@@ -1,0 +1,60 @@
+% This file was created by matplotlib2tikz v0.6.11.
+\begin{tikzpicture}
+
+\begin{axis}[
+title={moons_confusion_matrix},
+xlabel={Predicted label},
+ylabel={True label},
+xmin=-0.5, xmax=1.5,
+ymin=-0.5, ymax=1.5,
+width=\figurewidth,
+height=\figureheight,
+tick align=outside,
+xticklabel style = {rotate=45},
+tick pos=left,
+x grid style={lightgray!92.026143790849673!black},
+y grid style={lightgray!92.026143790849673!black},
+colorbar,
+colormap={mymap}{[1pt]
+  rgb(0pt)=(0.968627450980392,0.984313725490196,1);
+  rgb(1pt)=(0.870588235294118,0.92156862745098,0.968627450980392);
+  rgb(2pt)=(0.776470588235294,0.858823529411765,0.937254901960784);
+  rgb(3pt)=(0.619607843137255,0.792156862745098,0.882352941176471);
+  rgb(4pt)=(0.419607843137255,0.682352941176471,0.83921568627451);
+  rgb(5pt)=(0.258823529411765,0.572549019607843,0.776470588235294);
+  rgb(6pt)=(0.129411764705882,0.443137254901961,0.709803921568627);
+  rgb(7pt)=(0.0313725490196078,0.317647058823529,0.611764705882353);
+  rgb(8pt)=(0.0313725490196078,0.188235294117647,0.419607843137255)
+},
+point meta min=0,
+point meta max=500,
+colorbar style={ylabel={}}
+]
+\addplot graphics [includegraphics cmd=\pgfimage,xmin=-0.5, xmax=1.5, ymin=1.5, ymax=-0.5] {moons_confusion_matrix1.png};
+\node at (axis cs:0,0)[
+  scale=0.5,
+  anchor=base,
+  text=black,
+  rotate=0.0
+]{ 0};
+\node at (axis cs:1,0)[
+  scale=0.5,
+  anchor=base,
+  text=white,
+  rotate=0.0
+]{ 500};
+\node at (axis cs:0,1)[
+  scale=0.5,
+  anchor=base,
+  text=white,
+  rotate=0.0
+]{ 499};
+\node at (axis cs:1,1)[
+  scale=0.5,
+  anchor=base,
+  text=black,
+  rotate=0.0
+]{ 1};
+\end{axis}
+
+\end{tikzpicture}

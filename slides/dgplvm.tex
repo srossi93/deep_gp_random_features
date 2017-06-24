@@ -1,0 +1,61 @@
+%\PassOptionsToPackage{draft}{graphicx}
+\documentclass[aspectratio=169, 11pt]{beamer}%handout
+\usepackage{fontspec}
+\usetheme{metropolis}
+\metroset{sectionpage=progressbar, progressbar=foot}
+\setsansfont{Fira Sans Light}
+\usepackage{appendixnumberbeamer}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+\usepackage{multicol}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+\usepackage{hyperref}
+%\usepackage[utf8]{inputenc}
+%  % This line only for XeLaTeX and LuaLaTeX
+\usepackage{pgfplots}
+
+\graphicspath{{./images/}}
+
+\title{Deep Gaussian Process for\\ Unsupervised Learning}
+\subtitle{Semester project, Spring 2017 }
+\date{\tiny\today}
+\author{\textbf{Simone Rossi} \\ \vspace{0.5cm}Advisor Prof. Maurizio Filippone}
+\institute{EURECOM, Ecole d'Ing\'enieur et Centre de Recherche en Telecommunications}
+\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.png}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Table of contents}
+  \footnotesize
+  \begin{multicols}{2}
+        \footnotesize
+        \setbeamertemplate{section in toc}[sections numbered]
+        \setbeamertemplate{subsection in toc}[ball unnumbered]
+        \tableofcontents[]%hideallsubsections
+  \end{multicols}
+\end{frame}
+
+\input{notation}
+\input{chapters/introduction}
+\input{chapters/dgp}
+\input{chapters/lvm}
+\input{chapters/softmax}
+\input{chapters/experiments}
+\input{chapters/conclusions}
+%\input{chapters/partial_occlusion.tex}
+
+%\input{chapters/cnn.tex}
+
+
+
+\end{document}
+%

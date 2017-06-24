@@ -1,0 +1,32 @@
+\begin{thebibliography}{1}
+
+\bibitem{04}
+{\sc Angelova, A., Krizhevsky, A., and Vanhoucke, V.}
+\newblock Real-time pedestrian detection with deep network cascades.
+\newblock Paper from Google.
+
+\bibitem{01}
+{\sc Dalal, N., and Triggs, B.}
+\newblock Histograms of oriented gradients for human detection.
+\newblock {\em Proceedings of the 2005 IEEE Computer Society Conference on
+  Computer Vision and Pattern Recognition\/} (2005).
+
+\bibitem{05}
+{\sc Felzenszwalb, P.~F., Girshick, R.~B., McAllester, D., and Ramanan, D.}
+\newblock Object detection with discriminatively trained part-based models.
+\newblock {\em IEEE transactions on pattern analysis and machine intelligence
+  32}, 9 (September 2010), 1627--1645.
+
+\bibitem{03}
+{\sc Ouyang, W., Zeng, X., and Wang, X.}
+\newblock Partial occlusion handling in pedestrian detection with a deep model.
+\newblock {\em IEEE transactions on circuits and systems for video technology
+  26}, 11 (November 2016), 2123--2137.
+
+\bibitem{02}
+{\sc Tome, D., Monti, F., and Baroffio, L.}
+\newblock Deep convolutional neural networks for pedestrian detection.
+\newblock {\em Elsevier Journal of Signal Processing: Image Communication\/}
+  (2016).
+
+\end{thebibliography}

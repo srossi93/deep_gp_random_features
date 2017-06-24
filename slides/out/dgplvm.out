@@ -1,0 +1,15 @@
+\BOOKMARK [2][]{Outline0.1}{Introduction}{}% 1
+\BOOKMARK [3][]{Outline0.1.1.4}{Why\040unsupervised\040learning}{Outline0.1}% 2
+\BOOKMARK [2][]{Outline0.2}{Deep\040Gaussian\040Processes}{}% 3
+\BOOKMARK [3][]{Outline0.2.1.10}{Gaussian\040Process\040review}{Outline0.2}% 4
+\BOOKMARK [3][]{Outline0.2.2.13}{Deep\040Architecture}{Outline0.2}% 5
+\BOOKMARK [2][]{Outline0.3}{Latent\040Variable\040Models}{}% 6
+\BOOKMARK [3][]{Outline0.3.1.15}{Probabilistic\040Principal\040Component\040Analysis}{Outline0.3}% 7
+\BOOKMARK [3][]{Outline0.3.2.22}{Dual\040Probabilistic\040Principal\040Component\040Analysis}{Outline0.3}% 8
+\BOOKMARK [3][]{Outline0.3.3.28}{Gaussian\040Process\040Latent\040Variable\040Model}{Outline0.3}% 9
+\BOOKMARK [2][]{Outline0.4}{Clustering}{}% 10
+\BOOKMARK [3][]{Outline0.4.1.31}{From\040latents\040to\040cluster\040assignment}{Outline0.4}% 11
+\BOOKMARK [2][]{Outline0.5}{Experiments}{}% 12
+\BOOKMARK [3][]{Outline0.5.1.36}{Experiments\040on\040Dimensionality\040Reduction}{Outline0.5}% 13
+\BOOKMARK [3][]{Outline0.5.2.41}{Experiments\040on\040Clustering}{Outline0.5}% 14
+\BOOKMARK [2][]{Outline0.6}{Conclusions}{}% 15

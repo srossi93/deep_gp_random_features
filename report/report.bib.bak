@@ -1,0 +1,43 @@
+% Encoding: UTF-8
+
+@Article{zoe,
+  author  = {F. Pace, M. Milanesio, D. Venzano, D. Carra and P. Michiardi},
+  title   = {Experimental Performance Evaluation of Cloud-Based Analytics-as-a-Service},
+  journal = {2016 IEEE 9th International Conference on Cloud Computing (CLOUD)},
+  year    = {2016},
+  pages   = {196-203},
+}
+
+@Article{dgp,
+  author  = {K. Cutajar, E. V. Bonilla, P. Michiardi, and M. Filippone},
+  title   = {Random Feature Expansions for Deep Gaussian Processes},
+  journal = {Proceedings of the 33th International Conference on Machine Learning},
+  year    = {2017},
+}
+
+@Article{Lawrence2005,
+  author  = {Neil Lawrence},
+  title   = {Probabilistic Non-linear Principal Component Analysis with Gaussian Process Latent Variable Model},
+  journal = {Journal of Machine Learning Research 6 (2005)},
+  year    = {2005},
+  pages   = {1783-1816},
+}
+
+@Article{Bishop1999,
+  author  = {M. E. Tipping and C. M. Bishop},
+  title   = {Probabilistic principal component analysis},
+  journal = {Journal of the Royal Statistical Society},
+  year    = {1999},
+  volume  = {B},
+  number  = {6(3)},
+  pages   = {611-622},
+}
+
+@Article{Kingma2015,
+  author  = {Diederik P. Kingma and Jimmy Ba},
+  title   = {Adam: A Method for Stochastic Optimization},
+  journal = {3rd International Conference for Learning Representations, San Diego},
+  year    = {2015},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}

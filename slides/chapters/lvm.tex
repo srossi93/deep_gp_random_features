@@ -1,0 +1,79 @@
+%!TEX root = dgplvm.tex
+
+\section{Latent Variable Models}
+\label{cap:lvm}
+
+\subsection{Probabilistic Principal Component Analysis}
+\begin{frame}{Probabilistic Principal Component Analysis}
+    One of the most important problems in unsupervised learning is to represent the observed data $\Yvect$ (with $\yvect_i \in R^{D_\mathrm{obs}}$) in some lower dimensional embedded space $\Xvect$ (with $\xvect_i \in R^{D_\mathrm{lat}}$), such that
+    \begin{equation}
+        \yvect_i = \Wvect\xvect_i + \varepsilon_i,
+    \end{equation}
+    where $\varepsilon_i \sim \N(0, \sigma^2\Ivect)$.\\
+    \pause
+    \vspace{0.5cm}
+    The model is defined \textbf{probabilistically}, the latents are \textbf{marginalized} and the parameters are computed through \textbf{maximization}.\\
+\end{frame}
+
+\begin{frame}{Probabilistic Principal Component Analysis (cont.)}
+    Let's define the likelihood as follows
+    \begin{equation}
+        p(\yvect_i\vert\xvect_i,\sigma^2) = \N(\Wvect\xvect_i, \sigma^2\Ivect)
+    \end{equation}
+    \pause
+    We can now specify a simple prior over $\xvect_i$ and integrate out the latent variable
+    \begin{equation}
+        p(\yvect_i\vert\Wvect, \sigma^2) = \int p(\yvect_i\vert\xvect_i,\Wvect, \sigma^2) p(\xvect_i) d\xvect_i \pause = \N (\zerovect, \Wvect\Wvect^\top+\sigma^2\Ivect)
+    \end{equation}
+    \pause
+    Thanks to point independence, the marginal likelihood on the whole dataset is
+    \begin{equation}
+        p(\Yvect\vert\Wvect, \sigma^2) = \prod_{i=0}^{\nobs-1} p(\yvect_i\vert\Wvect, \sigma^2)
+    \end{equation}
+    \pause
+    Finally,
+    \begin{equation}
+        \Wvect = \arg\max_\Wvect p(\Yvect\vert\Wvect, \sigma^2)
+    \end{equation}
+\end{frame}
+
+\subsection{Dual Probabilistic Principal Component Analysis}
+\begin{frame}{Dual Probabilistic Principal Component Analysis}
+    Differently, we can \textbf{marginalize} the parameters and compute the latents are computed through \textbf{maximization}. To do so, let's specify a prior over $\Wvect$:
+    \begin{equation}
+        p(\Wvect) = \prod_{i=0}^{\Dobs-1}\N(\wvect_i\vert\zerovect,\Ivect)
+    \end{equation}
+    \pause
+    The marginal likelihood has the form
+    \begin{equation}
+        p(\Yvect\vert\Xvect, \sigma^2) = \prod_{i=0}^{\Dobs-1} \int p(\yvect_i\vert\xvect_i,\Wvect, \sigma^2) p(\Wvect) d\Wvect \pause = \prod_{i=0}^{\Dobs-1} \N(\yvect_{:,i}|\zerovect, \Xvect\Xvect^\top+\sigma^2\Ivect).
+    \end{equation}
+    \pause
+    The corresponding loglikelihood is the following
+    \begin{equation}
+        \log p(\Yvect\vert\Xvect,\sigma^2) =  -\dfrac{\nobs\Dobs}{2}\ln(2\pi) - \dfrac{\Dobs}{2}\ln\vert\Kvect\vert - \dfrac{1}{2}\Tr\left(\Kvect^{-1}\Yvect\Yvect^\top\right)
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Dual Probabilistic Principal Component Analysis (cont.)}
+    \begin{equation}
+        \LL = \log p(\Yvect\vert\Xvect,\sigma^2) =  -\dfrac{\nobs\Dobs}{2}\ln(2\pi) - \dfrac{\Dobs}{2}\ln\vert\Kvect\vert - \dfrac{1}{2}\Tr\left(\Kvect^{-1}\Yvect\Yvect^\top\right)
+    \end{equation}
+    Since $\Kvect = \Xvect\Xvect^\top+\sigma^2\Ivect$, this is a product of $\Dobs$ independent Gaussian processes with linear covariance function.\\
+    \pause
+    The solution of the maximization problem is
+    \begin{equation}
+        \Xvect = \Uvect\Lvect\Vvect^\top
+    \end{equation}
+    where $\Uvect$ is an $\nobs\times\Dlat$ matrix whose columns are the first $\Dlat$ eigenvectors of $\Yvect\Yvect^\top$, $\Lvect$ is the associated diagonal eigenvalue matrix and $\Vvect$ is eventually a $\Dobs\times\Dobs$ rotation matrix.
+\end{frame}
+
+\subsection{Gaussian Process Latent Variable Model}
+\begin{frame}{Gaussian Process Latent Variable Model}
+    We can now replace the inner product kernel with a covariance function so that it allows non-linear transformation to obtain a non-linear latent variable model.
+    \begin{equation}
+        k_{\mathrm{rbf}}(\xvect_i, \xvect_j) = \exp\left[ -\dfrac{1}{2} \| \xvect_i-\xvect_j \|^2 \right]
+    \end{equation}
+    \pause
+    Unfortunately there is not closed form solution of the maximization of the likelihood and therefore the resulting models will not be optimizable through an eigenvalue problem.
+\end{frame}

@@ -1,0 +1,136 @@
+\subsection{Gaussian Processes}
+
+%% \input{figures/diagram.tex}
+
+
+%% \noteEB{Equations are part of the text so should be followed by punctuation when necessary.}
+Consider a supervised learning scenario where a set of input vectors $X = [\xvect_1, \ldots, \xvect_\nobs]^{\top}$ is associated with a set of (possibly multivariate) labels $Y = [\yvect_1, \ldots, \yvect_\nobs]^{\top}$, where $\xvect_i \in R^{D_{\mathrm{in}}}$ and $\yvect_i \in R^{D_{\mathrm{out}}}$.
+We assume that there is an underlying function $f_o(\xvect_i)$ characterizing a mapping from the inputs to a latent (unobserved) representation, and that the labels are a realization of some probabilistic process $p(y_{io} | f_o(\xvect_i))$ which is based on this latent representation.
+
+GP models assume a nonparametric form for the latent functions.
+%% Unlike parametric approaches, where $f_o(\xvect_i)$ is assumed to belong to a class of functions with a specific parametric form (e.g., linear combination of basis functions), in nonparametric approaches $f_o(\xvect_i)$ is assumed to belong to a much richer class of functions.
+%% GPs \citep{Rasmussen06} do so by defining a prior distribution over functions $f_o(\xvect_i)$, and through the application of Bayesian inference techniques the aim is to learn the posterior distribution over functions, along with any parameters specifying the class of modeled functions, after data are observed, with the ultimate goal of making predictions that take into account all the functions in the class that are compatible with the observed data.
+%% The added flexibility in defining a nonparametric prior over functions is controlled by a form of regularization stemming from the use of probabilistic techniques to learn GPs.
+Formally, GPs are a collection of random variables such that any subset of these are jointly Gaussian distributed \citep{Rasmussen06}.
+In GPs, the covariance between variables at different locations, say $f_o(\xvect_i)$ and $f_o(\xvect_j)$, is modeled using a covariance function $k(\xvect_i, \xvect_j | \thetavect)$ parameterized via a set of parameters $\thetavect$.
+%% For the sake of simplicity, we assume that the covariance parameters are the same across the different outputs of the model, but this assumption can be relaxed.
+A typical example of a covariance function, which we  use throughout the paper, 
+is the Radial Basis Function (RBF) covariance with Automatic Relevance Determination (ARD)~\citep{Mackay94}
+\begin{equation} \label{eq:kernel:rbf:ard}
+%% k(\xvect_i, \xvect_j | \thetavect) = 
+%% \sigma^2 \exp\left[-\frac{1}{2} (\xvect_i - \xvect_j)^{\top} \Lambda^{-1} (\xvect_i - \xvect_j) \right] \text{.}
+k(\xvect, \xvect^{\prime} | \thetavect) = 
+\sigma^2 \exp\left[-\frac{1}{2} (\xvect - \xvect^{\prime})^{\top} \Lambda^{-1} (\xvect - \xvect^{\prime}) \right] \text{.}
+\end{equation}
+The parameter set $\thetavect$ comprises the marginal variance of the GP $\sigma^2$, and $\Lambda = \diag(l_1^2, \ldots, l_d^2)$, with the $l_i$'s interpreted as lengthscale parameters along each of the dimensions of the input domain.
+
+Another kernel that we will employ throughout the paper is the arc-cosine kernel of order $p$, which is defined as:
+\begin{equation} \label{eq:kernel:arccosine:ard}
+k_{\text{arc}}^{(p)}(\xvect, \xvect^{\prime}) = 
+\frac{1}{\pi} \left\| \xvect \right\|^p \left\|\xvect^{\prime}\right\|^p J_p\left( \cos^{-1}\left( \frac{\xvect^{\top} \xvect^{\prime}}{\| \xvect \| \| \xvect^{\prime}\|} \right) \right) 
+\quad \text{with}
+\end{equation}
+%% \begin{equation} \label{eq:kernel:arccosine:ard}
+%% k_{\text{arc}}^{(p)}(\xvect, \xvect^{\prime} | \thetavect) = 
+%% \frac{\sigma^2}{\pi} \left\| \Lambda^{-\frac{1}{2}} \xvect \right\|^p \left\| \Lambda^{-\frac{1}{2}} \xvect^{\prime}\right\|^p J_p\left( \cos^{-1}\left( \frac{\xvect^{\top} \Lambda^{-1} \xvect^{\prime}}{\| \Lambda^{-\frac{1}{2}} \xvect \| \| \Lambda^{-\frac{1}{2}} \xvect^{\prime}\|} \right) \right)
+%% \end{equation}
+with
+\begin{equation}
+J_p(\alpha) = (-1)^p (\sin \alpha)^{2p + 1} \left(\frac{1}{\sin\alpha} \frac{\partial}{\partial \alpha}\right)^p \left( \frac{\pi - \alpha}{\sin \alpha} \right) \text{.}
+\end{equation}
+
+
+%% Given a dataset of $\nobs$ observations, learning and predicting require operations involving the $\nobs \times \nobs$ covariance matrix $K$ with entries $k_{ij} = k(\xvect_i, \xvect_j | \thetavect)$.
+%% %% Optimizing or inferring $\thetavect$ and making predictions for new input vectors $\xvect_*$ 
+%% %% only require operations involving the $N \times N$ covariance matrix $K$ with entries $k_{ij} = k(\xvect_i, \xvect_j | \thetavect)$.
+%% Denote by $F$ the set of latent variables with entries $f_{io} = f_o(\xvect_i)$, and let $p(Y | F)$ be the conditional likelihood.
+%% Optimization or inference of covariance parameters requires repeatedly calculating 
+%% $$
+%% p(Y | \thetavect, X) = \int p(Y | F) p(F | \thetavect, X) dF \text{,}
+%% $$
+%% whereas carrying out predictions for a new text point $\xvect_*$ requires solving
+%% \begin{eqnarray}
+%% p(\yvect_* | Y, \thetavect, X, \xvect_*) & = & \int p(\yvect_* | \fvect_*) p(\fvect_* | F, \thetavect, X, \xvect_*) \times \nonumber \\ 
+%% & & \quad p(F | Y, \thetavect, X) d\fvect_* dF \nonumber \text{.}
+%% \end{eqnarray}
+
+Denote by $F$ the set of latent variables with entries $f_{io} = f_o(\xvect_i)$, and let $p(Y | F)$ be the conditional likelihood.
+Given a dataset of $\nobs$ observations, we aim to optimize or infer covariance parameters that requires repeated evaluation of the marginal likelihood $p(Y | X, \thetavect)$.
+After that, we wish to carry out predictions for a new test point $\xvect_*$ by evaluating $p(\yvect_* | Y, X, \xvect_*, \thetavect)$.
+There are two main difficulties in dealing with these tasks.
+First, in the case of a non-Gaussian likelihood $p(Y | F)$, the marginal likelihood and the predictive probability are analytically intractable.
+Secondly, even in the case of a Gaussian likelihood where these are computable, the GP prior introduces the need to solve algebraic operations 
+  with a computational cost of $O(\nobs^3)$. This poses a scalability issue for GPs that requires resorting to approximations. %problem is particularly acute in the case of large $\nobs$, and we are going to employ a spectral approximation to the covariance to reduce this complexity.
+%% The matrix operations are $\log|K|$ and the solution of linear systems involving $K$.
+%% Several techniques have been proposed to deal with these issues; reviewing them here is beyond the scope of this work, so we refer the reader to \citep{Opper00,Opper09,Murray10b} for works that deal with non-Gaussian likelihoods, and to 
+%% \citep{Csato02,Candela05,Hensman13} for works dealing with problems having large $\nobs$.
+%% We also note recent work that has addressed both problems simultaneously \citep{Hensman15,Dezfouli15}.
+%
+
+
+
+%% \subsection{GPs with random Fourier features}
+%% In this work, we focus on the so-called spectral approximation of GPs.
+%% Appealing to Bochner's theorem, any continuous shift-invariant normalized covariance function $k(\xvect_i, \xvect_j) = k(\xvect_i - \xvect_j)$ is positive definite if and only if it can be rewritten as the Fourier transform of a non-negative measure $p(\omegavect)$ \citep{Rahimi08}.
+%% Denoting the angular frequencies by $\omegavect$, while assigning $\iota = \sqrt{-1}$ and $\deltavect = \xvect_i - \xvect_j$, in the case of the RBF covariance detailed in equation~\ref{eq:kernel:rbf:ard}, this yields:
+%% $$
+%% k(\deltavect | \thetavect) = \sigma^2 \int p(\omegavect) \exp\left(\iota \deltavect^{\top} \omegavect \right) d\omegavect \text{,}
+%% $$
+%% with a corresponding non-negative measure $p(\omegavect) = \norm\left(\zerovect, \Lambda^{-1} \right)$.
+%% Because the covariance function and the non-negative measures are real, we can drop the unnecessary complex part of the argument of the expectation, keeping $\cos(\deltavect^{\top} \omegavect) = \cos((\xvect_i - \xvect_j)^{\top} \omegavect)$ that can be rewritten as
+%% $\cos(\xvect_i^{\top} \omegavect) \cos(\xvect_j^{\top} \omegavect) + \sin(\xvect_i^{\top} \omegavect) \sin(\xvect_j^{\top} \omegavect)$.
+%% % Note that an alternative representation using only cosines can be found by introducing a uniformly distributed phase term \citep{Rahimi08,Gal16}.
+
+%% The importance of the expansion above is that it allows us to interpret the covariance function as an expectation that can be estimated using Monte Carlo.
+%% Defining $\zvect(\xvect | \omegavect) = [\cos(\xvect^{\top} \omegavect), \sin(\xvect^{\top} \omegavect)]^{\top}$, 
+%% the covariance function can be approximated by the following (unbiased) Monte Carlo estimate
+%% $$
+%% k(\xvect_i, \xvect_j | \thetavect) \approx \frac{\sigma^2}{N_{\mathrm{RFF}}} \sum_{r=1}^{N_{\mathrm{RFF}}} \zvect(\xvect_i | \tilde{\omegavect}_r)^{\top} \zvect(\xvect_j | \tilde{\omegavect}_r) \text{,}
+%% $$
+%% with $\tilde{\omegavect}_{r} \sim p(\omegavect)$.
+
+%% %% In practice, this expansion leads to an explicit representation of the mapping induced by the choice of covariance function.
+%% This has an important practical implication, as it provides the means to access an approximate explicit representation of the mapping induced by the covariance function that, in the RBF case, we know is infinite dimensional~\citep{Shawe-Taylor04}.
+%% In consequence, instead of defining a learning problem in the space induced by the covariance function, it is possible to reformulate the problem in an explicit finite representation given by the expansion using random Fourier features.
+%% Defining $\Omega$ to be $[\tilde{\omegavect}_1, \ldots, \tilde{\omegavect}_{N_{\mathrm{RFF}}}]$, this representation suggests transforming the inputs into a new design matrix as follows:
+%% $$
+%% \Phi = \sqrt{\frac{\sigma^2}{N_{\mathrm{RFF}}}} \left[ \cos\left(X \Omega\right), \sin\left(X \Omega\right) \right] \text{,}
+%% $$
+%% where sine and cosine are applied element-wise to their argument.
+%% %% $$
+%% %% \Phi = \left[\sqrt{\frac{\sigma^2}{N_{\mathrm{RFF}}}} \cos\left(X \Omega\right), \sqrt{\frac{\sigma^2}{N_{\mathrm{RFF}}}} \sin\left(X \Omega\right) \right] \text{.}
+%% %% $$
+%% The original GP model is now ``linearized'' and can be treated as a standard linear model with a design matrix $\Phi$.
+%% Therefore, considering a set of weights in matrix form $W$, %$W = [\wvect_1, \ldots, \wvect_o]$, 
+%% the latent functions can be expressed as $F = \Phi W$.
+%% The columns of $W$ are the coefficients of linear combinations of the random Fourier features to obtain the latent functions modeling the output labels.
+%% Analyzing the mean and the covariance of a given latent function, in the case where $w_{io} \sim \norm(w_{io} | 0, 1)$, we can easily verify that the mean and covariance of the latent functions are zero and $\Phi \Phi^{\top} \approx K$, respectively, as we sought.
+%% %% we see that
+%% %% $$
+%% %% \E[F_{\cdot i}] = \E[\Phi W_{\cdot i}] = \Phi \E[W_{\cdot i}] = \zerovect \text{,}
+%% %% $$
+%% %% and 
+%% %% \begin{align*}
+%% %% \mathrm{cov}[F_{\cdot i}] &= \E[\Phi W_{\cdot i} W_{\cdot i}^{\top} \Phi^{\top}] = \Phi \E[W_{\cdot i} W_{\cdot i}^{\top}] \Phi^{\top} \\
+%% %% &= \Phi \Phi^{\top} \approx K \text{,}
+%% %% \end{align*}
+%% %% as we sought.
+%% %%
+%% %% We make two important remarks here. 
+%% %% First, the prior over $W_{\cdot i}$ has to be $\norm(W_{\cdot i} | \zerovect, I)$ if we want to obtain the desired GP approximation.
+%% %% Second, we observe that the usual practice of stacking a vector of ones to the design matrix to account for a nonzero constant mean in the linear model has the undesired effect of changing the covariance.
+%% %% To see this, define
+%% %% $$
+%% %% \tilde{\Phi} = \left[\onesvect, \sqrt{\frac{\sigma^2}{N_{\mathrm{RFF}}}} \cos\left(X \Omega\right), \sqrt{\frac{\sigma^2}{N_{\mathrm{RFF}}}} \sin\left(X \Omega\right) \right]
+%% %% $$
+%% %% Then 
+%% %% \begin{eqnarray}
+%% %% \mathrm{cov}[F_{\cdot i}] & = & \E[\tilde{\Phi} W_{\cdot i} W_{\cdot i}^{\top} \tilde{\Phi}^{\top}] = \tilde{\Phi} \E[W_{\cdot i} W_{\cdot i}^{\top}] \tilde{\Phi}^{\top} \nonumber \\
+%% %% & = & \tilde{\Phi} \tilde{\Phi}^{\top} = \Phi \Phi^{\top} + \onesvect \onesvect^{\top} \approx K + \onesvect \onesvect^{\top} \text{.}
+%% %% \end{eqnarray}
+%% %% Given that we want to impose a specific covariance on our latent functions, we avoid introducing a nonzero mean by stacking a vector of ones to our design matrix.
+%% %%
+%% %% In the case of a regression model with a Gaussian likelihood, it is possible to obtain the posterior over $W$ analytically and integrate out $W$ to make predictions.
+%% %% The mean of the posterior over $W$, for example, turns out to be the standard regularized least square estimator; the computational advantage is that this turns the original $O(N^3)$ problem into $O(N_{\mathrm{RFF}}^3)$.
+%% The approximation turns the original $O(\nobs^3)$ learning and prediction problems into $O(N_{\mathrm{RFF}}^3)$, as $K$ is approximated by $\Phi \Phi^{\top}$ that has rank $2 N_{\mathrm{RFF}}$.
+%% Various results have been established on the accuracy of the random Fourier feature approximation (see, e.g., \citet{Rahimi08}).

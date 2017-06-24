@@ -1,0 +1,168 @@
+\section{Histograms of Oriented Gradients}
+
+\begin{frame}{Histograms of Oriented Gradients}
+  \metroset{block=fill}
+\center
+\only<1>{
+  \begin{alertblock}{\textbf{Why?}}
+  One of the most well known methods for feature extraction for human detection in
+  computer vision, it is very versatile and it can be applied in different contexts.
+  Ofter it is used as metrix to compare more sophisticated methods.
+  \end{alertblock}
+}
+
+\only<2>{
+  \begin{exampleblock}{\textbf{Idea?}}
+  Describe the local behaviour of the gradient applied to an image, in ordet to
+  emphasize well defined geometric structures and edges. A local object appearance
+  and shape can be characterized by the distribution of local intensity gradients or
+  edge directions, even without knowledge of the corresponding gradient.
+\end{exampleblock}
+
+}
+
+\only<3>{
+
+\begin{exampleblock}{\textbf{How?}}
+  Divide the image window into small spatial regions (\textit{cells}), accumulate
+  a 1D \textit{histogram} of gradient directions over the pixels of the cell and
+  normalize the result over a \textit{block} of cells for better invariance to illumination.
+\end{exampleblock}
+\input{../images/HOG_algorithm.tex}
+}
+
+\end{frame}
+
+
+%\begin{frame}{Algorithm for HOG Extraction}
+
+%\end{frame}
+
+%\begin{frame}{Noise Reduction}
+%\only<1>{
+%  Due to the intrinsic randomness nature of an acquisition system, generally an image
+%  is always affected by an high frequency noise (likely modeled as AWGN).\\
+%  \vspace{0.25cm}
+%  It may be useful to reduce the noise level before starting to extract features.
+%}
+%
+%\only<2>{
+%  General noise reduction filter: \textbf{Gaussian Filter}
+%  \begin{equation}
+%    g(x,y) = \dfrac{1}{2\pi\sigma^2}\exp{\left(-\dfrac{x^2+y^2}{2\sigma^2}\right)}
+%  \end{equation}
+%  \begin{figure}
+%    \includegraphics[width=.4\textwidth]{no_filter.jpg}
+%    \hspace{1mm}
+%    \includegraphics[width=.4\textwidth]{filter.jpg}
+%  \end{figure}
+%}
+%\end{frame}
+%
+%
+%\begin{frame}{Gradient Computation}
+%\input{../images/gradient_computation.tex}
+%\end{frame}
+%
+%
+\begin{frame}{Histograms}
+
+\only<1>{
+  \begin{figure}[!ht]
+  \centering
+  \input{../images/hog_matrix1.tex}
+  \caption{Spatial distribution of histograms and cells}
+  \end{figure}
+}
+
+%------------------ SLIDE 2 ------------------
+\only<2>{
+  All the histograms are built as follows ($k=1,\ldots,n_\theta$):
+  \begin{equation}
+  H_c(k)=\sum_i\sum_jf[G(i,j)]\delta(\phi_{k-1}<\theta(i,j)<\phi_k)
+  \end{equation}
+
+  \begin{itemize}
+  \item $n_\theta$ \emph{angle bins} uniformely distributed
+  \item The vote is a function of the gradient magnitude at the pixel $f(G)$, either the
+        magnitude itself, its square, its square root, ...
+  \end{itemize}
+}
+\end{frame}
+
+\begin{frame}{Normalization}
+
+\only<1>{
+  \begin{figure}[!ht]
+  \centering
+  \input{../images/hog_matrix2.tex}
+  \caption{Spatial distribution of histograms, cells and blocks}
+  \end{figure}
+}
+
+\only<2>{
+  \small
+  \metroset{block=fill}
+  \begin{alertblock}{\textbf{Why?}}
+  Gradient strengths vary over a wide range owing to local variations
+  in illumination and foreground-background contrast, so effective local contrast
+  normalization turns out to be essential for good performance.
+  \end{alertblock}
+
+  %\vspace{0.5cm}
+
+  Possible normalization scheme:
+  \begin{equation}
+  H(c,k)= \frac{H_{1}(c,k)}{\left ( \sum_{c_i\in N_c} \sqrt{\|H_{1}(c_i)\|^2_2+\varepsilon^2}\right )}
+  \end{equation}
+  where $N_c$ is the set of all cells in a block.
+}
+\end{frame}
+
+\begin{frame}{Results}
+
+  \only<1>{
+    \center
+    \includegraphics[width=0.75\textwidth]{HOG_result1.png}
+  }
+
+  \only<2>{
+    \center
+    \includegraphics[width=0.75\textwidth]{HOG_result2.png}
+  }
+
+  %\only<3>{
+  %  \center
+  %  \includegraphics[width=0.75\textwidth]{HOG_result3.png}\\
+  %  \small
+  %  The miss rate at $10^{-4}$ FPPW as the cell and block sizes change.\\
+  %  %3 x 3 blocks of 6 x 6 pixel cells perform best,
+  %  %with 10.4\% miss rate.
+  %}
+
+\end{frame}
+
+\begin{frame}[standout]
+  \huge Demo
+\end{frame}
+
+\begin{frame}{Demo}
+  \centering
+  \includegraphics[height = .70\textwidth]{pedestrian.jpg}
+  \hspace{2mm}
+  \includegraphics[height = .70\textwidth]{pedestrian_hog.jpeg}
+\end{frame}
+
+\begin{frame}{Summary}
+  \small
+  The HOG representation has several advantages. It captures gradient
+  structure that is characteristic of local shape, with a representation invariant
+  to local geometric and photometric transformations: translations or rotations make little difference
+  if they are much smaller that the local spatial or orientation bin size. \\
+  \vspace{5mm}
+  For \textit{human detection}, \textbf{fine orientation sampling} and \textbf{strong
+  local photometric normalization} turns out to be the best strategy: it permits body
+  segments to change appearance and move from side to side quite a lot provided
+  that they maintain an upright orientation.
+
+\end{frame}

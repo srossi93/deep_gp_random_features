@@ -1,0 +1,15 @@
+Our model is easily amenable to a distributed implementation using asynchronous distributed stochastic gradient descent~\citet{Chilimbi14}. % \citep{Chilimbi14, MartinAbadi15}. 
+Our distributed setting, % \footnote{Currently, we use a CPU-only compute cluster.}
+based on TensorFlow, includes one or more \emph{Parameter servers} (\name{ps}), and a number of \emph{Workers}. 
+The latter proceed asynchronously using randomly selected batches of data: they fetch fresh model parameters from the \name{ps}, compute the gradients of the lower bound with respect to these parameters, and push those gradients back to the \name{ps}, which update the model accordingly. 
+Given that workers compute gradients and send updates to \name{ps} asynchronously, the  discrepancy between the model used to compute gradients and the model actually updated can degrade training quality. 
+This is exacerbated by a large number of asynchronous workers, as noted in~\citet{Chen16}.
+
+We focus our experiments on the MNIST dataset, and study how training time and error rates evolve with the number of workers introduced in our system. 
+The parameters for the model are identical to those reported for the previous experiments.
+
+\input{async_experiment.tex}
+
+We report the results in Figure~\ref{fig:async}, and as expected, the training time decreases in proportion to the number of workers, albeit sub-linearly.
+On the other hand, the increasing error rate confirms our intuition that imprecise updates of the gradients negatively impact the optimization procedure. 
+The work in~\citet{Chen16} corroborates our findings, and motivates efforts in the direction of alleviating this issue.

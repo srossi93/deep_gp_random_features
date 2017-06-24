@@ -1,0 +1,1 @@
+latexmk -bibtex -pvc -pdf -output-directory=out learning_to_drive.tex

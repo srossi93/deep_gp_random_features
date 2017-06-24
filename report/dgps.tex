@@ -1,0 +1,281 @@
+\section{Random Feature Expansions for \dgp{s}}
+
+
+\input{figures/diagram.tex}
+%% For the sake of clarity, we report the conventions used in the following sections.
+%% Variables in layer $l$ are denoted by the $(l)$ superscript.
+%% We assume $N_{\mathrm{h}}$ layers, % which is also the number of weight matrices $\Omega^{(l)}$ and $W^{(l)}$.
+%% %% Each layer is a 
+%% each composed of a $D_{F^{(l)}}$ dimensional multivariate \gp, as depicted in Figure~\ref{fig:DGP:diagram}.
+%%  %% \noteMF{I think we need to be clear about what hidden layers are - a diagram like the one in Duvenaud's paper would help. This would also make it easier to explain the notation.}
+
+
+
+In this section, we present our approximate formulation of \dgp{s} which, as we illustrate in the experiments, leads to a practical learning algorithm for these deep probabilistic nonparametric models.
+%% \subsection{GPs with random Fourier features}
+%% In this work, we focus on the so-called spectral approximation of \gp{s}.
+We propose to employ the random feature expansion at each layer, and by doing so we obtain an approximation to the original \dgp model as a \dnn (Figure~\ref{fig:DGP:diagram}).
+%% Similarly to the case of random Fourier features to approximate \gp{s}, in \dgp{s} we include an intermediate layer between each set of trigonometric activation functions, which yields the latent variables, $F^{(l)}$, for each hidden layer in the network.
+%% This is obtained by taking a weighted sum of the hidden units in the preceding layer such that the input to the next set of activation functions is simply the latent variables.
+%% This necessitates the introduction of an additional set of weights, $W^{(l)}$, after each hidden layer, where we denote the number of latent functions for a given layer by $D_F^{(l)}$.
+%% In practice, this would also correspond to the number of individual \gp{s} considered at each layer; however, for the sake of simplicity, and without loss of generality, we shall assume this to be univariate unless otherwise stated.
+%% We are also required introduce an additional set of priors for these weights.
+%% Henceforth, we shall refer to a layer in the network as encapsulating both the hidden function activations, as well as this additional linear combination step.
+
+Assume that the \gp{s} have zero mean, and define $F^{(0)} := X$.
+% In this case, we can obtain an approximation of the \gp{s} at each layer using random Fourier features, as shown in the previous section.
+%% By taking a ``weight-space view'' of the \gp{s} as shown in the previous section, we have that
+Also, assume that the \gp covariances at each layer are parameterized through a set of parameters $\thetavect^{(l)}$.
+The parameter set $\thetavect^{(l)}$ comprises the layer-wise \gp marginal variances $(\sigma^2)^{(l)}$ and lengthscale parameters 
+$\Lambda^{(l)} = \diag((\ell_1^2)^{(l)}, \ldots, (\ell_{D_F^{(l)}}^2)^{(l)})$. 
+%% $\Lambda^{(l)} = \diag\left(\left(\ell_1^2\right)^{(l)}, \ldots, \left(\ell_{D_F^{(l)}}^2\right)^{(l)}\right)$. % , where each $\ell_i^{(l)}$ is interpreted as the lengthscale parameter of the $i$th dimension at layer $(l)$. % along each of the dimensions of the input to the \gp at layer $(l)$ (\ard covariance).
+
+Considering a \dgp with \rbf covariances,  taking a ``weight-space view'' of the \gp{s} at each layer, and extending the results in the previous section, we have that
+\begin{equation}
+\Phi_{\mathrm{rbf}}^{(l)} = \sqrt{\frac{(\sigma^2)^{(l)}}{N_{\mathrm{RF}}^{(l)}}} \left[ \cos\left(F^{(l)} \Omega^{(l)}\right), \sin\left(F^{(l)} \Omega^{(l)}\right) \right] \text{,}
+\end{equation}
+and 
+%% \begin{equation}
+$
+F^{(l+1)} = \Phi_{\mathrm{rbf}}^{(l)} W^{(l)} % \text{.}
+$.
+%% \end{equation}
+At each layer, the priors over the weights are
+$
+p\left(\Omega^{(l)}_{\cdot j}\right) = \norm\left(\zerovect, \left(\Lambda^{(l)}\right)^{-1} \right) % \text{,}
+%% p\left(W^{(l)}_{\cdot j}\right) = \norm\left(\wvect \left\rvert \zerovect, \left(\Lambda^{(l)}\right)^{-1} \right. \right)
+$
+and
+$
+p\left(W^{(l)}_{\cdot i}\right) = \norm\left(\zerovect, I \right) % \text{,}
+%% p\left(W^{(l)}_{\cdot j}\right) = \norm\left(\wvect \left\rvert \zerovect, \left(\Lambda^{(l)}\right)^{-1} \right. \right)
+$.
+
+%% Defining 
+%% $$
+%% \dvect_{\mathrm{in}} = [D_{\mathrm{in}}, D_F^{(0)}, \ldots, D_F^{(N_L - 1)}]^{\top}
+%% $$
+%% $$
+%% \dvect_{\mathrm{out}} = [N_{\mathrm{RF}}^{(0)}, \ldots, N_{\mathrm{RF}}^{(N_L)}]^{\top}
+%% $$
+Each matrix $\Omega^{(l)}$ has dimensions $D_{F^{(l)}} \times N_{\mathrm{RF}}^{(l)}$. 
+On the other hand, the weight matrices $W^{(l)}$ have dimensions $2N_{\mathrm{RF}}^{(l)} \times D_{F^{(l+1)}}$ (weighting of sine and cosine random features), with the constraint that $D_{F^{(N_{\mathrm{h}})}} = D_{\mathrm{out}}$.
+%% The accuracy of the approximation of these transformations with respect to the actual \gp{s} is controlled by the parameters $N_{\mathrm{RF}}^{(l)}$, that determine how many random features are used to approximate the \gp{s} at each layer.
+
+Similarly, considering a \dgp with \arccosine covariances of order $p=1$, the application of the random feature approximation leads to \dnn{s} with \relu activations:
+\begin{equation}
+	\Phi^{(l)}_{\text{arc}} = \sqrt{\frac{ 2 (\sigma^2)^{(l)}}{N_{\mathrm{RF}}^{(l)}}}  \max\left(0, F^{(l)} \Omega^{(l)}\right)  \text{,}
+\end{equation}
+with
+%% \begin{equation}
+$
+\Omega^{(l)}_{\cdot j} \sim \norm\left(\zerovect, \left(\Lambda^{(l)}\right)^{-1} \right) % \text{,}
+$,
+%% \end{equation}
+which are cheaper to evaluate and differentiate than the trigonometric functions required in the \rbf case.
+As in the \rbf case, we allowed the covariance and the features to be scaled by $(\sigma^2)^{(l)}$ and $\Lambda^{(l)}$, respectively.
+The dimensions of the weight matrices $\Omega^{(l)}$ are the same as in the \rbf case, but the dimensions of the $W^{(l)}$ matrices are $N_{\mathrm{RF}}^{(l)} \times D_{F^{(l+1)}}$.
+
+\subsection{Low-rank weights in the resulting \dnn}
+
+Our formulation of an approximate \dgp using random feature expansions reveals a close connection with \dnn{s}.
+In our formulation, the design matrices at each layer are
+$
+\Phi^{(l+1)} = \gamma\left(\Phi^{(l)} W^{(l)} \Omega^{(l+1)} \right)
+$,
+%% \noteEB{I think the equation above  be: $ \Phi^{(l+1)} = \gamma^{(l)}\left(\Phi^{(l)} W^{(l)} \Omega^{(l+1)} \right) $ } \noteKC{Agreed} \noteMF{Yes - thanks!}
+where $\gamma(\cdot)$ denotes the element-wise application of covariance-dependent functions, i.e., sine and cosine for the \rbf covariance and \relu for the \arccosine covariance. 
+Instead, for the \dnn case, the design matrices are computed as
+$
+\Phi^{(l+1)} = g(\Phi^{(l)} \Omega^{(l)}) % \text{,}
+$,
+where $g(\cdot)$ is a so-called activation function.
+In light of this, we can view our approximate \dgp model as a \dnn. % where the activation functions are linear combinations of sines and cosines of linear combinations of the inputs of any given layer. 
+%% In particular, the resulting model is a Trigonometric \dnn \citep{Sopena99} interlayed with linear transformations.
+From a probabilistic standpoint, we can interpret our approximate \dgp model as a \dnn with specific Gaussian priors over the $\Omega^{(l)}$ weights controlled by the covariance parameters $\thetavect^{(l)}$, and standard Gaussian priors over the $W^{(l)}$ weights. % with unit variance.
+Covariance parameters act as hyper-priors over the weights $\Omega^{(l)}$, and the objective is to optimize these during training.
+
+
+%% \noteMF{
+%% I think that any theoretical analysis of the proposed \dgp approximation would enormously strengthen our paper.
+%% For example, it would be interesting to come up with some analysis of the distance between functions generated by \dgp{s} and approximate \dgp{s}, in order to connect the number of Fourier features to the quality of the approximation.
+%% }
+
+
+
+
+%% The proposed approximation of each \gp in the deep \gp architecture entails that their inputs are linearly combined using the weihts $\Omega^{(l)}$ and passed through nonlinear activation functions (sine and cosine).
+%% In order to complete the approximation, these nonlinear nodes are then linearly ombined using the weights $W^{(l)}$.
+%% \subsubsection{Redundant Parameterization and Regularization}
+Another observation about the resulting \dgp approximation is that, for a given layer $l$, the transformations given by $W^{(l)}$ and $\Omega^{(l+1)}$ are both linear. %, % can be collapsed into a single linear transformation.
+%% %% Conceptually, we can keep them saparate in order to think of $W^{(l-1)}$ and $\Omega^{(l)}$ as two separate sets of weights.
+%% %% However, 
+%% and this might introduce some invariance that complicates the optimization problem. 
+%% Imposing priors on both sets of weights provides a means of mitigating this form of nonidentifiability. %, but we would like to investigate the possibility to collapse adjacent linear layers without losing the deep \gp interpretation, namely, where we can still recover the latent functions at each level and interpret covariance parameters.
+%%
+%% Expressing the output of layer $l$ after applying the random Fourier feature expansion at layer $l-1$ we obtain
+%% $$
+%% \Phi^{(l-1)} W^{(l-1)} \Omega^{(l)}
+%% $$
+%% We can now collapse the two sets of weights, by defining 
+%% $$
+%% \Xi^{(l)} = W^{(l-1)} \Omega^{(l)}
+%% $$ 
+%% Assuming a Gaussian prior on the $W^{(l-1)}$ weights, and recalling that the prior on $\Omega$ induced by the \gp is also Gaussian, we see that the prior over $\Xi^{(l)}$ leads to a non-Gaussian (mixture of $\chi^2$ distributions) prior because of the product.
+%%
+%% Apart from this complication, we also notice the following interesting fact.
+If we collapsed the two transformations into a single one, by introducing weights $\Xi^{(l)} = W^{(l)} \Omega^{(l+1)}$, we would have to learn $O\left(N^{(l)}_{RF} \times N^{(l+1)}_{RF}\right)$ weights at each layer, which is considerably more than learning the two separate sets of weights.
+As a result, we can view the proposed approximate \dgp model as a way to impose a low-rank structure on the weights of \dnn{s}, which is a form of regularization proposed in the literature of \dnn{s} \citep{Novikov15,Sainath13,Denil13}.
+
+\subsection{Variational inference}
+
+In order to keep the notation uncluttered, let $\Thetavect$ be the collection of all covariance parameters $\thetavect^{(l)}$ at all layers.
+Also, consider the case of a \dgp with fixed spectral frequencies $\Omega^{(l)}$ collected into $\Omegavect$, and let $\Wvect$ be the collection of the weight matrices $W^{(l)}$ at all layers.
+For $\Wvect$ we have a product of standard normal priors stemming from the approximation of the \gp{s} at each layer
+%% \begin{equation}
+$
+p(\Wvect) = \prod_{l=0}^{N_{\mathrm{h}} - 1} p(W^{(l)}) \text{,}
+$
+%% \end{equation}
+and we propose to treat $\Wvect$ using variational inference following \citet{Kingma14} and \citet{Graves11}, and optimize all covariance parameters $\Thetavect$.
+We will consider $\Omegavect$ to be fixed here, but we will discuss alternative ways to treat $\Omegavect$ in the next section.
+In the supplement we also assess the quality of the variational approximation over $\Wvect$, with $\Omegavect$ and $\Thetavect$ fixed, by comparing it with \mcmc techniques.
+
+The marginal likelihood $p(Y | X, \Omegavect, \Thetavect)$ involves intractable integrals, but we can obtain a tractable lower bound using variational inference.
+Defining
+$
+\LL = \log \left[p(Y | X, \Omegavect, \Thetavect)\right]
+$ and
+$
+\mathcal{E} = \E_{q(\Wvect)} \left( \log\left[ p\left(Y | X, \Wvect, \Omegavect, \Thetavect\right) \right] \right)
+$,
+we obtain
+\begin{equation}
+\LL \geq \mathcal{E}
+%% \E_{q(\Wvect)} \left( \log\left[ p\left(Y | X, \Wvect, \Omegavect, \Thetavect\right) \right] \right) 
+- \mathrm{DKL}\left[q(\Wvect) \| p\left(\Wvect\right)\right] \text{,}
+\end{equation}
+where $q(\Wvect)$ acts as an approximation to the posterior over all the weights $p(\Wvect | Y, X, \Omegavect, \Thetavect)$.
+%% In the equations above, we introduced a distribution over the parameters $q(\Psi)$ that acts as an approximation to the posterior over all the weights $p(\Psi | Y, \Thetavect)$. % and spectral frequencies $\Psi = (\Psi^{(0)}, \ldots, \Psi^{(N_{\Psi})})$.
+%% We used Jensen's inequality to bound the marginal likelihood, obtaining a standard lower bound as the difference between the expected value of the likelihood under the approximating distribution, and the Kullback-Leibler divergence between the prior and the approximating distribution.
+
+We are interested in optimizing $q(\Wvect)$, i.e.\ finding an optimal approximate distribution over the parameters according to the bound above.
+The first term can be interpreted as a model fitting term, whereas the second as a regularization term.
+In the case of a Gaussian distribution $q(\Wvect)$ and a Gaussian prior $p(\Wvect)$, it is possible to compute the DKL term analytically (see supplementary material), whereas the remaining term needs to be estimated.
+Assume a Gaussian approximating distribution that factorizes across layers and weights:
+\begin{equation}
+q(\Wvect) = \prod_{ijl} q\left(W^{(l)}_{ij}\right) = \prod_{ijl} \norm\left(m^{(l)}_{ij}, (s^2)^{(l)}_{ij} \right) \text{.}
+\end{equation}
+%% \begin{eqnarray}
+%% q(\Psi) & = & \prod_{ij} q\left(\Omega^{(0)}_{ij}\right) \cdots \prod_{ij} q\left(\Omega^{(N_{\mathrm{h}} - 1)}_{ij}\right) \times \nonumber \\
+%% && \prod_{ij} q\left(W^{(0)}_{ij}\right) \cdots \prod_{ij} q\left(W^{(N_{\mathrm{h}} - 1)}_{ij}\right) \nonumber \text{.}
+%% \end{eqnarray}
+The variational parameters are the mean and the variance of each of the approximating factors $m^{(l)}_{ij}, (s^2)^{(l)}_{ij}$,
+%% \begin{equation}
+%% q\left(W^{(l)}_{ij}\right) = \norm\left(m^{(l)}_{ij}, (s^2)^{(l)}_{ij} \right) \text{,}
+%% %% q\left(W^{(l)}_{ij}\right) = \norm\left(W^{(l)}_{ij} \left\rvert \mu^{(l)}_{ij}, (\sigma^2)^{(l)}_{ij} \right. \right)
+%% \end{equation}
+%% \begin{equation}
+%% q\left(\Omega^{(l)}_{ij}\right) = \norm\left(m^{(l)}_{ij}, (s^2)^{(l)}_{ij} \right) \text{,}
+%% %% q\left(W^{(l)}_{ij}\right) = \norm\left(W^{(l)}_{ij} \left\rvert \mu^{(l)}_{ij}, (\sigma^2)^{(l)}_{ij} \right. \right)
+%% \end{equation}
+and we aim to optimize the lower bound with respect to these as well as all covariance parameters $\Thetavect$.
+ %% variational parameters $m^{(l)}_{ij}, (s^2)^{(l)}_{ij}$. %, m^{(l)}_{ij}, (s^2)^{(l)}_{ij}$. % for all $i, j, l$.
+%% and we aim to optimize the lower bound with respect to the variational parameters $\mu^{(l)}_{ij}, (\sigma^2)^{(l)}_{ij}, m^{(l)}_{ij}, (s^2)^{(l)}_{ij}$. % for all $i, j, l$.
+
+In the case of a likelihood that factorizes across observations, an interesting feature of the expression of the lower bound is that it is amenable to fast stochastic optimization. 
+In particular, we derive a doubly-stochastic approximation of the expectation in the lower bound as follows. 
+First, $\mathcal{E}$ can be rewritten as a sum over the input points, which allows us to estimate it in an unbiased fashion using mini-batches, selecting $m$ points from the entire dataset:
+\begin{equation}
+\mathcal{E} \approx \frac{\nobs}{m} \sum_{k \in \mathcal{I}_m} \E_{q(\Wvect)} ( \log[ p(\yvect_k | \xvect_k, \Wvect, \Omegavect, \Thetavect) ] ) \text{.}
+\end{equation}
+%% \noteEB{should we define $m, \mathcal{I}_m$, etc?}
+Second, each of the elements of the sum can be estimated using Monte Carlo, yielding:
+\begin{equation}
+\mathcal{E} \approx
+%% \E_{q(\Wvect)} \left( \log\left[ p(\yvect_k | \xvect_k, \Wvect, \Omegavect, \Thetavect) \right] \right) \approx 
+\frac{\nobs}{m} \sum_{k \in \mathcal{I}_m} \frac{1}{N_{\mathrm{MC}}} \sum_{r = 1}^{N_{\mathrm{MC}}}  \log[ p(\yvect_k | \xvect_k, \tilde{\Wvect}_r, \Omegavect, \Thetavect) ] \text{,}
+\end{equation}
+with $\tilde{\Wvect}_r \sim q(\Wvect)$.
+In order to facilitate the optimization, we reparameterize the weights as follows:
+\begin{equation}
+(\tilde{W}^{(l)}_{r})_{ij} = s^{(l)}_{ij}  \epsilon^{(l)}_{rij} + m^{(l)}_{ij} \text{.}
+\end{equation}
+%% and
+%% \begin{equation}
+%% (\tilde{\Omega}^{(l)}_{r})_{ij} = s^{(l)}_{ij}  \epsilon^{(l)}_{rij} + m^{(l)}_{ij} \text{,}
+%% \end{equation}
+%% with $\varepsilon^{(l)}_{rij} \sim \norm(0, 1)$ and $\epsilon^{(l)}_{rij} \sim \norm(0, 1)$. 
+%% with $\varepsilon^{(l)}_{rij} \sim \norm(\varepsilon^{(l)}_{rij} | 0, 1)$. 
+
+%% \begin{equation*}
+%% \E_{q(\Wvect)} \left( \log\left[ \prod_i p(\yvect_k | \xvect_k, \Wvect, \Omegavect, \Thetavect) \right] \right) = \sum_k \E_{q(\Wvect)} \left( \log\left[ p(\yvect_k | \xvect_k, \Wvect, \Omegavect, \Thetavect) \right] \right) \text{,}
+%% \end{equation*}
+%% where each element of the sum on the right hand side term % $\E_{q(\Wvect)} \left( \log\left[ p(y_k | \Wvect, \Omegavect) \right] \right)$ 
+%% requires to be estimated, and we can do this using the Monte Carlo estimator
+%% %% An immediate unbiased estimator for this can be constructed by sampling from $q(W)$ and averaging out the argument of the expectation:
+%% \begin{equation}
+%% \E_{q(\Wvect)} \left( \log\left[ p(\yvect_k | \xvect_k, \Wvect, \Omegavect, \Thetavect) \right] \right) \approx \frac{1}{N_{\mathrm{MC}}} \sum_{r = 1}^{N_{\mathrm{MC}}}  \log[ p(\yvect_k | \xvect_k, \tilde{\Wvect}_r, \Omegavect, \Thetavect) ] \text{,}
+%% \end{equation}
+%% with $\tilde{\Wvect}_r \sim q(\Wvect)$.
+%% In order to facilitate the optimization, we employ a reparameterization of the weight matrices as follows:
+%% \begin{equation}
+%% (\tilde{W}^{(l)}_{r})_{ij} = \sigma^{(l)}_{ij}  \varepsilon^{(l)}_{rij} + \mu^{(l)}_{ij} \text{,}
+%% \end{equation}
+%% %% and
+%% %% \begin{equation}
+%% %% (\tilde{\Omega}^{(l)}_{r})_{ij} = s^{(l)}_{ij}  \epsilon^{(l)}_{rij} + m^{(l)}_{ij} \text{,}
+%% %% \end{equation}
+%% %% with $\varepsilon^{(l)}_{rij} \sim \norm(0, 1)$ and $\epsilon^{(l)}_{rij} \sim \norm(0, 1)$. 
+%% %% with $\varepsilon^{(l)}_{rij} \sim \norm(\varepsilon^{(l)}_{rij} | 0, 1)$. 
+%% In this way, at each iteration of the optimization over the parameters, we can fix the randomness in the computation of the expectation, and apply stochastic gradient ascent moves to the mean and variance of the approximating distribution over model parameters \citep{Kingma14}.
+
+%% We can also incorporate mini-batch learning by considering an $m$-sized mini-batch of data points with indices $\mathcal{I}_m$, and obtain an unbiased estimate of the lower bound as follows:
+%% \begin{equation}
+%% \frac{\nobs}{m} \sum_{k \in \mathcal{I}_m} \E_{q(\Wvect)} ( \log[ p(\yvect_k | \xvect_k, \Wvect, \Omegavect, \Thetavect) ] )  - \mathrm{DKL}[q(\Wvect) \| p(\Wvect) ] \text{.}
+%% \end{equation}
+By differentiating the lower bound with respect to $\Thetavect$ and the mean and variance of the approximate posterior over $\Wvect$, we obtain an unbiased estimate of the gradient for the lower bound.
+The reparameterization trick ensures that the randomness in the computation of the expectation is fixed when applying stochastic gradient ascent moves to parameters of $q(\Wvect)$ and $\Thetavect$ \citep{Kingma14}.
+%% We can therefore apply stochastic gradient optimization to learn the optimal variational distribution $q(\Wvect)$ and all covariance parameters $\Thetavect$.
+Automatic differentiation tools enabled us to compute stochastic gradients automatically, which is why we opted to implement our model in TensorFlow~\citep{MartinAbadi15}.
+
+\subsection{Treatment of the spectral frequencies $\Omegavect$}
+
+So far, we have assumed the spectral frequencies $\Omegavect$ to be sampled from the prior and fixed throughout, whereby we employ the reparameterization trick to obtain 
+$
+\Omega^{(l)}_{ij} = (\beta^2)^{(l)}_{ij} \varepsilon^{(l)}_{rij} + \mu^{(l)}_{ij}\text{,}
+$
+with $(\beta^2)^{(l)}_{ij}$ and $\mu^{(l)}_{ij}$ determined by the prior $p\left(\Omega^{(l)}_{\cdot j}\right) = \norm\left(\zerovect, \left(\Lambda^{(l)}\right)^{-1} \right)$.
+We then draw the $\varepsilon^{(l)}_{rij}$'s and fix them from the outset, such that covariance parameters $\Thetavect$ can be optimized along with $q(\Wvect)$.
+We refer to this variant as \name{prior-fixed}.
+
+Inspired by previous work on random feature expansions for \gp{s}, we can think of alternative ways to treat these parameters, e.g., \citet{Gredilla10,Gal15}. 
+%% For example, we can optimize $\Omegavect$ in a similar manner to the sparse spectrum \gp work in .
+%% Alternatively, we  can treat $\Omegavect$ variationally, extending the work in  for which variational learning of the spectrum was proposed for shallow and univariate \gp{s}. 
+In particular, we study a variational treatment of $\Omegavect$; we refer the reader to the supplementary material for details on the derivation of the lower bound in this case.
+When being variational about $\Omegavect$ we introduce an approximate posterior $q(\Omegavect)$ which also has a factorized form.
+We use the reparameterization trick once again, but the coefficients $(\beta^2)^{(l)}_{ij}$ and $\mu^{(l)}_{ij}$ to compute $\Omega^{(l)}_{ij}$ are now determined by $q(\Omegavect)$.
+We report two variations of this treatment, namely \name{var-fixed} and \name{var-resampled}.
+In \name{var-fixed}, we fix $\varepsilon^{(l)}_{rij}$ in computing $\Omegavect$ throughout the learning of the model, whereas in \name{var-resampled} we resample these at each iteration.
+We note that one can also be variational about $\Thetavect$, but we leave this for future work.
+
+In Figure~\ref{fig:model_optim}, we illustrate the differences between the strategies discussed in this section; % fixing the spectral frequencies $\Omegavect$ and treating them variationally; 
+we report the accuracy of the proposed one-layer \dgp with \rbf covariances with respect to the number of random features on one of the datasets that we consider in the experiment section (\eeg dataset).
+%% When we fix the spectral frequencies (\name{prior-fixed} in the figure), we are using the reparameterization trick on $\Omega^{(l)}$ with fixed randomness throughout, and mean and standard deviation determined by the prior, which in turn is a function of the covariance parameters $\thetavect^{(l)}$, which allows us to optimize these.
+For \name{prior-fixed}, more random features result in a better approximation of the \gp priors at each layer, and this results in better generalization. 
+When we resample $\Omegavect$ from the approximate posterior (\name{var-resampled}), we notice that the model quickly struggles with the optimization when increasing the number of random features. 
+We attribute this to the fact that the factorized form of the posterior over $\Omegavect$ and $\Wvect$ is unable to capture posterior correlations between the coefficients for the random features and the weights of the corresponding linearized model. 
+Being deterministic about the way spectral frequencies are computed (\name{var-fixed}) offers the best performance among the three learning strategies, and this is what we employ throughout the rest of this paper.
+
+\input{figures/comparison_optim}
+
+% Sometimes it's better less than more
+%While we could interpret these results as an indication of the loss of the nonparametric character of the approximate \dgp model, we will extensively demonstrate that our proposal considerably improves over state-of-the-art methods to learn \dgp{s}.
+
+\subsection{Computational complexity}
+
+%% We report here the computational complexity associated with the proposed learning algorithm for the approximate \dgp with random features.
+When estimating the lower bound, there are two main operations performed at each layer, that is $F^{(l)} \Omega^{(l)}$ and $\Phi^{(l)} W^{(l)}$.
+Recalling that this matrix product is done for samples from the posterior over $\Wvect$ (and $\Omegavect$ when treated variationally) and given the mini-batch formulation, the former costs $\bigO\left(m  D_F^{(l)} N_{\mathrm{RF}}^{(l)}  N_{\mathrm{MC}}\right)$, while the latter costs $\bigO\left(m  N_{\mathrm{RF}}^{(l)}  D_F^{(l)}  N_{\mathrm{MC}}\right)$.
+
+Because of feature expansions and stochastic variational inference, the resulting algorithm does not involve any Cholesky decompositions. This is in sharp contrast with stochastic variational inference using inducing-point approximations  \citep[see e.g.~][]{Dai15,Bui16}, where such operations could significantly limit the number of inducing points that can be employed.

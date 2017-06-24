@@ -1,0 +1,69 @@
+\section{Introduction}
+
+Given their impressive performance on machine learning and pattern recognition tasks, Deep Neural Networks (\dnn{s}) have recently attracted a considerable deal of attention in several applied domains such as computer vision and natural language 
+processing; see, e.g., \citet{Lecun15Nature} and references therein.
+
+Deep Gaussian Processes \citep[\dgp{s};][]{Damianou13} are deep probabilistic models where the mapping between inputs and labels is constructed by composing functions specified in a nonparametric fashion.
+From a generative perspective, \dgp{s} transform the inputs using a cascade of Gaussian Processes \citep[\gp{s};][]{Rasmussen06} such that the output of each layer of \gp{s} forms the input to the \gp{s} at the next layer.
+An attractive feature of \dgp{s} is that, unlike standard \dnn{s}, their probabilistic formulation allows for a principled way to tackle quantification of uncertainty and model selection, which is desirable when employing deep models in practice. % \noteKC{To be cleared up}
+\noteEB{But so do Bayesian DNNs, unclear why DGPs are different here}
+
+The flexibility and expressive power of \dgp{s}, however, comes at the expense of having to deal with a model for which inference and predictions are inherently difficult.
+%% While approximations have been developed to recover tractability in general Bayesian inference tasks \citep{Candela05,Titsias09,Hensman15,Dezfouli15}, their application to \dgp{s} remains nonetheless challenging.
+This is due to the fact that the nonlinearity introduced by each layer makes it difficult to tractably propagate the uncertainty throughout the layers.
+An additional complication stems from the strong coupling of the \gp{s} at all layers, which are further parameterized by covariance parameters to be optimized or inferred. \noteEB{How about the inherent complexity of GPs?}
+
+In this paper, we develop a practical learning framework for \dgp models.
+In particular, our proposal introduces two sources of approximation. % \noteKC{Generalize.}
+The first is a model approximation, whereby the \gp{s} at all layers are approximated using random feature expansions \citep{Rahimi08,Gredilla10}; the second approximation relies upon stochastic variational inference to retain a probabilistic treatment of the approximate \dgp model.
+
+%% The appeal of our proposal is that the model approximation can be tuned by selecting an appropriate number of random features, and this is dictated by constraints on running time or hardware.
+
+%% Although our approach is amenable to any stationary covariance function, we develop it in detail for the squared exponential and arc-cosine covariance functions. 
+Applying random feature expansions to \dgp{s}, we obtain \dnn{s} with low-rank weight matrices.
+Feature expansions of different covariance functions result in different \dnn activation functions, namely trigonometric for the radial basis function covariance, and rectified linear unit functions for the arc-cosine covariance.
+By virtue of the connection to \dnn{s}, we are able to employ scalable optimization and inference techniques that have been developed in the literature to train \dnn{s}, allowing the proposed \dgp model to scale to large data in the same way as \dnn{s}.
+
+In order to retain a probabilistic treatment of the model when scaling to large datasets, we employ stochastic variational inference techniques.
+In particular, we adapt the work on variational inference for \dnn{s} and variational autoencoders \citep{Graves11,Kingma14,Rezende14} using mini-batch-based stochastic gradient optimization for the proposed \dgp model, which can exploit GPU and distributed computing.
+We implement the model in TensorFlow \citep{MartinAbadi15}, which allows us to rely on automatic differentiation during the optimization procedure.
+%% The impact of the variational approximation, as opposed to characterizing the full posterior distribution over all model parameters, is the most difficult to assess.
+In the supplementary material, we also illustrate the quality of our approximation by comparing the variational approximation of the proposed model with % a run of a 
+the inference resulting from the application of Markov chain Monte Carlo (\mcmc) methods that we develop for two-layer \dgp regression models.
+
+We demonstrate the effectiveness of our proposal on a variety of regression and classification problems by comparing it with other state-of-the-art approaches to infer \dgp{s} and comparable models.
+The results indicate that for a given \dgp architecture, our proposal is consistently faster at achieving lower errors  compared to the competitors.
+We also obtain impressive results when applying the model to large-scale problems, such as \mnisteight digit classification and the \airline dataset, which contain over $8$ and $5$ million observations, respectively.
+Only very recently have there been attempts to demonstrate performance of \gp models on such large data sets \citep{Wilson16,Krauth17}, and our proposal performs at the level of these state-of-the-art \gp methods.
+Crucially, we obtain these results by running our algorithm on a single machine, but we also report the performance of an asynchronous distributed version of our code in the supplementary material.
+%% Such an undertaking would not have been computationally feasible using a regular \gp model, while other \dgp approaches do not converge as quickly as our technique.
+
+%% \noteMF{Change - Furthermore, the inclusion of an asynchronous implementation of stochastic gradient optimization allows us to exploit large-scale computing facilities using distributed updates, showing that we can truly scale \dgp{s} to tractably tackle unprecedently large amounts of data.} \noteKC{Now moved to supplementary.}% \notePM{To be discussed, but I'd be careful here. Even the mnsit 8M is not that big, so we cannot really claim we learn from big data. What we do is that we exploit parallelism to lower training time, provided that our experiments really show this.}
+
+To summarize, the contributions of this work are as follows
+%% \begin{itemize}
+%% \item 
+(i) we propose a novel approximation of \dgp{s} based on random feature expansions;
+%% \item 
+(ii) we discuss the connections between the proposed approximate \dgp model and \dnn{s};
+%% \item 
+(iii) we compare the quality of the proposed approximation/inference framework with \mcmc techniques for a two-layer \dgp regression model;
+%% \item 
+(iv) we demonstrate the ability of our proposal to outperform state-of-the-art methods to carry out inference in \dgp models;
+%% \item
+(v) we empirically validate the superior quantification of uncertainty offered by \dgp{s} compared to \dnn{s};
+%% \item  
+and finally (vi) we release a TensorFlow implementation of the proposed \dgp model.
+%% \item 
+%% (vi) we propose an asynchronous distributed version of the code that allows us to tackle unprecedented \dgp modeling problems.
+%% \end{itemize}
+\noteEB{note sure code can be seen as a contribution for ICML. I'd prefer less but more concise contributions. Perhaps emphasize more on the connection to DNNs?.} 
+
+\noteEB{May be we can focus on why DGPs are good. Flexible (non-parametric) approaches to quantifying uncertainty in DNNs. By using random features, we have a state-of-the-art way to train these models. While the resulting model is a Bayesian DNNs, we still mantain the theoretical connection with DGPs, which is important for prior setting, variable initialization and posterior analysis. In fact, we do use these tree advantages in our experiments!}
+
+The paper is organized as follows.
+The rest of this section reports the related work.
+Sec.~2 introduces \dgp{s} and demonstrates how covariance functions can be approximated with random features.
+In Sec.~3, we propose our construction of \dgp{s} using such approximations, and show how the resulting model can be learned using stochastic variational inference. 
+Sec.~4 reports an extensive evaluation of our proposal and a thorough comparison with state-of-the-art approaches to learn \dgp{s} and \dnn{s}, while Sec.~5 concludes the paper.
+\noteEB{No one really reads the paragraph above, we can get rid of it and make some room.}

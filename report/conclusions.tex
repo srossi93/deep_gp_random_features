@@ -1,0 +1,10 @@
+\section{Conclusions}
+
+In this work, we have proposed a novel formulation of \dgp{s} which exploits the approximation of covariance functions using random features, as well as stochastic variational inference for preserving the probabilistic representation of a regular \gp.
+We demonstrated how inference using this model is not only faster, but also frequently superior to other state-of-the-art methods, with particular emphasis on competing \dgp models.
+The results obtained for both the \airline dataset and the \mnisteight digit recognition problem are particularly impressive since such large datasets have been generally considered to be beyond the computational scope of \dgp{s}.
+We perceive this to be a considerable step forward in the direction of scaling and accelerating \dgp{s}.
+
+The results obtained on higher-dimensional datasets strongly suggest that approximations such as Fastfood~\cite{Smola13} could be instrumental in the interest of using more random features.
+We are also currently investigating ways to mitigate the decline in performance observed when optimizing $\Omegavect$ variationally with resampling. 
+The obtained results also encourage the extension of our model to include residual learning or convolutional layers suitable for computer vision applications.

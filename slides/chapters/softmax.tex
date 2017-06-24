@@ -1,0 +1,20 @@
+%!TEX root = dgplvm.tex
+
+\section{Clustering}
+
+\subsection{From latents to cluster assignment}
+\begin{frame}{From latents to cluster assignment}
+    To actually making assignment to clusters, latents have to be discretized in order to give for each point a probability of being assigned to specific cluster.
+    \pause
+    \input{images/diagram_softmax}
+\end{frame}
+
+\begin{frame}{From latents to cluster assignment (cont.)}
+    \input{images/diagram_softmax}
+    \pause
+    The \softmax layer simply implements a softmax function on each samples of the latent space $\Xvect$; in practice:
+    \begin{equation}
+        \Pivect = \dfrac{\exp(\Xvect)} {\sum_{j=0}^{D\mathrm{lat} - 1} \exp(\Xvect_{:,j})}
+    \end{equation}
+
+\end{frame}

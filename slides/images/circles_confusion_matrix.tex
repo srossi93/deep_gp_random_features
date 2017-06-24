@@ -1,0 +1,47 @@
+% This file was created by matplotlib2tikz v0.6.11.
+\begin{tikzpicture}
+
+\begin{axis}[
+xlabel={Predicted},
+ylabel={True},
+xmin=-0.5, xmax=1.5,
+ymin=-0.5, ymax=1.5,
+width=\figurewidth,
+height=\figureheight,
+tick align=outside,
+xticklabel style = {rotate=45},
+tick pos=left,
+x grid style={lightgray!92.026143790849673!black},
+y grid style={lightgray!92.026143790849673!black},
+point meta min=0,
+point meta max=500,
+%colorbar style={ylabel={}}
+]
+\addplot graphics [includegraphics cmd=\pgfimage,xmin=-0.5, xmax=1.5, ymin=1.5, ymax=-0.5] {./images/circles_confusion_matrix3.png};
+\node at (axis cs:0,0)[
+  scale=0.5,
+  anchor=base,
+  text=white,
+  rotate=0.0
+]{ 334};
+\node at (axis cs:1,0)[
+  scale=0.5,
+  anchor=base,
+  text=black,
+  rotate=0.0
+]{ 166};
+\node at (axis cs:0,1)[
+  scale=0.5,
+  anchor=base,
+  text=black,
+  rotate=0.0
+]{ 0};
+\node at (axis cs:1,1)[
+  scale=0.5,
+  anchor=base,
+  text=white,
+  rotate=0.0
+]{ 500};
+\end{axis}
+
+\end{tikzpicture}

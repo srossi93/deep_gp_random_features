@@ -1,0 +1,46 @@
+%!TEX root = dgplvm.tex
+\section{Conclusions}
+
+
+\begin{frame}[allowframebreaks]{Things done}
+  \metroset{block=fill}
+  \begin{exampleblock}{What has been done so far?}
+    \begin{itemize}
+        \item Migration of existing code from \tensorflow 0.12 to \tensorflow 1.1
+        \item Extension for \dgplvm for both dimensionality reduction and clustering in a new dedicated class
+        \item Experiments on dimensionality reduction and clustering with both real and synthetic datasets
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{alertblock}{Problems spotted}
+    \begin{itemize}
+        \item Due to \tensorflow computational graph's engine, it's impossible to optimize over \texttt{placeholders}, making the minibatch-based learning not straightforward
+        \item The resulting model seems to be too much sensible to initialization pf hyperparameters (in particular, the \texttt{lengthscale})
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Things to be done}
+    \metroset{block=fill}
+    \begin{alertblock}{Future works}
+     	\begin{itemize}
+     	    \item Scalability extension through the use of minibatch-based learning
+            \item Further experiments on clustering with real dataset and some comparisons with state-of-the-art algorithms.
+      	\end{itemize}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}[standout]
+  \huge Questions? 
+\end{frame}
+
+
+\begin{frame}[allowframebreaks] %allow to expand references to multiple frames (slides)
+
+\frametitle{Bibliography}
+\tiny
+\scriptsize{\bibliographystyle{acm}}
+\scriptsize
+\bibliography{Bibliography} %bibtex file name without .bib extension
+\nocite{*}
+\end{frame}

@@ -1,0 +1,30 @@
+%!TEX root = report.tex
+
+\section{Deep models for clustering}
+
+The second classical problem of unsupervised learning is clustering. \noteSR{Add something general on clustering}
+
+\subsection{Extended \dgplvm}
+
+The architecture already discussed in the previous sections can be also adapted to handle clustering assignment.
+
+Our intent is to build a probabilistic model, such that for each observation $\yvect_i$ it gives a probability of being assigned to a cluster; formally we want to compute
+
+\begin{equation}
+    \tilde k = \arg\max_{k}p(x_{ij}=k\vert\yvect_i, \Xi)
+\end{equation}
+
+where $\Xi$ is the set of all the parameters and hyper-parameters of the model. This can be connected do a latent variable model, since the vector of label probability $\xvect_i$ is an hidden variable and it's never observed in the training set.
+
+This is achieved keeping the same architecture presented in Figure \ref{fig:DGP:diagram} and replacing the first layer of \gp{s} with a \softmax layer. The \softmax layer simply implements a softmax function on each samples of the latent space $\Xvect$; in practice:
+
+\begin{equation}
+    \Pivect = \dfrac{\exp(\Xvect)} {\sum_{j=0}^{D\mathrm{lat} - 1} \exp(\Xvect_{:,j})}
+\end{equation}
+
+where $\Pivect$ is a $\nobs\times\Dlat$ matrix of probabilities and $\Dlat$ is the number of cluster imposed to the model.
+
+\input{figures/diagram_softmax}
+Invariance to rotations and to initialisation
+
+Probabilistic model

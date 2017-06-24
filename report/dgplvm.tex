@@ -42,8 +42,7 @@ From the analysis of Equation (\ref{eq:likelihood:lvm:lawrence}), we can immedia
 
 What will be done next is to replace the inner product kernel with a covariance function so that it allows non-linear functions to obtain a non-linear latent variable model. Due to the close relationship with the linear model, which has an interpretation as probabilistic PCA, such a model can be interpreted as a non-linear probabilistic version of PCA or, as it will be referred to, Gaussian process latent variable model (or \gplvm).
 
-Unfortunately, though, in general there is not closed form solution of the maximization of the likelihood and therefore the
-resulting models will not be optimizable through an eigenvalue problem. The covariance function that will be used in the following examples is the Squared Exponential in Equation (\ref{eq:covariance:rbf:ard}). As result, the log-likelihood is a highly non-linear function of the latents and the parameters. We are therefore forced to use automatic optimisation tools, such as the stochastic gradients and \adam optimizer \citep{Kingma2015} already implemented in \tensorflow.
+Unfortunately, though, in general there is not closed form solution of the maximization of the likelihood and therefore the resulting models will not be optimizable through an eigenvalue problem. The covariance function that will be used in the following examples is the Squared Exponential in Equation (\ref{eq:covariance:rbf:ard}). As result, the log-likelihood is a highly non-linear function of the latents and the parameters. We are therefore forced to use automatic optimisation tools, such as the stochastic gradients and \adam optimizer \citep{Kingma2015} already implemented in \tensorflow.
 
 \subsubsection{Extension to deep models}
 
@@ -52,9 +51,7 @@ In the previous sections, we showed how the problem of dimensionality reduction 
 In the \dgplvm, the likelihood associated to the model is optimized using variational inference. Let $p(\Yvect\vert\Xvect,\Xi)$ the likelihood of the model, where $\Xi$ is the set of all parameters. As proved by \citet{Filippone2017}, defining $\LL$ the log-likelihood and $\mathcal{E} = \E_{q(\Wvect)} \left( \log\left[ p\left(\Yvect | \Xvect, \Wvect, \Xi\right) \right] \right)$, we obtain
 
 \begin{equation}
-\LL \geq \mathcal{E}
-%% \E_{q(\Wvect)} \left( \log\left[ p\left(Y | X, \Wvect, \Omegavect, \Thetavect\right) \right] \right)
-- \mathrm{DKL}\left[q(\Wvect) \| p\left(\Wvect\right)\right] \text{,}
+\LL \geq \mathcal{E} - \mathrm{DKL}\left[q(\Wvect) \| p\left(\Wvect\right)\right] \text{,}
 \end{equation}
 where $q(\Wvect)$ acts as an approximation to the posterior over all the weights $p(\Wvect | \Yvect, \Xvect, \Xi)$.
 

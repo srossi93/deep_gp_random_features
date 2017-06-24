@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: dgplvm.aux
+The style file: acm.bst
+Database file #1: Bibliography.bib
+Name 2 in "Wanli Ouyang and Xingyu Zeng, and Xiaogang Wang" has a comma at the end for entry 03
+while executing---line 1092 of file acm.bst
+Name 2 in "Wanli Ouyang and Xingyu Zeng, and Xiaogang Wang" has a comma at the end for entry 03
+while executing---line 1133 of file acm.bst
+You've used 5 entries,
+            2253 wiz_defined-function locations,
+            558 strings with 4794 characters,
+and the built_in function-call counts, 1526 in all, are:
+= -- 141
+> -- 85
+< -- 0
++ -- 35
+- -- 30
+* -- 129
+:= -- 271
+add.period$ -- 15
+call.type$ -- 5
+change.case$ -- 30
+chr.to.int$ -- 0
+cite$ -- 5
+duplicate$ -- 43
+empty$ -- 109
+format.name$ -- 30
+if$ -- 301
+int.to.chr$ -- 0
+int.to.str$ -- 5
+missing$ -- 4
+newline$ -- 28
+num.names$ -- 10
+pop$ -- 23
+preamble$ -- 1
+purify$ -- 25
+quote$ -- 0
+skip$ -- 26
+stack$ -- 0
+substring$ -- 79
+swap$ -- 9
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 20
+warning$ -- 0
+while$ -- 12
+width$ -- 6
+write$ -- 49
+(There were 2 error messages)

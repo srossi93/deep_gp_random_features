@@ -1,0 +1,39 @@
+%!TEX root = dgplvm.tex
+
+\section{Deep Gaussian Processes}
+\label{cap:dgp}
+
+\subsection{Gaussian Process review}
+\begin{frame}{Gaussian Process - Weight space}
+    A Gaussian Process can be seen as a Bayesian linear regression with possibly infinite basis functions.
+    \begin{equation}
+        \bar f(\xvectnew) = \phi(\xvectnew)^\top\wvect.
+    \end{equation}
+    \pause
+    Introducing the covariance function $k(\xvect, \xvect')$, it can be proved that the equation above can be written as follows
+    \begin{equation}
+        \bar f(\xvectnew) = \kvect(\xvectnew)^\top \alphavect,
+    \end{equation}
+    where $\alphavect = K^{-1}\yvect$ and $\kvect(\xvectnew)$ denote the vector of covariances between the point $\xvectnew$ and the $\nobs$ training points.
+\end{frame}
+
+\begin{frame}{Fourier expansion}
+    The popular RBF kernel can be approximated as follows
+    \begin{equation}
+        k_{\mathrm{rbf}}(\xvect_i, \xvect_j) \approx \frac{1}{N_{\mathrm{RF}}} \sum_{r=1}^{N_{\mathrm{RF}}} \zvect(\xvect_i | \tilde{\omegavect}_r)^{\top} \zvect(\xvect_j | \tilde{\omegavect}_r) \text{,}
+    \end{equation}
+    where $\zvect(\xvect | \omegavect) = [\cos(\xvect^{\top} \omegavect), \sin(\xvect^{\top} \omegavect)]^{\top}$ and with $\tilde{\omegavect}_{r} \sim p(\omegavect)$.
+\end{frame}
+
+\subsection{Deep Architecture}
+\begin{frame}{Deep Architecture}
+    \input{images/diagram}
+    This is the approximation of \dgp where
+    \begin{equation}
+        \Phi_{\mathrm{rbf}}^{(l)} = \sqrt{\frac{(\sigma^2)^{(l)}}{N_{\mathrm{RF}}^{(l)}}} \left[ \cos\left(F^{(l)} \Omega^{(l)}\right), \sin\left(F^{(l)} \Omega^{(l)}\right) \right] \text{,}
+    \end{equation}
+    and
+    \begin{equation}
+        F^{(l+1)} = \Phi_{\mathrm{rbf}}^{(l)} W^{(l)} \text{.}
+    \end{equation}
+\end{frame}
